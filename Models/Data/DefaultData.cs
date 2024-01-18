@@ -1,5 +1,4 @@
 ﻿using ASP.NET_OLX.Models.Data.Entities;
-using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.EntityFrameworkCore;
 
 namespace ASP.NET_OLX.Models.Data
@@ -37,4 +36,4 @@ namespace ASP.NET_OLX.Models.Data
         
     }
 }
-}
+
