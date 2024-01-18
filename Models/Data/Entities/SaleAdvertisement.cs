@@ -18,6 +18,10 @@
 
         public string Description { get; set; }
 
-        public ICollection<Image> Images { get; set; } = new HashSet<Image>();
+        public bool IsNew { get; set; }
+
+        public decimal Price { get; set; }
+
+        public ICollection<SaleAdvertisementImage> SaleAdvertisementsImages { get; set; } = new HashSet<SaleAdvertisementImage>();
     } 
 }

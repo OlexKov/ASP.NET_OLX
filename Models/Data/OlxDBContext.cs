@@ -6,6 +6,11 @@ namespace ASP.NET_OLX.Models.Data
 {
     public class OlxDBContext:DbContext
     {
+        public OlxDBContext(DbContextOptions options) : base(options)
+        {
+           // Database.EnsureDeleted();
+          //  Database.EnsureCreated();
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -13,8 +18,11 @@ namespace ASP.NET_OLX.Models.Data
             modelBuilder.ApplyConfiguration<Image>(new ImageConfig());
             modelBuilder.ApplyConfiguration<Category>(new CategoryConfig());
             modelBuilder.ApplyConfiguration<SaleAdvertisement>(new SaleAdvertisementConfig());
+            modelBuilder.ApplyConfiguration<SaleAdvertisementImage>(new SaleAdvertisementsImagesConfig());
             DefaultData.Initialize(modelBuilder);
         }
+
+        public DbSet<SaleAdvertisementImage> SaleAdvertisementsImages { get; set; }
 
         public DbSet<City> Cities { get; set; }
 

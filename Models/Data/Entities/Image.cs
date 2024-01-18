@@ -3,6 +3,6 @@
     public class Image:BaseEntity
     {
         public string Url { get; set; }
-        public ICollection<SaleAdvertisement> SaleAdvertisements { get; set; } = new HashSet<SaleAdvertisement>();
+        public ICollection<SaleAdvertisementImage> SaleAdvertisements { get; set; } = new HashSet<SaleAdvertisementImage>();
     }
 }
