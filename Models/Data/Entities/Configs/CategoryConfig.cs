@@ -10,7 +10,7 @@ namespace ASP.NET_OLX.Models.Data.Entities.Configs
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Name).IsRequired();
             builder.HasIndex(x => x.Name).IsUnique();
-            builder.ToTable(t => t.HasCheckConstraint("Category_check", "[Url] <> ''"));
+            builder.ToTable(t => t.HasCheckConstraint("Category_check", "[Name] <> ''"));
         }
     }
 }

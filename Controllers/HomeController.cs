@@ -1,17 +1,13 @@
 using ASP.NET_OLX.Models;
+using ASP.NET_OLX.Models.Data;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace ASP.NET_OLX.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController(OlxDBContext context) : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+       private readonly OlxDBContext context = context;
 
         public IActionResult Index()
         {

@@ -1,3 +1,6 @@
+using ASP.NET_OLX.Models.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace ASP.NET_OLX
 {
     public class Program
@@ -5,6 +8,10 @@ namespace ASP.NET_OLX
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            var connStr = builder.Configuration.GetConnectionString("LocalDb");
+
+            builder.Services.AddDbContext<OlxDBContext>(opts => opts.UseSqlServer(connStr));
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
