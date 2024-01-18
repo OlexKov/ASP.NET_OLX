@@ -1,0 +1,33 @@
+﻿@model SaleAdvertisement
+
+ <h5>Фото:</h5>
+                <div class="container">
+                    <div class="row row-cols-3">
+                        @{
+                       
+                        @foreach (var item in Model.SaleAdvertisementsImages)
+                        {
+                            <div style="min-height:140px;min-width:200px;max-height:140px;max-width:200px">
+                                <img style="object-fit: cover;" src="@item.Image.Url" class="h-100 w-100 rounded-start" alt="...">
+                            </div>
+                        }
+
+                        <div class="d-flex flex-column">
+                            <div>
+                                <span>Date:</span>
+                    <span>@Model.Date.ToShortDateString()</span>
+                            </div>
+                            <div>
+                                <span>Seller name:</span>
+                    <span>@Model.SellerName</span>
+                            </div>
+                                <div>
+                                    <span>City:</span>
+                    <span>@Model.City.Name</span>
+                                </div>
+
+                        </div>
+                        }
+
+                    </div>
+				</div>

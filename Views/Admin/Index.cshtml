@@ -1,6 +1,67 @@
-﻿
+﻿@model SaleAdvertisement[]
 @{
     ViewData["Title"] = "Admin";
 }
+
+<table class="table table-striped  table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Ім'я продавця</th>
+            <th scope="col">Місто</th>
+            <th scope="col">Категорія</th>
+            <th scope="col">Дата</th>
+            <th scope="col">Опис</th>
+            <th scope="col">Ціна</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="align-middle">
+                <td>@item.Id</td>
+                <td>@item.SellerName</td>
+                <td>@item.City.Name</td>
+                <td>@item.Category.Name</td>
+                <td>@item.Date.ToShortDateString()</td>
+                <td>@item.Title</td>
+                <td>@item.Price</td>
+                <td><button onclick="Func_LoadPv(@item.Id)" type="button" data-bs-toggle="modal" data-bs-target="#infoModal" class="btn btn-success btn-sm">Інфо</button></td>
+                <td><button type="button" class="btn btn-danger btn-sm">Видалити</button></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="infoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Інформація про обяву</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function Func_LoadPv(item) {
+        $.get("/Admin/ShowPartialView?id=" + item, function (res) {
+            let $modalBody = $("div .modal-body");
+            $modalBody.empty();
+            $modalBody.append(res);
+        });
+    }
+</script>
+
+
+
 
 
