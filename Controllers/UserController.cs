@@ -1,23 +1,25 @@
 using ASP.NET_OLX.Models;
 using ASP.NET_OLX.Models.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace ASP.NET_OLX.Controllers
 {
-    public class HomeController(OlxDBContext context) : Controller
+    public class UserController(OlxDBContext context) : Controller
     {
-       private readonly OlxDBContext context = context;
+        private readonly OlxDBContext context = context;
 
         public IActionResult Index()
         {
-            return View();
+            context.Images.Load();
+            var data = context.SaleAdvertisements.Include(x=>x.Category)
+                                                   .Include(x=>x.City)
+                                                   .Include(x=>x.SaleAdvertisementsImages).ToArray();
+            return View(data);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
