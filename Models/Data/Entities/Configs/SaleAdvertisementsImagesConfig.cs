@@ -11,11 +11,11 @@ namespace ASP.NET_OLX.Models.Data.Entities.Configs
             builder.HasOne(x => x.Image)
                    .WithMany(x=>x.SaleAdvertisements)
                    .HasForeignKey(x=>x.ImageId)
-                   .OnDelete(DeleteBehavior.NoAction);
+                   .OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(x => x.SaleAdvertisement)
                     .WithMany(x => x.SaleAdvertisementsImages)
                     .HasForeignKey(x => x.SaleAdvertisementId)
-                    .OnDelete(DeleteBehavior.NoAction);
+                    .OnDelete(DeleteBehavior.Cascade);
 
         }
     }

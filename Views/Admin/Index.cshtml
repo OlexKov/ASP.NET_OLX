@@ -29,7 +29,7 @@
                 <td>@item.Title</td>
                 <td>@item.Price</td>
                 <td><button onclick="Func_LoadPv(@item.Id)" type="button" data-bs-toggle="modal" data-bs-target="#infoModal" class="btn btn-success btn-sm">Інфо</button></td>
-                <td><button type="button" class="btn btn-danger btn-sm">Видалити</button></td>
+                <td><a asp-action="DeleteElement" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Видалити</a></td>
             </tr>
         }
     </tbody>

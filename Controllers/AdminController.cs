@@ -4,6 +4,7 @@ using ASP.NET_OLX.Models.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
+using System;
 using System.Diagnostics;
 
 namespace ASP.NET_OLX.Controllers
@@ -13,7 +14,7 @@ namespace ASP.NET_OLX.Controllers
 
 
         private readonly OlxDBContext context;
-        private IIncludableQueryable<SaleAdvertisement, ICollection<SaleAdvertisementImage>> saleAdvertisements; 
+        private readonly IIncludableQueryable<SaleAdvertisement, ICollection<SaleAdvertisementImage>> saleAdvertisements; 
 
         public AdminController(OlxDBContext context)
         {
@@ -30,6 +31,17 @@ namespace ASP.NET_OLX.Controllers
         {
             var element = saleAdvertisements.FirstOrDefault(x=>x.Id==id);
             return PartialView("_ShowPartialView", element);
+        }
+
+        public  IActionResult DeleteElement(int id)
+        {
+            var toDelete = context.SaleAdvertisementsImages.Where(x => x.SaleAdvertisementId == id).Select(x=>x.ImageId).ToArray();
+            foreach (var itemId in toDelete)
+                context.Images.Remove(context.Images.Find(itemId));
+            var item =  context.SaleAdvertisements.Find(id);
+            context.SaleAdvertisements.Remove(item);
+            context.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
