@@ -29,7 +29,7 @@
                 <td>@item.Title</td>
                 <td>@item.Price</td>
                 <td><button onclick="Func_LoadPv(@item.Id)" type="button" data-bs-toggle="modal" data-bs-target="#infoModal" class="btn btn-success btn-sm">Інфо</button></td>
-                <td><button onclick="setId(@item.Id)" type="button" data-bs-toggle="modal" data-bs-target="#confirmModal" class="btn btn-danger btn-sm">Видалити</button></td>
+                <td><button onclick="setId(@item.Id)" type="button" data-bs-toggle="modal" data-bs-target="#infoModal" class="btn btn-danger btn-sm">Видалити</button></td>
             </tr>
         }
     </tbody>
@@ -37,49 +37,56 @@
 
 <!-- Modal info -->
 <div class="modal fade" id="infoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Інформація про оголошення</h5>
+                <h5 class="modal-title" id="staticBackdropLabel"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body"></div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+                <a class="btn btn-danger">Видалити</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"></button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modal confirm -->
-<div class="modal fade" id="confirmModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Видалення</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">Ви впевнені що хочете видалити обраний елемент?</div>
-            <div class="modal-footer">
-                <a class="btn btn-danger">Видалити</a>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script>
+    function setModalContent(isConfirm) {
+        $modalDialog = $('#infoModal .modal-dialog');
+        $modalBody = $("#infoModal div .modal-body");
+        $dellButton = $('#infoModal .modal-footer .btn-danger');
+        $cancelButton = $('#infoModal .modal-footer .btn-secondary');
+        $modalTitle = $('#infoModal .modal-title');
+        $modalBody.empty();
+        if (isConfirm) {
+            $modalDialog.removeClass('modal-lg');
+            $dellButton.removeClass('d-none');
+            $cancelButton.text('Скасувати');
+            $modalTitle.text('Видалення');
+            $modalBody.text('Ви впевнені що хочете видалити обраний елемент?');
+        }
+        else {
+            $modalDialog.addClass('modal-lg');
+            $dellButton.addClass('d-none');
+            $cancelButton.text('Закрити');
+            $modalTitle.text('Інформація про оголошення');
+        }
+    }
+
     function Func_LoadPv(item) {
+        setModalContent();
         $.get("/Admin/ShowPartialView?id=" + item, function (res) {
             let $modalBody = $("#infoModal div .modal-body");
-            $modalBody.empty();
             $modalBody.append(res);
         });
     }
 
     function setId(id) {
-        $('#confirmModal a').attr('href', '/Admin/DeleteElement/' + id);
-        console.info($('#confirmModal a').attr('href'));
+        setModalContent(true);
+        $('#infoModal a').attr('href', '/Admin/DeleteElement/' + id);
     }
 </script>
 
