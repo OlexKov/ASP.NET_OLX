@@ -29,13 +29,13 @@
                 <td>@item.Title</td>
                 <td>@item.Price</td>
                 <td><button onclick="Func_LoadPv(@item.Id)" type="button" data-bs-toggle="modal" data-bs-target="#infoModal" class="btn btn-success btn-sm">Інфо</button></td>
-                <td><a asp-action="DeleteElement" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Видалити</a></td>
+                <td><button onclick="setId(@item.Id)" type="button" data-bs-toggle="modal" data-bs-target="#confirmModal" class="btn btn-danger btn-sm">Видалити</button></td>
             </tr>
         }
     </tbody>
 </table>
 
-<!-- Modal -->
+<!-- Modal info -->
 <div class="modal fade" id="infoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
@@ -51,15 +51,38 @@
     </div>
 </div>
 
+<!-- Modal confirm -->
+<div class="modal fade" id="confirmModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Видалення</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">Ви впевнені що хочете видалити обраний елемент?</div>
+            <div class="modal-footer">
+                <a class="btn btn-danger">Видалити</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     function Func_LoadPv(item) {
         $.get("/Admin/ShowPartialView?id=" + item, function (res) {
-            let $modalBody = $("div .modal-body");
+            let $modalBody = $("#infoModal div .modal-body");
             $modalBody.empty();
             $modalBody.append(res);
         });
     }
+
+    function setId(id) {
+        $('#confirmModal a').attr('href', '/Admin/DeleteElement/' + id);
+        console.info($('#confirmModal a').attr('href'));
+    }
 </script>
+
 
 
 
