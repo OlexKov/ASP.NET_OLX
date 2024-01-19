@@ -36,8 +36,12 @@ namespace ASP.NET_OLX.Controllers
         public  IActionResult DeleteElement(int id)
         {
             var toDelete = context.SaleAdvertisementsImages.Where(x => x.SaleAdvertisementId == id).Select(x=>x.ImageId).ToArray();
+
             foreach (var itemId in toDelete)
-                context.Images.Remove(context.Images.Find(itemId));
+            {
+                if (!context.SaleAdvertisementsImages.Any(x => x.ImageId == itemId && x.SaleAdvertisementId != id))
+                    context.Images.Remove(context.Images.Find(itemId));
+            }
             var item =  context.SaleAdvertisements.Find(id);
             context.SaleAdvertisements.Remove(item);
             context.SaveChanges();

@@ -24,7 +24,6 @@ namespace ASP.NET_OLX.Models.Data
             DefaultData.Initialize(modelBuilder);
         }
        
-
         public DbSet<City> Cities { get; set; }
 
         public DbSet<Category> Categories { get; set; }
