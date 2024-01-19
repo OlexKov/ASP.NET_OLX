@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASP.NET_OLX.Migrations
 {
     [DbContext(typeof(OlxDBContext))]
-    [Migration("20240118132044_Initial")]
+    [Migration("20240119102056_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -393,7 +393,7 @@ namespace ASP.NET_OLX.Migrations
                             Id = 1,
                             CategoryId = 1,
                             CityId = 1,
-                            Date = new DateTime(2024, 1, 18, 15, 20, 43, 760, DateTimeKind.Local).AddTicks(2974),
+                            Date = new DateTime(2024, 1, 19, 12, 20, 55, 849, DateTimeKind.Local).AddTicks(8183),
                             Description = "Продам телефон Redmi 9A в гарному стані на фото видно що має незначні царини роботі вони не впливають а загалом він як новий .",
                             IsNew = false,
                             Price = 1500m,
@@ -405,7 +405,7 @@ namespace ASP.NET_OLX.Migrations
                             Id = 2,
                             CategoryId = 2,
                             CityId = 2,
-                            Date = new DateTime(2024, 1, 18, 15, 20, 43, 763, DateTimeKind.Local).AddTicks(9389),
+                            Date = new DateTime(2024, 1, 19, 12, 20, 55, 852, DateTimeKind.Local).AddTicks(5191),
                             Description = "Ніяких mdm блокувань немає. Ноутбук без жодних дефектів і повний комплект(зарядка, коробка, шнур, макулатура і наклейки). Фото коробки і інших дрібниць не кидаю але все маю, нічого не викидав.",
                             IsNew = false,
                             Price = 99900m,
@@ -417,7 +417,7 @@ namespace ASP.NET_OLX.Migrations
                             Id = 3,
                             CategoryId = 3,
                             CityId = 3,
-                            Date = new DateTime(2024, 1, 18, 15, 20, 43, 763, DateTimeKind.Local).AddTicks(9441),
+                            Date = new DateTime(2024, 1, 19, 12, 20, 55, 852, DateTimeKind.Local).AddTicks(5228),
                             Description = "Смарт тв 32” Samsung UE32T4510AUXUA, Smart TV, WiFi, T2. Телевізор білого кольору, 2021 року виробництва.Телевізор в ідеальному стані та повному комплекті, - пульт, ніжнки. Усе в оригіналі, всі функції перевірені та працюють",
                             IsNew = false,
                             Price = 7900m,
@@ -429,7 +429,7 @@ namespace ASP.NET_OLX.Migrations
                             Id = 4,
                             CategoryId = 4,
                             CityId = 4,
-                            Date = new DateTime(2024, 1, 18, 15, 20, 43, 763, DateTimeKind.Local).AddTicks(9448),
+                            Date = new DateTime(2024, 1, 19, 12, 20, 55, 852, DateTimeKind.Local).AddTicks(5233),
                             Description = "Продам полностью рабочую в отличном состоянии игровую видеокарту AMD RX 5700XT 8GB GDDR6 ASUS.Температура отличная, без каких либо проблем.Проходит тесты ОССТ/FurMark/3DMark без проблем.Потянет большинство популярных игр на хороших настройках графики!",
                             IsNew = false,
                             Price = 8500m,
@@ -441,7 +441,7 @@ namespace ASP.NET_OLX.Migrations
                             Id = 5,
                             CategoryId = 5,
                             CityId = 5,
-                            Date = new DateTime(2024, 1, 18, 15, 20, 43, 763, DateTimeKind.Local).AddTicks(9453),
+                            Date = new DateTime(2024, 1, 19, 12, 20, 55, 852, DateTimeKind.Local).AddTicks(5236),
                             Description = "Intel i5 7400, причина продажу апгрейд, комплектаці BOX, любі тести, також можна купити комплектом, дивіться інші мої оголошення)комплектом віддам за 5к",
                             IsNew = false,
                             Price = 1500m,
@@ -453,7 +453,7 @@ namespace ASP.NET_OLX.Migrations
                             Id = 6,
                             CategoryId = 6,
                             CityId = 6,
-                            Date = new DateTime(2024, 1, 18, 15, 20, 43, 763, DateTimeKind.Local).AddTicks(9457),
+                            Date = new DateTime(2024, 1, 19, 12, 20, 55, 852, DateTimeKind.Local).AddTicks(5239),
                             Description = "Продам оперативну пям'ять SAMSUNG 8 GB. SODIMM. DDR-4. 2400 MHz.Планки по 4GB.Були в роботі 1 рік.",
                             IsNew = false,
                             Price = 1000m,
@@ -465,7 +465,7 @@ namespace ASP.NET_OLX.Migrations
                             Id = 7,
                             CategoryId = 7,
                             CityId = 7,
-                            Date = new DateTime(2024, 1, 18, 15, 20, 43, 763, DateTimeKind.Local).AddTicks(9462),
+                            Date = new DateTime(2024, 1, 19, 12, 20, 55, 852, DateTimeKind.Local).AddTicks(5242),
                             Description = "Продам тихий игровой компьютер, в хорошем исполнении, с качественных комплектующих, с запасом на апгрейд. Любые проверки и тесты , предпочтительно по месту! Компьютер будет радовать своего нового владельца высокой продуктивностью, и ждет именно вас!",
                             IsNew = false,
                             Price = 14700m,
@@ -477,7 +477,7 @@ namespace ASP.NET_OLX.Migrations
                             Id = 8,
                             CategoryId = 8,
                             CityId = 8,
-                            Date = new DateTime(2024, 1, 18, 15, 20, 43, 763, DateTimeKind.Local).AddTicks(9467),
+                            Date = new DateTime(2024, 1, 19, 12, 20, 55, 852, DateTimeKind.Local).AddTicks(5246),
                             Description = "Все летает , новые игры без проблем на ультрах! Battlefield 2042, Call of Duty Modern Warfare прошел 3 части!",
                             IsNew = false,
                             Price = 23500m,
@@ -489,7 +489,7 @@ namespace ASP.NET_OLX.Migrations
                             Id = 9,
                             CategoryId = 9,
                             CityId = 9,
-                            Date = new DateTime(2024, 1, 18, 15, 20, 43, 763, DateTimeKind.Local).AddTicks(9471),
+                            Date = new DateTime(2024, 1, 19, 12, 20, 55, 852, DateTimeKind.Local).AddTicks(5249),
                             Description = "Все летает , новые игры без проблем на ультрах! Battlefield 2042, Call of Duty Modern Warfare прошел 3 части!",
                             IsNew = true,
                             Price = 50m,
@@ -501,7 +501,7 @@ namespace ASP.NET_OLX.Migrations
                             Id = 10,
                             CategoryId = 10,
                             CityId = 10,
-                            Date = new DateTime(2024, 1, 18, 15, 20, 43, 763, DateTimeKind.Local).AddTicks(9476),
+                            Date = new DateTime(2024, 1, 19, 12, 20, 55, 852, DateTimeKind.Local).AddTicks(5252),
                             Description = "Продаю свою GoPro 10 так як перейшов на новішу модель . Завжди була в захисних склах і у захиснобу силіконовому чохлі , не топилась (Використовувалась як влогова камера ) можлива зустріч у Києві (правий берег ) або Олх доставка/наложка Торг !!!",
                             IsNew = true,
                             Price = 8000m,
@@ -716,13 +716,13 @@ namespace ASP.NET_OLX.Migrations
                     b.HasOne("ASP.NET_OLX.Models.Data.Entities.Image", "Image")
                         .WithMany("SaleAdvertisements")
                         .HasForeignKey("ImageId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ASP.NET_OLX.Models.Data.Entities.SaleAdvertisement", "SaleAdvertisement")
                         .WithMany("SaleAdvertisementsImages")
                         .HasForeignKey("SaleAdvertisementId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Image");
