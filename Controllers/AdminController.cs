@@ -13,7 +13,6 @@ namespace ASP.NET_OLX.Controllers
     public class AdminController: Controller
     {
 
-
         private readonly OlxDBContext context;
         private readonly IIncludableQueryable<SaleAd, ICollection<SaleAdImage>> saleAd; 
 
