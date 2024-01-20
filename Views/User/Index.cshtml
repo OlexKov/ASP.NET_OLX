@@ -1,11 +1,8 @@
 ﻿@model Advert[]
 @{
-    ViewData["Title"] = "Advertisement";
+    ViewData["Title"] = "Оголошення";
 }
 
-<div>
-    <a asp-action="AddAdvert" class="btn btn-primary mb-5">Create New Product</a>
-</div>
 <div class="d-flex flex-column gap-4 w-100">
     @foreach (var item in Model)
     {

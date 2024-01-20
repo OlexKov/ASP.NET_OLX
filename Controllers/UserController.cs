@@ -42,7 +42,12 @@ namespace ASP.NET_OLX.Controllers
              return View();
         }
 
-       
+        public IActionResult PersonalAccount()
+        {
+            return View();
+        }
+        
+
         [HttpPost]
         public async Task<IActionResult> Create(AdvertCreationModel saleAd, [FromServices] IWebHostEnvironment env)
         {
