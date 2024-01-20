@@ -33,7 +33,7 @@ namespace ASP.NET_OLX.Controllers
             return PartialView("_ShowPartialView", element);
         }
 
-        public  IActionResult DeleteElement(int id, [FromServices] IWebHostEnvironment env)
+        public async Task<IActionResult> DeleteElement(int id, [FromServices] IWebHostEnvironment env)
         {
             var toDelete = context.AdvertImages.Where(x => x.AdvertId == id).Select(x=>x.ImageId).ToArray();
             var fileNames = context.Images.Where(x => toDelete.Any(y => y == x.Id)).Select(x=>Path.GetFileName(x.Url));
@@ -43,7 +43,7 @@ namespace ASP.NET_OLX.Controllers
                    context.Images.Remove(context.Images.Find(itemId));
             var item =  context.Adverts.Find(id);
             context.Adverts.Remove(item);
-            context.SaveChanges();
+            await  context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 

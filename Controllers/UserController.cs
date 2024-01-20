@@ -15,27 +15,27 @@ namespace ASP.NET_OLX.Controllers
 
         private const string imageDirPath = "UsersAdvertsImages";
 
-        private string saveImage(IFormFile file,IWebHostEnvironment env)
+        private async Task<string> saveImage(IFormFile file,IWebHostEnvironment env)
         {
             string filePath = Path.Combine(env.WebRootPath, imageDirPath, file.FileName);
             using (Stream fileStream = new FileStream(filePath, FileMode.Create))
             {
-                 file.CopyTo(fileStream);
+               await  file.CopyToAsync(fileStream);
             }
             var location = new Uri($"{Request.Scheme}://{Request.Host}/{imageDirPath}/{file.FileName}");
             return location.AbsoluteUri;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            context.Images.Load();
-            var data = context.Adverts.Include(x=>x.Category)
+           await context.Images.LoadAsync();
+           var data = context.Adverts.Include(x=>x.Category)
                                                    .Include(x=>x.City)
                                                    .Include(x=>x.AdvertImages).ToArray();
             return View(data);
         }
 
-        public IActionResult AddAd()
+        public IActionResult AddAdvert()
         {
              ViewBag.Categories = context.Categories.Select(x => x.Name).ToArray();
              ViewBag.Cities = context.Cities.Select(x => x.Name).ToArray();
@@ -44,9 +44,8 @@ namespace ASP.NET_OLX.Controllers
 
        
         [HttpPost]
-        public IActionResult Create(AdCreationModel saleAd, [FromServices] IWebHostEnvironment env)
+        public async Task<IActionResult> Create(AdvertCreationModel saleAd, [FromServices] IWebHostEnvironment env)
         {
-            
             var newAd = new Advert
             {
                 Date = DateTime.Now,
@@ -61,9 +60,9 @@ namespace ASP.NET_OLX.Controllers
 
             foreach (var item in saleAd.Images)
             {
-                context.AdvertImages.Add(new AdvertImage () { Image = new() { Url = saveImage(item,env) }, Advert = newAd });
+                context.AdvertImages.Add(new AdvertImage () { Image = new() { Url = await saveImage(item,env) }, Advert = newAd });
             }
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 

@@ -1,4 +1,4 @@
-function setModalContent(isConfirm) {
+п»їfunction setModalContent(isConfirm) {
     $modalDialog = $('#infoModal .modal-dialog');
     $modalBody = $("#infoModal div .modal-body");
     $dellButton = $('#infoModal .modal-footer .btn-danger');
@@ -8,15 +8,15 @@ function setModalContent(isConfirm) {
     if (isConfirm) {
         $modalDialog.removeClass('modal-lg');
         $dellButton.removeClass('d-none');
-        $cancelButton.text('Скасувати');
-        $modalTitle.text('Видалення');
-        $modalBody.text('Ви впевнені що хочете видалити обраний елемент?');
+        $cancelButton.text('РЎРєР°СЃСѓРІР°С‚Рё');
+        $modalTitle.text('Р’РёРґР°Р»РµРЅРЅСЏ');
+        $modalBody.text('Р’Рё РІРїРµРІРЅРµРЅС– С‰Рѕ С…РѕС‡РµС‚Рµ РІРёРґР°Р»РёС‚Рё РѕР±СЂР°РЅРёР№ РµР»РµРјРµРЅС‚?');
     }
     else {
         $modalDialog.addClass('modal-lg');
         $dellButton.addClass('d-none');
-        $cancelButton.text('Закрити');
-        $modalTitle.text('Інформація про оголошення');
+        $cancelButton.text('Р—Р°РєСЂРёС‚Рё');
+        $modalTitle.text('Р†РЅС„РѕСЂРјР°С†С–СЏ РїСЂРѕ РѕРіРѕР»РѕС€РµРЅРЅСЏ');
     }
 }
 

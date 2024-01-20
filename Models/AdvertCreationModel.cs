@@ -2,7 +2,7 @@
 
 namespace ASP.NET_OLX.Models
 {
-    public class AdCreationModel
+    public class AdvertCreationModel
     {
         public string SellerName { get; set; }
 
