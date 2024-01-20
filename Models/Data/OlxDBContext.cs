@@ -19,8 +19,8 @@ namespace ASP.NET_OLX.Models.Data
             modelBuilder.ApplyConfiguration<City>(new CityConfig());
             modelBuilder.ApplyConfiguration<Image>(new ImageConfig());
             modelBuilder.ApplyConfiguration<Category>(new CategoryConfig());
-            modelBuilder.ApplyConfiguration<SaleAd>(new SaleAdConfig());
-            modelBuilder.ApplyConfiguration<SaleAdImage>(new SaleAdImagesConfig());
+            modelBuilder.ApplyConfiguration<Advert>(new AdvertConfig());
+            modelBuilder.ApplyConfiguration<AdvertImage >(new SaleAdImagesConfig());
             DefaultData.Initialize(modelBuilder);
         }
        
@@ -30,8 +30,8 @@ namespace ASP.NET_OLX.Models.Data
 
         public DbSet<Image> Images { get; set; }
 
-        public DbSet<SaleAd> SaleAds { get; set; }
+        public DbSet<Advert> Adverts { get; set; }
 
-        public DbSet<SaleAdImage> SaleAdImages { get; set; }
+        public DbSet<AdvertImage > AdvertImages { get; set; }
     }
 }

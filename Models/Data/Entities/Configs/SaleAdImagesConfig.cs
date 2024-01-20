@@ -3,18 +3,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ASP.NET_OLX.Models.Data.Entities.Configs
 {
-    public class SaleAdImagesConfig : IEntityTypeConfiguration<SaleAdImage>
+    public class SaleAdImagesConfig : IEntityTypeConfiguration<AdvertImage >
     {
-        public void Configure(EntityTypeBuilder<SaleAdImage> builder)
+        public void Configure(EntityTypeBuilder<AdvertImage > builder)
         {
-            builder.HasKey(x=>new {x.ImageId,x.SaleAdId});
+            builder.HasKey(x=>new {x.ImageId,x.AdvertId});
             builder.HasOne(x => x.Image)
-                   .WithMany(x=>x.SaleAds)
+                   .WithMany(x=>x.Adverts)
                    .HasForeignKey(x=>x.ImageId)
                    .OnDelete(DeleteBehavior.Cascade);
-            builder.HasOne(x => x.SaleAd)
-                    .WithMany(x => x.SaleAdImages)
-                    .HasForeignKey(x => x.SaleAdId)
+            builder.HasOne(x => x.Advert)
+                    .WithMany(x => x.AdvertImages)
+                    .HasForeignKey(x => x.AdvertId)
                     .OnDelete(DeleteBehavior.Cascade);
 
         }

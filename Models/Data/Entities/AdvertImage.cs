@@ -1,10 +1,10 @@
 ﻿namespace ASP.NET_OLX.Models.Data.Entities
 {
-    public class SaleAdImage:BaseEntity
+    public class AdvertImage :BaseEntity
     {
         public int ImageId { get; set; }
-        public int SaleAdId { get; set; }
+        public int AdvertId { get; set; }
         public Image Image { get; set; }
-        public SaleAd SaleAd { get; set; }
+        public Advert Advert { get; set; }
     }
 }

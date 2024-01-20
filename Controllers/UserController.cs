@@ -29,9 +29,9 @@ namespace ASP.NET_OLX.Controllers
         public IActionResult Index()
         {
             context.Images.Load();
-            var data = context.SaleAds.Include(x=>x.Category)
+            var data = context.Adverts.Include(x=>x.Category)
                                                    .Include(x=>x.City)
-                                                   .Include(x=>x.SaleAdImages).ToArray();
+                                                   .Include(x=>x.AdvertImages).ToArray();
             return View(data);
         }
 
@@ -47,7 +47,7 @@ namespace ASP.NET_OLX.Controllers
         public IActionResult Create(AdCreationModel saleAd, [FromServices] IWebHostEnvironment env)
         {
             
-            var newAd = new SaleAd
+            var newAd = new Advert
             {
                 Date = DateTime.Now,
                 Description = saleAd.Description,
@@ -61,7 +61,7 @@ namespace ASP.NET_OLX.Controllers
 
             foreach (var item in saleAd.Images)
             {
-                context.SaleAdImages.Add(new SaleAdImage() { Image = new() { Url = saveImage(item,env) }, SaleAd = newAd });
+                context.AdvertImages.Add(new AdvertImage () { Image = new() { Url = saveImage(item,env) }, Advert = newAd });
             }
             context.SaveChanges();
             return RedirectToAction("Index");

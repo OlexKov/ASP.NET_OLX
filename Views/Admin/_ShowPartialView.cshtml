@@ -1,8 +1,8 @@
-﻿@model SaleAd
+﻿@model Advert
 <div class="d-flex flex-column align-items-center">
     <div class="d-flex justify-content-center gap-4 py-2 flex-wrap w-90 border rounded-1">
        
-           @foreach (var item in Model.SaleAdImages)
+           @foreach (var item in Model.AdvertImages)
             {
             <div class="w-30 g-2" style="height:140px;">
                     <img style="object-fit: cover;" src="@item.Image.Url" class="h-100 w-100 rounded-1">

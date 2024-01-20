@@ -10,8 +10,8 @@ namespace ASP.NET_OLX.Models.Data
             modelBuilder.Entity<City>().HasData(Cities);
             modelBuilder.Entity<Category>().HasData(Categories);
             modelBuilder.Entity<Image>().HasData(Images);
-            modelBuilder.Entity<SaleAd>().HasData(SaleAdvertisements);
-            modelBuilder.Entity<SaleAdImage>().HasData(SaleAdvertisementImages);
+            modelBuilder.Entity<Advert>().HasData(Adverts);
+            modelBuilder.Entity<AdvertImage >().HasData(AdvertImages);
         }
 
         public static readonly City[] Cities =
@@ -84,49 +84,49 @@ namespace ASP.NET_OLX.Models.Data
             new() { Id = 27, Url = "https://ireland.apollo.olxcdn.com/v1/files/9entkpyrsyqm2-UA/image;s=1000x700" },
         ];
 
-        public static readonly SaleAdImage[] SaleAdvertisementImages =
+        public static readonly AdvertImage [] AdvertImages =
         [
-            new() { Id = 1, ImageId = 1, SaleAdId = 1},
-            new() { Id = 2, ImageId = 2, SaleAdId = 1 },
-            new() { Id = 3, ImageId = 3, SaleAdId = 1 },
+            new() { Id = 1, ImageId = 1, AdvertId = 1},
+            new() { Id = 2, ImageId = 2, AdvertId = 1 },
+            new() { Id = 3, ImageId = 3, AdvertId = 1 },
 
-            new() { Id = 4, ImageId = 4, SaleAdId = 2 },
-            new() { Id = 5, ImageId = 5, SaleAdId = 2 },
-            new() { Id = 6, ImageId = 6, SaleAdId = 2 },
+            new() { Id = 4, ImageId = 4, AdvertId = 2 },
+            new() { Id = 5, ImageId = 5, AdvertId = 2 },
+            new() { Id = 6, ImageId = 6, AdvertId = 2 },
 
-            new() { Id = 7, ImageId = 7, SaleAdId = 3 },
-            new() { Id = 8, ImageId = 8, SaleAdId = 3 },
-            new() { Id = 9, ImageId = 9, SaleAdId = 3 },
+            new() { Id = 7, ImageId = 7, AdvertId = 3 },
+            new() { Id = 8, ImageId = 8, AdvertId = 3 },
+            new() { Id = 9, ImageId = 9, AdvertId = 3 },
 
-            new() { Id = 10, ImageId = 10, SaleAdId = 4 },
-            new() { Id = 11, ImageId = 11, SaleAdId = 4 },
-            new() { Id = 12, ImageId = 12, SaleAdId = 4 },
+            new() { Id = 10, ImageId = 10, AdvertId = 4 },
+            new() { Id = 11, ImageId = 11, AdvertId = 4 },
+            new() { Id = 12, ImageId = 12, AdvertId = 4 },
 
-            new() { Id = 13, ImageId = 13, SaleAdId = 5 },
-            new() { Id = 14, ImageId = 14, SaleAdId = 5 },
-            new() { Id = 15, ImageId = 15, SaleAdId = 5 },
+            new() { Id = 13, ImageId = 13, AdvertId = 5 },
+            new() { Id = 14, ImageId = 14, AdvertId = 5 },
+            new() { Id = 15, ImageId = 15, AdvertId = 5 },
 
-            new() { Id = 16, ImageId = 16, SaleAdId = 6 },
-            new() { Id = 17, ImageId = 17, SaleAdId = 6 },
+            new() { Id = 16, ImageId = 16, AdvertId = 6 },
+            new() { Id = 17, ImageId = 17, AdvertId = 6 },
 
-            new() { Id = 18, ImageId = 18, SaleAdId = 7 },
-            new() { Id = 19, ImageId = 19, SaleAdId = 7 },
-            new() { Id = 20, ImageId = 20, SaleAdId = 7 },
+            new() { Id = 18, ImageId = 18, AdvertId = 7 },
+            new() { Id = 19, ImageId = 19, AdvertId = 7 },
+            new() { Id = 20, ImageId = 20, AdvertId = 7 },
 
-            new() { Id = 21, ImageId = 21, SaleAdId = 8 },
-            new() { Id = 22, ImageId = 22, SaleAdId = 8 },
-            new() { Id = 23, ImageId = 23, SaleAdId = 8 },
+            new() { Id = 21, ImageId = 21, AdvertId = 8 },
+            new() { Id = 22, ImageId = 22, AdvertId = 8 },
+            new() { Id = 23, ImageId = 23, AdvertId = 8 },
 
-            new() { Id = 24, ImageId = 24, SaleAdId = 9 },
+            new() { Id = 24, ImageId = 24, AdvertId = 9 },
            
-            new() { Id = 25, ImageId = 25, SaleAdId = 10 },
-            new() { Id = 26, ImageId = 26, SaleAdId = 10 },
-            new() { Id = 27, ImageId = 27, SaleAdId = 10 },
+            new() { Id = 25, ImageId = 25, AdvertId = 10 },
+            new() { Id = 26, ImageId = 26, AdvertId = 10 },
+            new() { Id = 27, ImageId = 27, AdvertId = 10 },
 
 
         ];
 
-        public static readonly SaleAd[] SaleAdvertisements =
+        public static readonly Advert[] Adverts =
         [
             new()
             {

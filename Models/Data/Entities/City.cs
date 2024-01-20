@@ -3,6 +3,6 @@
     public class City:BaseEntity
     {
         public string Name { get; set; }
-        public ICollection<SaleAd> SaleAds { get; set; } = new HashSet<SaleAd>();
+        public ICollection<Advert> Adverts { get; set; } = new HashSet<Advert>();
     }
 }
