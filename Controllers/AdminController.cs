@@ -11,25 +11,23 @@ namespace ASP.NET_OLX.Controllers
 {
     public class AdminController: Controller
     {
-
         private readonly OlxDBContext context;
-        private readonly IIncludableQueryable<Advert, ICollection<AdvertImage >> saleAd;
         private const string imageDirPath = "UsersAdvertsImages";
 
         public AdminController(OlxDBContext context)
         {
             this.context = context;
             context.Images.Load();
-            saleAd = context.Adverts.Include(x => x.Category)
-                                                   .Include(x => x.City)
-                                                   .Include(x => x.AdvertImages);
+            context.Cities.Load();
+            context.AdvertImages.Load();
+            context.Categories.Load();
         }
 
-        public IActionResult Index() => View(saleAd.ToArray());
+        public IActionResult Index() => View(context.Adverts.ToArray());
      
         public IActionResult ShowPartialView(int id)
         {
-            var element = saleAd.Include(x => x.Category).FirstOrDefault(x=>x.Id==id);
+            var element = context.Adverts.FirstOrDefault(x=>x.Id==id);
             return PartialView("_ShowPartialView", element);
         }
 

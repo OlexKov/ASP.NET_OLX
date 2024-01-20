@@ -9,9 +9,9 @@ using System.Diagnostics;
 
 namespace ASP.NET_OLX.Controllers
 {
-    public class UserController(OlxDBContext context) : Controller
+    public class UserController : Controller
     {
-        private readonly OlxDBContext context = context;
+        private readonly OlxDBContext context;
 
         private const string imageDirPath = "UsersAdvertsImages";
 
@@ -27,13 +27,20 @@ namespace ASP.NET_OLX.Controllers
             return location.AbsoluteUri;
         }
 
+        public UserController(OlxDBContext context)
+        {
+            this.context = context;
+            context.Images.Load();
+            context.Cities.Load();
+            context.AdvertImages.Load();
+            context.Categories.Load();
+        }
+
         public async Task<IActionResult> Index()
         {
            await context.Images.LoadAsync();
-           var data = context.Adverts.Include(x=>x.Category)
-                                                   .Include(x=>x.City)
-                                                   .Include(x=>x.AdvertImages).ToArray();
-            return View(data);
+           var data = context.Adverts.ToArray();
+           return View(data);
         }
 
         public IActionResult AddAdvert()
