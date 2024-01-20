@@ -17,12 +17,13 @@ namespace ASP.NET_OLX.Controllers
 
         private async Task<string> saveImage(IFormFile file,IWebHostEnvironment env)
         {
-            string filePath = Path.Combine(env.WebRootPath, imageDirPath, file.FileName);
+            string fileName  = Guid.NewGuid().ToString("N")+Path.GetExtension(file.FileName);
+            string filePath = Path.Combine(env.WebRootPath, imageDirPath, fileName);
             using (Stream fileStream = new FileStream(filePath, FileMode.Create))
             {
                await  file.CopyToAsync(fileStream);
             }
-            var location = new Uri($"{Request.Scheme}://{Request.Host}/{imageDirPath}/{file.FileName}");
+            var location = new Uri($"{Request.Scheme}://{Request.Host}/{imageDirPath}/{fileName}");
             return location.AbsoluteUri;
         }
 
@@ -64,10 +65,10 @@ namespace ASP.NET_OLX.Controllers
             };
 
             foreach (var item in saleAd.Images)
-            {
-                context.AdvertImages.Add(new AdvertImage () { Image = new() { Url = await saveImage(item,env) }, Advert = newAd });
-            }
+                  context.AdvertImages.Add(new AdvertImage () { Image = new() { Url = await saveImage(item,env) }, Advert = newAd });
+            
             await context.SaveChangesAsync();
+
             return RedirectToAction("Index");
         }
 

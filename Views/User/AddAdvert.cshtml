@@ -5,16 +5,16 @@
 }
 <form class="row g-3" method="post" asp-action="Create" enctype="multipart/form-data">
     <div class="col-md-6">
-        <label asp-for=SellerName for="inputEmail4" class="form-label">Імя продавця</label>
+        <label asp-for=SellerName for="inputEmail4" class="fw-bold form-label">Імя продавця</label>
         <input asp-for=SellerName type="text" class="form-control" placeholder="Імя продавця">
     </div>
     <div class="col-6">
-        <label asp-for=Price class="form-label">Ціна</label>
+        <label asp-for=Price class="fw-bold form-label">Ціна</label>
         <input asp-for=Price type="number" value="0" min="0" class="form-control">
     </div>
    
     <div class="col-md-6">
-        <label asp-for=City class="form-label">Місто</label>
+        <label asp-for=City class="fw-bold form-label">Місто</label>
         <select asp-for=City class="form-select">
             <option selected>@ViewBag.Cities[0]</option>
             @for (int i = 1; i < @ViewBag.Cities.Length; i++)
@@ -24,7 +24,7 @@
         </select>
     </div>
     <div class="col-md-6">
-        <label asp-for=Category class="form-label">Категорія</label>
+        <label asp-for=Category class="fw-bold form-label">Категорія</label>
         <select asp-for=Category class="form-select">
             <option selected>@ViewBag.Categories[0]</option>
             @for (int i = 1; i < @ViewBag.Categories.Length; i++)
@@ -35,18 +35,18 @@
     </div>
 
     <div class="col-md-12">
-        <label asp-for=Title class="form-label">Заголовок оголошення</label>
+        <label asp-for=Title class="fw-bold form-label">Заголовок оголошення</label>
         <textarea asp-for=Title class="form-control" rows="2" placeholder="Заголовок оголошення"></textarea>
     </div>
 
     <div class="col-md-12">
-        <label asp-for=Description class="form-label">Опис продукту</label>
-        <textarea asp-for=Description class="form-control" rows="3" placeholder="Опис продукту"></textarea>
+        <label asp-for=Description class="fw-bold form-label">Опис товару</label>
+        <textarea asp-for=Description class="form-control" rows="3" placeholder="Опис товару"></textarea>
     </div>
 
     <div class="col-12">
-        <label asp-for=Images class="form-label">Url Фото</label>
-        <input id="imageFiles" asp-for=Images type="file" class="mb-3 form-control" multiple onchange="displayNames(this)">
+        <label asp-for=Images class="fw-bold form-label">Фото</label>
+        <input id="imageFiles" asp-for=Images type="file" class="mb-3 form-control" multiple onchange="displayNames(this)" accept="image/png, image/jpeg , image/jpg , image/webp">
     </div>
 
     <div class="col-12">
@@ -58,7 +58,7 @@
     <div class="col-12">
         <div class="form-check">
             <input asp-for=IsNew class="form-check-input" type="checkbox">
-            <label asp-for=IsNew class="form-check-label">
+            <label asp-for=IsNew class="fw-bold  form-check-label">
                 Нове
             </label>
         </div>
