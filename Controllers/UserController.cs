@@ -12,16 +12,17 @@ namespace ASP.NET_OLX.Controllers
     public class UserController(OlxDBContext context) : Controller
     {
         private readonly OlxDBContext context = context;
-        
-        
+
+        private const string imageDirPath = "UsersAdvertsImages";
+
         private string saveImage(IFormFile file,IWebHostEnvironment env)
         {
-            string filePath = Path.Combine(env.WebRootPath, "UsersAdvertsImages", file.FileName);
+            string filePath = Path.Combine(env.WebRootPath, imageDirPath, file.FileName);
             using (Stream fileStream = new FileStream(filePath, FileMode.Create))
             {
                  file.CopyTo(fileStream);
             }
-            var location = new Uri($"{Request.Scheme}://{Request.Host}/{"UsersAdvertsImages"}/{file.FileName}");
+            var location = new Uri($"{Request.Scheme}://{Request.Host}/{imageDirPath}/{file.FileName}");
             return location.AbsoluteUri;
         }
 

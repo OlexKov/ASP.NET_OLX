@@ -14,7 +14,8 @@ namespace ASP.NET_OLX.Controllers
     {
 
         private readonly OlxDBContext context;
-        private readonly IIncludableQueryable<SaleAd, ICollection<SaleAdImage>> saleAd; 
+        private readonly IIncludableQueryable<SaleAd, ICollection<SaleAdImage>> saleAd;
+        private const string imageDirPath = "UsersAdvertsImages";
 
         public AdminController(OlxDBContext context)
         {
@@ -33,9 +34,12 @@ namespace ASP.NET_OLX.Controllers
             return PartialView("_ShowPartialView", element);
         }
 
-        public  IActionResult DeleteElement(int id)
+        public  IActionResult DeleteElement(int id, [FromServices] IWebHostEnvironment env)
         {
             var toDelete = context.SaleAdImages.Where(x => x.SaleAdId == id).Select(x=>x.ImageId).ToArray();
+            var fileNames = context.Images.Where(x => toDelete.Any(y => y == x.Id)).Select(x=>Path.GetFileName(x.Url));
+            foreach (var fName in fileNames)
+                System.IO.File.Delete(Path.Combine(env.WebRootPath, imageDirPath, fName));
             foreach (var itemId in toDelete)
                    context.Images.Remove(context.Images.Find(itemId));
             var item =  context.SaleAds.Find(id);
