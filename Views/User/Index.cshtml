@@ -1,17 +1,17 @@
-﻿@model SaleAdvertisement[]
+﻿@model SaleAd[]
 @{
     ViewData["Title"] = "Advertisement";
 }
 
 <div>
-    <a asp-action="AddAdvertisement" class="btn btn-primary mb-5">Create New Product</a>
+    <a asp-action="AddAd" class="btn btn-primary mb-5">Create New Product</a>
 </div>
 <div class="d-flex flex-column gap-4 w-100">
     @foreach (var item in Model)
     {
         <div class=" w-100 d-flex  p-1 rounded border border-1 bg-white">
             <div style="min-height:140px;min-width:200px;max-height:140px;max-width:200px">
-                <img style="object-fit: cover;" src="@item.SaleAdvertisementsImages.ElementAt(0).Image.Url" class="h-100 w-100 rounded-start" alt="...">
+                <img style="object-fit: cover;" src="@item.SaleAdImages.ElementAt(0).Image.Url" class="h-100 w-100 rounded-start" alt="...">
             </div>
             <div class="d-flex flex-column  p-1 w-100 mx-3">
                 <div>

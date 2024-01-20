@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Diagnostics;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ASP.NET_OLX.Controllers
 {
@@ -14,36 +15,32 @@ namespace ASP.NET_OLX.Controllers
 
 
         private readonly OlxDBContext context;
-        private readonly IIncludableQueryable<SaleAdvertisement, ICollection<SaleAdvertisementImage>> saleAdvertisements; 
+        private readonly IIncludableQueryable<SaleAd, ICollection<SaleAdImage>> saleAd; 
 
         public AdminController(OlxDBContext context)
         {
             this.context = context;
             context.Images.Load();
-            saleAdvertisements = context.SaleAdvertisements.Include(x => x.Category)
+            saleAd = context.SaleAds.Include(x => x.Category)
                                                    .Include(x => x.City)
-                                                   .Include(x => x.SaleAdvertisementsImages);
+                                                   .Include(x => x.SaleAdImages);
         }
-        public IActionResult Index() => View(saleAdvertisements.ToArray());
+        public IActionResult Index() => View(saleAd.ToArray());
         
 
         public IActionResult ShowPartialView(int id)
         {
-            var element = saleAdvertisements.FirstOrDefault(x=>x.Id==id);
+            var element = saleAd.Include(x => x.Category).FirstOrDefault(x=>x.Id==id);
             return PartialView("_ShowPartialView", element);
         }
 
         public  IActionResult DeleteElement(int id)
         {
-            var toDelete = context.SaleAdvertisementsImages.Where(x => x.SaleAdvertisementId == id).Select(x=>x.ImageId).ToArray();
-
+            var toDelete = context.SaleAdImages.Where(x => x.SaleAdId == id).Select(x=>x.ImageId).ToArray();
             foreach (var itemId in toDelete)
-            {
-                if (!context.SaleAdvertisementsImages.Any(x => x.ImageId == itemId && x.SaleAdvertisementId != id))
-                    context.Images.Remove(context.Images.Find(itemId));
-            }
-            var item =  context.SaleAdvertisements.Find(id);
-            context.SaleAdvertisements.Remove(item);
+                   context.Images.Remove(context.Images.Find(itemId));
+            var item =  context.SaleAds.Find(id);
+            context.SaleAds.Remove(item);
             context.SaveChanges();
             return RedirectToAction("Index");
         }

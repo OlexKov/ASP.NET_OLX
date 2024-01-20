@@ -3,6 +3,6 @@
     public class Category:BaseEntity
     {
        public string Name { get; set; }
-        public ICollection<SaleAdvertisement> SaleAdvertisements { get; set; } = new HashSet<SaleAdvertisement>();
+       public ICollection<SaleAd> SaleAds { get; set; } = new HashSet<SaleAd>();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace ASP.NET_OLX.Models
 {
-    public class AdvertisementCreationModel
+    public class AdCreationModel
     {
         public string SellerName { get; set; }
 
@@ -18,6 +18,6 @@ namespace ASP.NET_OLX.Models
 
         public decimal Price { get; set; }
 
-        public string ImagesUrl { get; set; } 
+        public List<IFormFile> Images { get; set; } = [];
     }
 }

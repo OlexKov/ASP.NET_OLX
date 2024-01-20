@@ -1,0 +1,114 @@
+﻿@model AdCreationModel
+
+@{
+    ViewData["Title"] = "Add Ad";
+}
+<form class="row g-3" method="post" asp-action="Create" enctype="multipart/form-data">
+    <div class="col-md-6">
+        <label asp-for=SellerName for="inputEmail4" class="form-label">Імя продавця</label>
+        <input asp-for=SellerName type="text" class="form-control" placeholder="Імя продавця">
+    </div>
+    <div class="col-6">
+        <label asp-for=Price class="form-label">Ціна</label>
+        <input asp-for=Price type="number" value="0" min="0" class="form-control">
+    </div>
+   
+    <div class="col-md-6">
+        <label asp-for=City class="form-label">Місто</label>
+        <select asp-for=City class="form-select">
+            <option selected>@ViewBag.Cities[0]</option>
+            @for (int i = 1; i < @ViewBag.Cities.Length; i++)
+            {
+                <option>@ViewBag.Cities[i]</option>
+            }
+        </select>
+    </div>
+    <div class="col-md-6">
+        <label asp-for=Category class="form-label">Категорія</label>
+        <select asp-for=Category class="form-select">
+            <option selected>@ViewBag.Categories[0]</option>
+            @for (int i = 1; i < @ViewBag.Categories.Length; i++)
+            {
+                <option>@ViewBag.Categories[i]</option>
+            }
+        </select>
+    </div>
+
+
+    <div class="col-md-12">
+        <label asp-for=Title class="form-label">Заголовок оголошення</label>
+        <textarea asp-for=Title class="form-control" rows="2" placeholder="Заголовок оголошення"></textarea>
+    </div>
+
+    <div class="col-md-12">
+        <label asp-for=Description class="form-label">Опис продукту</label>
+        <textarea asp-for=Description class="form-control" rows="3" placeholder="Опис продукту"></textarea>
+    </div>
+
+    <div class="col-12">
+        <label asp-for=Images class="form-label">Url Фото</label>
+        <input id="imageFiles" asp-for=Images type="file" class="mb-3 form-control" multiple onchange="displayNames(this)">
+    </div>
+
+    <div class="col-12">
+        <div id="imageContainer" class="container w-auto">
+            <div class="mt-3 border rounded row row-cols-auto w-auto"></div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="form-check">
+            <input asp-for=IsNew class="form-check-input" type="checkbox">
+            <label asp-for=IsNew class="form-check-label">
+                Нове
+            </label>
+        </div>
+    </div>
+    <div class="col-6">
+        <button type="submit" class="w-100 btn btn-success">Зберегти</button>
+    </div>
+    <div class="col-6">
+        <a asp-action="Index" class="w-100 btn btn-secondary">Cкасувати</a>
+    </div>
+</form>
+<script>
+
+    function setImages(event) {
+        $imageContainer = $('#imageContainer > div');
+        $imageContainer.empty();
+        for (let i = 0; i < event.files.length; i++) {
+            let url = URL.createObjectURL(imageArray[i]);
+            $imageContainer.append(`
+                            <div class="my-2"style="min-height:140px;min-width:200px;max-height:140px;max-width:200px">
+                                <img style="object-fit: cover;" src=${url} class="h-100 w-100 rounded">
+                                <span id=${imageArray[i].name} onclick="removeImage(event)" class="bottom-100  position-relative btn-sm btn btn-danger material-icons">close</span>
+                        </div>`);
+        }
+    }
+
+    function displayNames(event) {
+        $files = event.files;
+        $imageContainer = $('#imageContainer > div');
+        $imageContainer.empty();
+        for (let i = 0; i < $files.length; i++) {
+            let url = URL.createObjectURL($files[i]);
+            $imageContainer.append(`
+                                <div class="my-2"style="min-height:140px;min-width:200px;max-height:140px;max-width:200px">
+                                    <img style="object-fit: cover;" src=${url} class="h-100 w-100 rounded">
+                                    <span id=${$files[i].name} onclick="removeImage(event)" class="bottom-100  position-relative btn-sm btn btn-danger material-icons">close</span>
+                                </div>`);
+        }
+    }
+
+    function removeImage(event) {
+        $imageFiles = $('#imageFiles')[0];
+        const newArray = new DataTransfer();
+        for (let i = 0; i < $imageFiles.files.length; i++) {
+            if ($imageFiles.files[i].name != event.target.id) {
+                newArray.items.add($imageFiles.files[i]);
+            }
+        }
+        $imageFiles.files = newArray.files;
+        event.target.parentNode.remove();
+    }
+</script>

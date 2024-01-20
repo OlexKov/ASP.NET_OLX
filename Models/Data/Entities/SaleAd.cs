@@ -1,6 +1,6 @@
 ﻿namespace ASP.NET_OLX.Models.Data.Entities
 {
-    public class SaleAdvertisement:BaseEntity
+    public class SaleAd:BaseEntity
     {
         public string SellerName { get; set; }
 
@@ -22,6 +22,6 @@
 
         public decimal Price { get; set; }
 
-        public ICollection<SaleAdvertisementImage> SaleAdvertisementsImages { get; set; } = new HashSet<SaleAdvertisementImage>();
+        public ICollection<SaleAdImage> SaleAdImages { get; set; } = new HashSet<SaleAdImage>();
     } 
 }
