@@ -14,40 +14,35 @@ namespace ASP.NET_OLX.Controllers
     {
         private readonly OlxDBContext context;
         private const string imageDirPath = "UsersAdvertsImages";
-        private readonly IIncludableQueryable<Advert, ICollection<AdvertImage>> adverts;
+        private readonly IIncludableQueryable<Advert, ICollection<Image>> adverts;
         public AdminController(OlxDBContext context)
         {
-            Console.WriteLine("Admin controller");
             this.context = context;
-            adverts = context.Adverts.Include(x => x.Category).Include(x => x.City).Include(x => x.AdvertImages);
+            adverts = context.Adverts.Include(x => x.Category).Include(x => x.City).Include(x => x.Images);
         }
 
         public async Task<IActionResult> Index()
         {
-            Console.WriteLine("Admin Index");
-            await context.Images.LoadAsync();
-            return View(adverts.ToArray());
+           // await context.Images.LoadAsync();
+            return View(await adverts.ToArrayAsync());
         }
      
-        public IActionResult ShowPartialView(int id)
+        public async Task<IActionResult> ShowPartialView(int id)
         {
-            Console.WriteLine("Admin PartialView");
-            context.AdvertImages.Where(x=>x.AdvertId == id).Include(x=>x.Image).ToArray();
-            var element = adverts.FirstOrDefault(x=>x.Id == id);
+            var element = await adverts.FirstOrDefaultAsync(x=>x.Id == id);
             return PartialView("_ShowPartialView", element);
         }
 
         public async Task<IActionResult> DeleteElement(int id, [FromServices] IWebHostEnvironment env)
         {
-            Console.WriteLine("Admin DeleteElement");
-            var toDelete = context.AdvertImages.Where(x => x.AdvertId == id).Select(x=>x.ImageId).ToArray();
-            var fileNames = context.Images.Where(x => toDelete.Any(y => y == x.Id)).Select(x=>Path.GetFileName(x.Url));
+           
+            var fileNames = context.Images.Where(x => x.AdvertId == id).Select(x=>Path.GetFileName(x.Url));
             foreach (var fName in fileNames)
                 System.IO.File.Delete(Path.Combine(env.WebRootPath, imageDirPath, fName));
-            foreach (var itemId in toDelete)
-                   context.Images.Remove(context.Images.Find(itemId));
-            var item =  context.Adverts.Find(id);
-            context.Adverts.Remove(item);
+            var advert = context.Adverts.Find(id);
+            foreach (var image in advert.Images)
+                context.Images.Remove(image);
+            context.Adverts.Remove(advert);
             await  context.SaveChangesAsync();
             return RedirectToAction("Index");
         }

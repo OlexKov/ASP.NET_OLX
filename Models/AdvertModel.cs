@@ -2,8 +2,10 @@
 
 namespace ASP.NET_OLX.Models
 {
-    public class AdvertCreationModel
+    public class AdvertModel
     {
+        public int Id { get; set; }
+
         public string SellerName { get; set; }
 
         public string City { get; set; }

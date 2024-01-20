@@ -2,10 +2,9 @@ using ASP.NET_OLX.Models;
 using ASP.NET_OLX.Models.Data;
 using ASP.NET_OLX.Models.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.Extensions.Hosting;
-using System;
 using System.Diagnostics;
 
 namespace ASP.NET_OLX.Controllers
@@ -16,7 +15,7 @@ namespace ASP.NET_OLX.Controllers
 
         private const string imageDirPath = "UsersAdvertsImages";
 
-        private readonly IIncludableQueryable<Advert, ICollection<AdvertImage>> adverts;
+        private readonly IIncludableQueryable<Advert, ICollection<Image>> adverts;
 
         private async Task<string> saveImage(IFormFile file,IWebHostEnvironment env)
         {
@@ -32,52 +31,47 @@ namespace ASP.NET_OLX.Controllers
 
         public UserController(OlxDBContext context)
         {
-            Console.WriteLine("User controller");
             this.context = context;
-            adverts = context.Adverts.Include(x => x.Category).Include(x => x.City).Include(x => x.AdvertImages);
+            adverts = context.Adverts.Include(x => x.Category).Include(x => x.City).Include(x => x.Images);
         }
 
         public async Task<IActionResult> Index()
         {
-            Console.WriteLine("User Index");
-            await context.Images.LoadAsync();
-            var data = adverts.ToArray();
-            return View(data);
+           // await context.Images.LoadAsync();
+            return View(await adverts.ToArrayAsync());
         }
 
-        public IActionResult AddAdvert()
+        public async Task<IActionResult> AddAdvert()
         {
-            Console.WriteLine("User AddAdvert");
-            ViewBag.Categories = context.Categories.Select(x => x.Name).ToArray();
-            ViewBag.Cities = context.Cities.Select(x => x.Name).ToArray();
+            ViewBag.Categories = await context.Categories.Select(x => x.Name).ToArrayAsync();
+            ViewBag.Cities = await context.Cities.Select(x => x.Name).ToArrayAsync();
             return View();
         }
 
         public IActionResult PersonalAccount()
         {
-            Console.WriteLine("User PersonalAccount");
             return View();
         }
         
 
         [HttpPost]
-        public async Task<IActionResult> Create(AdvertCreationModel saleAd, [FromServices] IWebHostEnvironment env)
+        public async Task<IActionResult> Create(AdvertModel arvertModel, [FromServices] IWebHostEnvironment env)
         {
-            var newAd = new Advert
+            var newAdvert = new Advert
             {
                 Date = DateTime.Now,
-                Description = saleAd.Description,
-                SellerName = saleAd.SellerName,
-                IsNew = saleAd.IsNew,
-                CategoryId = context.Categories.FirstOrDefault(x => x.Name == saleAd.Category).Id,
-                CityId = context.Cities.FirstOrDefault(x => x.Name == saleAd.City).Id,
-                Price = saleAd.Price,
-                Title = saleAd.Title
+                Description = arvertModel.Description,
+                SellerName = arvertModel.SellerName,
+                IsNew = arvertModel.IsNew,
+                CategoryId = context.Categories.FirstOrDefaultAsync(x => x.Name == arvertModel.Category).Id,
+                CityId = context.Cities.FirstOrDefaultAsync(x => x.Name == arvertModel.City).Id,
+                Price = arvertModel.Price,
+                Title = arvertModel.Title
             };
 
-            foreach (var item in saleAd.Images)
-                  context.AdvertImages.Add(new AdvertImage () { Image = new() { Url = await saveImage(item,env) }, Advert = newAd });
-            
+            foreach (var item in arvertModel.Images)
+                newAdvert.Images.Add(new Image() { Url = await saveImage(item, env) });
+            context.Adverts.Add(newAdvert);      
             await context.SaveChangesAsync();
 
             return RedirectToAction("Index");

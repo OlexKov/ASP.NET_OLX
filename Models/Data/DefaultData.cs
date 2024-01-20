@@ -11,21 +11,20 @@ namespace ASP.NET_OLX.Models.Data
             modelBuilder.Entity<Category>().HasData(Categories);
             modelBuilder.Entity<Image>().HasData(Images);
             modelBuilder.Entity<Advert>().HasData(Adverts);
-            modelBuilder.Entity<AdvertImage >().HasData(AdvertImages);
         }
 
         public static readonly City[] Cities =
         [
-            new (){ Id = 1, Name = "Київ" },
-            new (){ Id = 2, Name = "Харків" },
-            new (){ Id = 3, Name = "Одеса" },
-            new (){ Id = 4, Name = "Дніпро" },
-            new (){ Id = 5, Name = "Запоріжжя" },
-            new (){ Id = 6, Name = "Кривий Ріг" },
-            new (){ Id = 7, Name = "Mиколаїв" },
-            new (){ Id = 8, Name = "Луганськ" },
-            new (){ Id = 9, Name = "Вінниця" },
-            new (){ Id = 10, Name = "Чернігів" }
+            new() { Id = 1, Name = "Київ" },
+            new() { Id = 2, Name = "Харків" },
+            new() { Id = 3, Name = "Одеса" },
+            new() { Id = 4, Name = "Дніпро" },
+            new() { Id = 5, Name = "Запоріжжя" },
+            new() { Id = 6, Name = "Кривий Ріг" },
+            new() { Id = 7, Name = "Mиколаїв" },
+            new() { Id = 8, Name = "Луганськ" },
+            new() { Id = 9, Name = "Вінниця" },
+            new() { Id = 10, Name = "Чернігів" }
         ];
 
         public static readonly Category[] Categories =
@@ -45,86 +44,44 @@ namespace ASP.NET_OLX.Models.Data
         public static readonly Image[] Images =
         [
 
-            new() { Id = 1, Url = "https://localhost:7203/UsersAdvertsImages/046a6c9cbe3948a388001eff7c842786.webp" },
-            new() { Id = 2, Url = "https://localhost:7203/UsersAdvertsImages/6c54c58f313c46b8b08fb276cd89ede1.webp" },
-            new() { Id = 3, Url = "https://localhost:7203/UsersAdvertsImages/07a281155d454adb81ad4b170fbd0a03.webp" },
+            new() { Id = 1, AdvertId = 1, Url = "https://localhost:7203/UsersAdvertsImages/046a6c9cbe3948a388001eff7c842786.webp" },
+            new() { Id = 2, AdvertId = 1, Url = "https://localhost:7203/UsersAdvertsImages/6c54c58f313c46b8b08fb276cd89ede1.webp" },
+            new() { Id = 3, AdvertId = 1, Url = "https://localhost:7203/UsersAdvertsImages/07a281155d454adb81ad4b170fbd0a03.webp" },
+                           
+            new() { Id = 4, AdvertId = 2, Url = "https://localhost:7203/UsersAdvertsImages/a366c4b673c4466aae1799e4b417b19b.webp" },
+            new() { Id = 5, AdvertId = 2, Url = "https://localhost:7203/UsersAdvertsImages/5f3b586ef071461bbcdf7841cf2ff67c.webp" },
+            new() { Id = 6, AdvertId = 2, Url = "https://localhost:7203/UsersAdvertsImages/ba0ff206dacc47d6956d606aef5edd5d.webp" },
+                          
+            new() { Id = 7, AdvertId = 3, Url = "https://localhost:7203/UsersAdvertsImages/f2855d828be54f93acf0485d7b874cdb.webp" },
+            new() { Id = 8, AdvertId = 3, Url = "https://localhost:7203/UsersAdvertsImages/844edaa8c7b8427b9d2b56063ce8977c.webp" },
+            new() { Id = 9, AdvertId = 3, Url = "https://localhost:7203/UsersAdvertsImages/54b271dc78fe427fae3a68f07540a8ea.webp" },
 
-            new() { Id = 4, Url = "https://localhost:7203/UsersAdvertsImages/a366c4b673c4466aae1799e4b417b19b.webp" },
-            new() { Id = 5, Url = "https://localhost:7203/UsersAdvertsImages/5f3b586ef071461bbcdf7841cf2ff67c.webp" },
-            new() { Id = 6, Url = "https://localhost:7203/UsersAdvertsImages/ba0ff206dacc47d6956d606aef5edd5d.webp" },
-
-            new() { Id = 7, Url = "https://localhost:7203/UsersAdvertsImages/f2855d828be54f93acf0485d7b874cdb.webp" },
-            new() { Id = 8, Url = "https://localhost:7203/UsersAdvertsImages/844edaa8c7b8427b9d2b56063ce8977c.webp" },
-            new() { Id = 9, Url = "https://localhost:7203/UsersAdvertsImages/54b271dc78fe427fae3a68f07540a8ea.webp" },
-
-            new() { Id = 10, Url = "https://localhost:7203/UsersAdvertsImages/c81082a052484beb8699ff467d1122dc.webp" },
-            new() { Id = 11, Url = "https://localhost:7203/UsersAdvertsImages/2b69dadd1dcd40eb94ecc40bd8e66d31.webp" },
-            new() { Id = 12, Url = "https://localhost:7203/UsersAdvertsImages/c9e78a957e84442e9cf0915167d62add.webp" },
-
-            new() { Id = 13, Url = "https://localhost:7203/UsersAdvertsImages/d90a8e5655204c0eb035e382c8a293a3.webp" },
-            new() { Id = 14, Url = "https://localhost:7203/UsersAdvertsImages/d7229686d2444bf7aad0f9f22b5c671a.webp" },
-            new() { Id = 15, Url = "https://localhost:7203/UsersAdvertsImages/fff47682d2db4df9a0a51ac6288eb881.webp" },
-
-            new() { Id = 16, Url = "https://localhost:7203/UsersAdvertsImages/a165f34c4bcf4de28ac3df3e670217d6.webp" },
-            new() { Id = 17, Url = "https://localhost:7203/UsersAdvertsImages/7d6097e652cf44b5a5298d1e94db142c.webp" },
-
-
-            new() { Id = 18, Url = "https://localhost:7203/UsersAdvertsImages/3ba07c21e7b44ef993412fd0b40c3385.webp" },
-            new() { Id = 19, Url = "https://localhost:7203/UsersAdvertsImages/0af4ad7eb0a24f45b0008090b1b0a3f6.webp" },
-            new() { Id = 20, Url = "https://localhost:7203/UsersAdvertsImages/90cc095ed7134cc78c6af6e2f38b8403.webp" },
-
-            new() { Id = 21, Url = "https://localhost:7203/UsersAdvertsImages/2d49a4fb86c74a79bff1bcedcf8aae24.webp" },
-            new() { Id = 22, Url = "https://localhost:7203/UsersAdvertsImages/a92a25d946284f70bfb93866233f8c88.webp" },
-            new() { Id = 23, Url = "https://localhost:7203/UsersAdvertsImages/f2f938f084374eebb76be6436e689714.webp" },
-
-            new() { Id = 24, Url = "https://localhost:7203/UsersAdvertsImages/dc521bca678948cca942fa4b029c0905.webp" },
-
-            new() { Id = 25, Url = "https://localhost:7203/UsersAdvertsImages/eafe376a8c994ac282c37a12e8f989c3.webp" },
-            new() { Id = 26, Url = "https://localhost:7203/UsersAdvertsImages/75efa1d600fd4e0eb976ab4dddcdacb7.webp" },
-            new() { Id = 27, Url = "https://localhost:7203/UsersAdvertsImages/57e5aec69d234333bdc7625a54f96945.webp" },
+            new() { Id = 10, AdvertId = 4, Url = "https://localhost:7203/UsersAdvertsImages/c81082a052484beb8699ff467d1122dc.webp" },
+            new() { Id = 11, AdvertId = 4, Url = "https://localhost:7203/UsersAdvertsImages/2b69dadd1dcd40eb94ecc40bd8e66d31.webp" },
+            new() { Id = 12, AdvertId = 4, Url = "https://localhost:7203/UsersAdvertsImages/c9e78a957e84442e9cf0915167d62add.webp" },
+                             
+            new() { Id = 13, AdvertId = 5, Url = "https://localhost:7203/UsersAdvertsImages/d90a8e5655204c0eb035e382c8a293a3.webp" },
+            new() { Id = 14, AdvertId = 5, Url = "https://localhost:7203/UsersAdvertsImages/d7229686d2444bf7aad0f9f22b5c671a.webp" },
+            new() { Id = 15, AdvertId = 5, Url = "https://localhost:7203/UsersAdvertsImages/fff47682d2db4df9a0a51ac6288eb881.webp" },
+                             
+            new() { Id = 16, AdvertId = 6, Url = "https://localhost:7203/UsersAdvertsImages/a165f34c4bcf4de28ac3df3e670217d6.webp" },
+            new() { Id = 17, AdvertId = 6, Url = "https://localhost:7203/UsersAdvertsImages/7d6097e652cf44b5a5298d1e94db142c.webp" },
+                             
+            new() { Id = 18, AdvertId = 7, Url = "https://localhost:7203/UsersAdvertsImages/3ba07c21e7b44ef993412fd0b40c3385.webp" },
+            new() { Id = 19, AdvertId = 7, Url = "https://localhost:7203/UsersAdvertsImages/0af4ad7eb0a24f45b0008090b1b0a3f6.webp" },
+            new() { Id = 20, AdvertId = 7, Url = "https://localhost:7203/UsersAdvertsImages/90cc095ed7134cc78c6af6e2f38b8403.webp" },
+                          
+            new() { Id = 21, AdvertId = 8, Url = "https://localhost:7203/UsersAdvertsImages/2d49a4fb86c74a79bff1bcedcf8aae24.webp" },
+            new() { Id = 22, AdvertId = 8, Url = "https://localhost:7203/UsersAdvertsImages/a92a25d946284f70bfb93866233f8c88.webp" },
+            new() { Id = 23, AdvertId = 8, Url = "https://localhost:7203/UsersAdvertsImages/f2f938f084374eebb76be6436e689714.webp" },
+                            
+            new() { Id = 24, AdvertId = 9, Url = "https://localhost:7203/UsersAdvertsImages/dc521bca678948cca942fa4b029c0905.webp" },
+                           
+            new() { Id = 25, AdvertId = 10, Url = "https://localhost:7203/UsersAdvertsImages/eafe376a8c994ac282c37a12e8f989c3.webp" },
+            new() { Id = 26, AdvertId = 10, Url = "https://localhost:7203/UsersAdvertsImages/75efa1d600fd4e0eb976ab4dddcdacb7.webp" },
+            new() { Id = 27, AdvertId = 10, Url = "https://localhost:7203/UsersAdvertsImages/57e5aec69d234333bdc7625a54f96945.webp" },
         ];
 
-        public static readonly AdvertImage [] AdvertImages =
-        [
-            new() { Id = 1, ImageId = 1, AdvertId = 1},
-            new() { Id = 2, ImageId = 2, AdvertId = 1 },
-            new() { Id = 3, ImageId = 3, AdvertId = 1 },
-
-            new() { Id = 4, ImageId = 4, AdvertId = 2 },
-            new() { Id = 5, ImageId = 5, AdvertId = 2 },
-            new() { Id = 6, ImageId = 6, AdvertId = 2 },
-
-            new() { Id = 7, ImageId = 7, AdvertId = 3 },
-            new() { Id = 8, ImageId = 8, AdvertId = 3 },
-            new() { Id = 9, ImageId = 9, AdvertId = 3 },
-
-            new() { Id = 10, ImageId = 10, AdvertId = 4 },
-            new() { Id = 11, ImageId = 11, AdvertId = 4 },
-            new() { Id = 12, ImageId = 12, AdvertId = 4 },
-
-            new() { Id = 13, ImageId = 13, AdvertId = 5 },
-            new() { Id = 14, ImageId = 14, AdvertId = 5 },
-            new() { Id = 15, ImageId = 15, AdvertId = 5 },
-
-            new() { Id = 16, ImageId = 16, AdvertId = 6 },
-            new() { Id = 17, ImageId = 17, AdvertId = 6 },
-
-            new() { Id = 18, ImageId = 18, AdvertId = 7 },
-            new() { Id = 19, ImageId = 19, AdvertId = 7 },
-            new() { Id = 20, ImageId = 20, AdvertId = 7 },
-
-            new() { Id = 21, ImageId = 21, AdvertId = 8 },
-            new() { Id = 22, ImageId = 22, AdvertId = 8 },
-            new() { Id = 23, ImageId = 23, AdvertId = 8 },
-
-            new() { Id = 24, ImageId = 24, AdvertId = 9 },
-           
-            new() { Id = 25, ImageId = 25, AdvertId = 10 },
-            new() { Id = 26, ImageId = 26, AdvertId = 10 },
-            new() { Id = 27, ImageId = 27, AdvertId = 10 },
-
-
-        ];
 
         public static readonly Advert[] Adverts =
         [
