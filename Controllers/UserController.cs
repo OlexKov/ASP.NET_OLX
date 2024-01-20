@@ -57,21 +57,27 @@ namespace ASP.NET_OLX.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(AdvertModel arvertModel, [FromServices] IWebHostEnvironment env)
         {
+            var category = await context.Categories.FirstOrDefaultAsync(x => x.Name == arvertModel.Category);
+
+            var city = await context.Cities.FirstOrDefaultAsync(x => x.Name == arvertModel.City);
+
             var newAdvert = new Advert
             {
                 Date = DateTime.Now,
                 Description = arvertModel.Description,
                 SellerName = arvertModel.SellerName,
                 IsNew = arvertModel.IsNew,
-                CategoryId = context.Categories.FirstOrDefaultAsync(x => x.Name == arvertModel.Category).Id,
-                CityId = context.Cities.FirstOrDefaultAsync(x => x.Name == arvertModel.City).Id,
+                CategoryId = category.Id,
+                CityId = city.Id,
                 Price = arvertModel.Price,
                 Title = arvertModel.Title
             };
 
             foreach (var item in arvertModel.Images)
                 newAdvert.Images.Add(new Image() { Url = await saveImage(item, env) });
-            context.Adverts.Add(newAdvert);      
+
+            await context.Adverts.AddAsync(newAdvert);    
+            
             await context.SaveChangesAsync();
 
             return RedirectToAction("Index");
