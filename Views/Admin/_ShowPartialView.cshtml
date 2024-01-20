@@ -1,11 +1,11 @@
 ﻿@model SaleAd
-<div class="d-flex flex-column align-items-center">
-    <div class="container w-auto border rounded-1">
-       <div class="row mx-auto row-cols-3">
+<div class="d-flex  flex-column align-items-center">
+    <div class="w-auto px-2 border rounded-1">
+        <div class="row justify-content-center w-auto row-cols-3">
            @foreach (var item in Model.SaleAdImages)
             {
-                <div class="my-2" style="min-height:140px;min-width:200px;max-height:140px;max-width:200px">
-                    <img style="object-fit: cover;" src="@item.Image.Url" class="h-100 w-100 rounded-start">
+                <div class="my-2" style="height:140px;width:200px;">
+                    <img style="object-fit: cover;" src="@item.Image.Url" class="h-100 rounded-1">
                 </div>
             }
         </div>

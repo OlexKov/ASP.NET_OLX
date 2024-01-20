@@ -73,19 +73,7 @@
 </form>
 <script>
 
-    function setImages(event) {
-        $imageContainer = $('#imageContainer > div');
-        $imageContainer.empty();
-        for (let i = 0; i < event.files.length; i++) {
-            let url = URL.createObjectURL(imageArray[i]);
-            $imageContainer.append(`
-                            <div class="my-2"style="min-height:140px;min-width:200px;max-height:140px;max-width:200px">
-                                <img style="object-fit: cover;" src=${url} class="h-100 w-100 rounded">
-                                <span id=${imageArray[i].name} onclick="removeImage(event)" class="bottom-100  position-relative btn-sm btn btn-danger material-icons">close</span>
-                        </div>`);
-        }
-    }
-
+    
     function displayNames(event) {
         $files = event.files;
         $imageContainer = $('#imageContainer > div');
@@ -93,7 +81,7 @@
         for (let i = 0; i < $files.length; i++) {
             let url = URL.createObjectURL($files[i]);
             $imageContainer.append(`
-                                <div class="my-2"style="min-height:140px;min-width:200px;max-height:140px;max-width:200px">
+                                <div class="my-2"style="height:140px;width:200px;">
                                     <img style="object-fit: cover;" src=${url} class="h-100 w-100 rounded">
                                     <span id=${$files[i].name} onclick="removeImage(event)" class="bottom-100  position-relative btn-sm btn btn-danger material-icons">close</span>
                                 </div>`);
