@@ -27,6 +27,7 @@ namespace ASP.NET_OLX
             }
 
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();

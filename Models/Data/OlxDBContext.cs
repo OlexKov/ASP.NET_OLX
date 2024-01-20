@@ -8,8 +8,8 @@ namespace ASP.NET_OLX.Models.Data
     {
         public OlxDBContext(DbContextOptions options) : base(options)
         {
-           Database.EnsureDeleted();
-           Database.EnsureCreated();
+          // Database.EnsureDeleted();
+          // Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

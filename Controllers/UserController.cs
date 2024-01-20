@@ -29,6 +29,7 @@ namespace ASP.NET_OLX.Controllers
 
         public UserController(OlxDBContext context)
         {
+            Console.WriteLine("User controller");
             this.context = context;
             context.Images.Load();
             context.Cities.Load();
