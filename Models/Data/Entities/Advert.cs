@@ -22,6 +22,6 @@
 
         public decimal Price { get; set; }
 
-        public ICollection<AdvertImage > AdvertImages { get; set; } = new HashSet<AdvertImage >();
+        public ICollection<AdvertImage> AdvertImages { get; set; } = new HashSet<AdvertImage>();
     } 
 }

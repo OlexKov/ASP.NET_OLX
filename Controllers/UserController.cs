@@ -3,6 +3,7 @@ using ASP.NET_OLX.Models.Data;
 using ASP.NET_OLX.Models.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Diagnostics;
@@ -14,6 +15,8 @@ namespace ASP.NET_OLX.Controllers
         private readonly OlxDBContext context;
 
         private const string imageDirPath = "UsersAdvertsImages";
+
+        private readonly IIncludableQueryable<Advert, ICollection<AdvertImage>> adverts;
 
         private async Task<string> saveImage(IFormFile file,IWebHostEnvironment env)
         {
@@ -31,28 +34,28 @@ namespace ASP.NET_OLX.Controllers
         {
             Console.WriteLine("User controller");
             this.context = context;
-            context.Images.Load();
-            context.Cities.Load();
-            context.AdvertImages.Load();
-            context.Categories.Load();
+            adverts = context.Adverts.Include(x => x.Category).Include(x => x.City).Include(x => x.AdvertImages);
         }
 
         public async Task<IActionResult> Index()
         {
-           await context.Images.LoadAsync();
-           var data = context.Adverts.ToArray();
-           return View(data);
+            Console.WriteLine("User Index");
+            await context.Images.LoadAsync();
+            var data = adverts.ToArray();
+            return View(data);
         }
 
         public IActionResult AddAdvert()
         {
-             ViewBag.Categories = context.Categories.Select(x => x.Name).ToArray();
-             ViewBag.Cities = context.Cities.Select(x => x.Name).ToArray();
-             return View();
+            Console.WriteLine("User AddAdvert");
+            ViewBag.Categories = context.Categories.Select(x => x.Name).ToArray();
+            ViewBag.Cities = context.Cities.Select(x => x.Name).ToArray();
+            return View();
         }
 
         public IActionResult PersonalAccount()
         {
+            Console.WriteLine("User PersonalAccount");
             return View();
         }
         
