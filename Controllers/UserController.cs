@@ -1,51 +1,49 @@
 using ASP.NET_OLX.Models;
 using ASP.NET_OLX.Models.Data;
 using ASP.NET_OLX.Models.Data.Entities;
-using Azure;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.Extensions.Primitives;
 using System.Diagnostics;
-using System.IO.Pipelines;
 
 namespace ASP.NET_OLX.Controllers
 {
     public class UserController : Controller
     {
         private readonly OlxDBContext context;
-
-        private const string imageDirPath = "UsersAdvertsImages";
+        private readonly IWebHostEnvironment environment;
+        private readonly IConfiguration configuration;
 
         private readonly IIncludableQueryable<Advert, ICollection<Image>> adverts;
 
         private async Task<string> saveImage(IFormFile file, IWebHostEnvironment env)
         {
             string fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(file.FileName);
-            string filePath = Path.Combine(env.WebRootPath, imageDirPath, fileName);
+            string filePath = Path.Combine(env.WebRootPath, configuration["UserImgDir"], fileName);
             using (Stream fileStream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(fileStream);
             }
-            var location = new Uri($"{Request.Scheme}://{Request.Host}/{imageDirPath}/{fileName}");
+            var location = new Uri($"{Request.Scheme}://{Request.Host}/{configuration["UserImgDir"]}/{fileName}");
             return location.AbsoluteUri;
         }
 
-        public UserController(OlxDBContext context)
+        public UserController(OlxDBContext context, IWebHostEnvironment env, IConfiguration config)
         {
+            this.configuration = config;
+            this.environment = env;
             this.context = context;
             adverts = context.Adverts.Include(x => x.Category).Include(x => x.City).Include(x => x.Images);
         }
 
         public async Task<IActionResult> Index() => View(await adverts.ToArrayAsync());
        
-        public async Task<bool> RemoveImageUrl(string url, [FromServices] IWebHostEnvironment env)
+        public async Task<bool> RemoveImageUrl(string url)
         {
             var deleteImage = await context.Images.FirstOrDefaultAsync(x=>x.Url == url);
             context.Images.Remove(deleteImage);
             await context.SaveChangesAsync();
-            System.IO.File.Delete(Path.Combine(env.WebRootPath, imageDirPath, Path.GetFileName(url)));
+            System.IO.File.Delete(Path.Combine(environment.WebRootPath, configuration["UserImgDir"], Path.GetFileName(url)));
             return true;
         }
 
@@ -77,7 +75,7 @@ namespace ASP.NET_OLX.Controllers
         }
    
         [HttpPost]
-        public async Task<IActionResult> Create(AdvertModel advertModel, [FromServices] IWebHostEnvironment env)
+        public async Task<IActionResult> Create(AdvertModel advertModel)
         {
             Advert advert = null;
             var category = await context.Categories.FirstOrDefaultAsync(x => x.Name == advertModel.Category);
@@ -109,7 +107,7 @@ namespace ASP.NET_OLX.Controllers
                 };
             }
             foreach (var item in advertModel.Images)
-                advert.Images.Add(new Image() { Url = await saveImage(item, env) });
+                advert.Images.Add(new Image() { Url = await saveImage(item, environment) });
             if(advertModel.Id == 0)
                 await context.Adverts.AddAsync(advert);
             await context.SaveChangesAsync();

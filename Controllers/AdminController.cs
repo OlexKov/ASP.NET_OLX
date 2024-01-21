@@ -13,10 +13,15 @@ namespace ASP.NET_OLX.Controllers
     public class AdminController: Controller
     {
         private readonly OlxDBContext context;
-        private const string imageDirPath = "UsersAdvertsImages";
-        public AdminController(OlxDBContext context)
+        private readonly IWebHostEnvironment environment;
+        private readonly IConfiguration configuration;
+      
+
+        public AdminController(OlxDBContext context, IWebHostEnvironment env, IConfiguration config)
         {
+            this.environment = env;
             this.context = context;
+            this.configuration = config;
         }
 
         public async Task<IActionResult> Index() => View(await context.Adverts.Include(x => x.Category).Include(x => x.City).ToArrayAsync());
@@ -27,14 +32,13 @@ namespace ASP.NET_OLX.Controllers
             return PartialView("_ShowPartialView", element);
         }
 
-        public async Task<IActionResult> DeleteElement(int id, [FromServices] IWebHostEnvironment env)
+        public async Task<IActionResult> DeleteElement(int id)
         {
-            var fileNames = context.Images.Where(x => x.AdvertId == id).Select(x=>Path.GetFileName(x.Url));
-            foreach (var fName in fileNames)
-                System.IO.File.Delete(Path.Combine(env.WebRootPath, imageDirPath, fName));
+            var images = context.Images.Where(x => x.AdvertId == id);
+            foreach (var image in images)
+                System.IO.File.Delete(Path.Combine(environment.WebRootPath, configuration["UserImgDir"], Path.GetFileName(image.Url)));
             var advert = context.Adverts.Find(id);
-            foreach (var image in advert.Images)
-                context.Images.Remove(image);
+            context.Images.RemoveRange(images);
             context.Adverts.Remove(advert);
             await  context.SaveChangesAsync();
             return RedirectToAction("Index");
