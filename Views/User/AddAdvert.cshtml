@@ -1,8 +1,16 @@
 ﻿@model AdvertModel
 
 @{
-    ViewData["Title"] = "Створення нового оголошення";
+    if (Model.Id == 0)
+    {
+        ViewData["Title"] = "Створення нового оголошення";
+    }
+    else
+    {
+        ViewData["Title"] = "Редагування оголошення";
+    }
 }
+<h3 class="mb-3">@ViewData["Title"]</h3>
 <form class="row g-3" method="post" asp-action="Create" enctype="multipart/form-data">
     <div class="col-md-6">
         <label asp-for=SellerName for="inputEmail4" class="fw-bold form-label">Імя продавця</label>
@@ -10,7 +18,7 @@
     </div>
     <div class="col-6">
         <label asp-for=Price class="fw-bold form-label">Ціна</label>
-        <input asp-for=Price type="number" value="0" min="0" class="form-control">
+        <input asp-for=Price type="number" min="0" class="form-control">
     </div>
    
     <div class="col-md-6">
@@ -43,15 +51,27 @@
         <label asp-for=Description class="fw-bold form-label">Опис товару</label>
         <textarea asp-for=Description class="form-control" rows="3" placeholder="Опис товару"></textarea>
     </div>
-
+    
     <div class="col-12">
         <label asp-for=Images class="fw-bold form-label">Фото</label>
         <input id="imageFiles" asp-for=Images type="file" class="mb-3 form-control" multiple onchange="displayNames(this)" accept="image/png, image/jpeg , image/jpg , image/webp">
     </div>
-
+   
     <div class="col-12">
         <div id="imageContainer" class="container w-auto">
-            <div class="mt-3 border rounded row row-cols-auto w-auto"></div>
+            <div class="mt-3 border rounded row row-cols-auto w-auto">
+                @if (Model.Id != 0)
+                {
+                    @foreach (var item in Model.ImagesUrls)
+                    {
+                        <div class="my-2" style="height:140px;width:200px;">
+                            <img style="object-fit: cover;" src=@item class="h-100 w-100 rounded">
+                            <a id=@item onclick="removeOldImage(event)" class="bottom-100  position-relative btn-sm btn btn-danger material-icons">close</a>
+                        </div>
+                    }
+                    <input asp-for=Id type="number" value=@Model.Id  class="d-none form-control">
+                }
+            </div>
         </div>
     </div>
 

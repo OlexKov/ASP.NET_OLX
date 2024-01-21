@@ -1,4 +1,7 @@
 ﻿using ASP.NET_OLX.Models.Data.Entities;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 
 namespace ASP.NET_OLX.Models
 {
@@ -19,6 +22,8 @@ namespace ASP.NET_OLX.Models
         public bool IsNew { get; set; }
 
         public decimal Price { get; set; }
+
+        public List<string> ImagesUrls { get; set; } = [];
 
         public List<IFormFile> Images { get; set; } = [];
     }

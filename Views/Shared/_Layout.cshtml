@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="~/ASP.NET_OLX.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
+    <header class="sticky-lg-top">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ASP.NET OLX</a>
@@ -35,8 +35,8 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="container pb-3 b-size overflow-auto">
+        <main role="main" class=" heigth-inherit ">
             @RenderBody()
         </main>
     </div>

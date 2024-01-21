@@ -18,7 +18,8 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    height:100%;
 }
 
 .w-85{
@@ -31,5 +32,13 @@ body {
 
 .w-30 {
     width: 30%;
+}
+
+.b-size {
+    height: calc(100% - 10em);
+}
+
+.heigth-inherit{
+    height:inherit;
 }
 
