@@ -19,14 +19,9 @@
                         <h5 class="card-title">@item.Title</h5>
                         <h5 class="text-muted text-nowrap">@item.Price гр.</h5>
                     </div>
-                    @if (item.IsNew)
-                    {
-                        <span class="badge bg-success p-2">Нове</span>
-                    }
-                    else
-                    {
-                        <span class="badge bg-secondary p-2">Вживане</span>
-                    }
+
+                    <span class="badge @(item.IsNew ? "bg-success" : "bg-secondary")  p-2">@(item.IsNew ? "Нове" : "Вживане")</span>
+                    
                 </div>
                 <div class="d-flex justify-content-between mt-auto">
                     <small class="text-muted">@item.SellerName @item.City.Name </small>

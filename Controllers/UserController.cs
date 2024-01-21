@@ -113,7 +113,7 @@ namespace ASP.NET_OLX.Controllers
             if(advertModel.Id == 0)
                 await context.Adverts.AddAsync(advert);
             await context.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("PersonalAccount");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
