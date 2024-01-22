@@ -1,4 +1,6 @@
 using ASP.NET_OLX.Models.Data;
+using FluentValidation.AspNetCore;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 namespace ASP.NET_OLX
@@ -12,9 +14,18 @@ namespace ASP.NET_OLX
             var connStr = builder.Configuration.GetConnectionString("LocalDb");
 
             builder.Services.AddDbContext<OlxDBContext>(opts => opts.UseSqlServer(connStr));
-
+            
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+          
+            // enable client-side validation
+            builder.Services.AddFluentValidationClientsideAdapters();
+
+           builder.Services.AddFluentValidationAutoValidation();
+
+            // Load an assembly reference rather than using a marker type.
+            builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 
             var app = builder.Build();
 

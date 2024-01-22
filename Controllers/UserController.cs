@@ -13,6 +13,7 @@ namespace ASP.NET_OLX.Controllers
         private readonly OlxDBContext context;
         private readonly IWebHostEnvironment environment;
         private readonly IConfiguration configuration;
+        private List<string> imageToDelete = [];
 
         private readonly IIncludableQueryable<Advert, ICollection<Image>> adverts;
 
@@ -37,13 +38,12 @@ namespace ASP.NET_OLX.Controllers
         }
 
                
-        public async Task<bool> RemoveImageUrl(string url)
+        public async Task RemoveImage(string url)
         {
             var deleteImage = await context.Images.FirstOrDefaultAsync(x=>x.Url == url);
             context.Images.Remove(deleteImage);
             await context.SaveChangesAsync();
             System.IO.File.Delete(Path.Combine(environment.WebRootPath, configuration["UserImgDir"], Path.GetFileName(url)));
-            return true;
         }
 
         public async Task<IActionResult> AddAdvert(int id)
@@ -70,12 +70,18 @@ namespace ASP.NET_OLX.Controllers
 
         public async Task<IActionResult> PersonalAccount()
         {
-            return View("PersonalAccount", await adverts.ToArrayAsync());
+            return View(await adverts.ToArrayAsync());
         }
    
         [HttpPost]
         public async Task<IActionResult> Create(AdvertModel advertModel)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Categories = await context.Categories.Select(x => x.Name).ToArrayAsync();
+                ViewBag.Cities = await context.Cities.Select(x => x.Name).ToArrayAsync();
+                return View("AddAdvert", advertModel);
+            }
             Advert advert = null;
             var category = await context.Categories.FirstOrDefaultAsync(x => x.Name == advertModel.Category);
 

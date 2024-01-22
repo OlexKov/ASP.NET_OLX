@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore;
+using ASP.NET_OLX.Models.Data;
 
-namespace ASP.NET_OLX.Models.Data
+namespace ASP.NET_OLX.Models
 {
     public class SimpleContextFactory : IDesignTimeDbContextFactory<OlxDBContext>
     {

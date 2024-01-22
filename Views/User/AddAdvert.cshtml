@@ -4,14 +4,16 @@
     ViewData["Title"] = Model.Id == 0 ? "Створення нового оголошення" : "Редагування оголошення";
 }
 <h3 class="mb-3">@ViewData["Title"]</h3>
-<form class="row g-3" method="post" asp-action="Create" enctype="multipart/form-data">
+<form class="row g-3" method="post" asp-action="Create" onsubmit="return validateImage();" enctype="multipart/form-data">
     <div class="col-md-6">
         <label asp-for=SellerName for="inputEmail4" class="fw-bold form-label">Імя продавця</label>
         <input asp-for=SellerName type="text" class="form-control" placeholder="Імя продавця">
+        <span asp-validation-for=SellerName class="form-text text-danger"></span>
     </div>
     <div class="col-6">
         <label asp-for=Price class="fw-bold form-label">Ціна</label>
         <input asp-for=Price type="number" min="0" class="form-control">
+        <span asp-validation-for=Price class="form-text text-danger"></span>
     </div>
    
     <div class="col-md-6">
@@ -36,18 +38,21 @@
     </div>
 
     <div class="col-md-12">
-        <label asp-for=Title class="fw-bold form-label">Заголовок оголошення</label>
-        <textarea asp-for=Title class="form-control" rows="2" placeholder="Заголовок оголошення"></textarea>
+        <label asp-for=Title  class="fw-bold form-label">Заголовок оголошення</label>
+        <textarea asp-for=Title  class="form-control" rows="2" placeholder="Заголовок оголошення"></textarea>
+        <span asp-validation-for=Title class="form-text text-danger"></span>
     </div>
 
     <div class="col-md-12">
         <label asp-for=Description class="fw-bold form-label">Опис товару</label>
         <textarea asp-for=Description class="form-control" rows="3" placeholder="Опис товару"></textarea>
+        <span asp-validation-for=Description class="form-text text-danger"></span>
     </div>
     
     <div class="col-12">
         <label asp-for=Images class="fw-bold form-label">@(Model.Id == 0 ? "Фото" : "Додати фото")</label>
-        <input id="imageFiles" asp-for=Images type="file" class="mb-3 form-control" multiple onchange="displayNames(this)" accept="image/png, image/jpeg , image/jpg , image/webp">
+        <input  data-val="false" id="imageFiles" asp-for=Images type="file" class="mb-3 form-control" multiple onchange="displayNames(this)" accept="image/png, image/jpeg , image/jpg , image/webp">
+        <span id="imagesError" class="form-text text-danger"></span>
     </div>
    
     <div class="col-12">
@@ -67,7 +72,7 @@
             </div>
         </div>
     </div>
-
+   
     <div class="col-12">
         <div class="form-check">
             <input asp-for=IsNew class="form-check-input" type="checkbox">
@@ -83,4 +88,10 @@
         <a asp-action="PersonalAccount" class="w-100 btn btn-secondary">Cкасувати</a>
     </div>
 </form>
-<script src="~/js/user_add_advert_script.js"></script>
+
+@section Scripts {
+    @{
+        <script src="~/js/user_add_advert_script.js"></script>
+        <partial name="_ValidationScriptsPartial.cshtml" />
+    }
+}
