@@ -13,7 +13,7 @@ namespace ASP.NET_OLX.Models.Data.Entities.Configs
             builder.Property(x => x.Description);
             builder.Property(x => x.Date);
             builder.Property(x => x.IsNew);
-            builder.Property(x => x.Price);
+            builder.Property(x => x.Price).HasPrecision(12,2);
             builder.HasOne(x=>x.City).WithMany(x=>x.Adverts);
             builder.HasOne(x => x.Category).WithMany(x => x.Adverts);
             builder.ToTable(t => t.HasCheckConstraint("SellerName_check", "[SellerName] <> ''"));
