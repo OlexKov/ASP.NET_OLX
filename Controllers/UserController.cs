@@ -36,8 +36,7 @@ namespace ASP.NET_OLX.Controllers
             adverts = context.Adverts.Include(x => x.Category).Include(x => x.City).Include(x => x.Images);
         }
 
-        public async Task<IActionResult> Index() => View(await adverts.ToArrayAsync());
-       
+               
         public async Task<bool> RemoveImageUrl(string url)
         {
             var deleteImage = await context.Images.FirstOrDefaultAsync(x=>x.Url == url);
