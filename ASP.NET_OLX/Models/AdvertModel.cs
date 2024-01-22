@@ -1,10 +1,4 @@
-﻿using ASP.NET_OLX.Models.Data.Entities;
-using Azure.Messaging;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.ComponentModel.DataAnnotations;
-
-namespace ASP.NET_OLX.Models
+﻿namespace ASP.NET_OLX.Models
 {
     public class AdvertModel
     {

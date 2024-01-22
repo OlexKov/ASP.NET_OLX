@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using ASP.NET_OLX_DATABASE.Entities;
 
-namespace ASP.NET_OLX.Models.Data.Entities.Configs
+namespace ASP.NET_OLX_DATABASE.Entities.Configs
 {
     public class CategoryConfig : IEntityTypeConfiguration<Category>
     {

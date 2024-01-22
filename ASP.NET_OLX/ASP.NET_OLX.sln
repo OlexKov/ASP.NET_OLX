@@ -5,8 +5,6 @@ VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASP.NET_OLX", "ASP.NET_OLX.csproj", "{FC3296D3-B40D-4242-BE14-9E8D3DE8898C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{1090296E-684F-402C-84B4-07F7FD687BF6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP.NET_OLX_DATABASE", "..\ASP.NET_OLX_DATABASE\ASP.NET_OLX_DATABASE.csproj", "{1DC599CE-FAD1-4C41-9183-CBFE6F82AC06}"
 EndProject
 Global
@@ -26,9 +24,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{1DC599CE-FAD1-4C41-9183-CBFE6F82AC06} = {1090296E-684F-402C-84B4-07F7FD687BF6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F695DD1-7D52-4321-AEC2-EA52029793FE}

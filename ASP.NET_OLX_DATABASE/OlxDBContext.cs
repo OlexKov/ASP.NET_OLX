@@ -1,15 +1,15 @@
-﻿using ASP.NET_OLX.Models.Data.Entities;
-using ASP.NET_OLX.Models.Data.Entities.Configs;
+﻿using ASP.NET_OLX_DATABASE.Entities.Configs;
+using ASP.NET_OLX_DATABASE.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace ASP.NET_OLX.Models.Data
+namespace ASP.NET_OLX_DATABASE
 {
-    public class OlxDBContext:DbContext
+    public class OlxDBContext : DbContext
     {
         public OlxDBContext(DbContextOptions options) : base(options)
         {
-           //Database.EnsureDeleted();
-           //Database.EnsureCreated();
+            //Database.EnsureDeleted();
+            //Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -22,7 +22,7 @@ namespace ASP.NET_OLX.Models.Data
             modelBuilder.ApplyConfiguration<Advert>(new AdvertConfig());
             DefaultData.Initialize(modelBuilder);
         }
-       
+
         public DbSet<City> Cities { get; set; }
 
         public DbSet<Category> Categories { get; set; }

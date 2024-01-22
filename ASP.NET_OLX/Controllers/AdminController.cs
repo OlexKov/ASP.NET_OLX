@@ -1,10 +1,7 @@
 ﻿using ASP.NET_OLX.Models;
-using ASP.NET_OLX.Models.Data;
-using ASP.NET_OLX.Models.Data.Entities;
+using ASP.NET_OLX_DATABASE;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
-using System;
 using System.Diagnostics;
 
 

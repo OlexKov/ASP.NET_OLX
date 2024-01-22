@@ -1,4 +1,4 @@
-﻿namespace ASP.NET_OLX.Models.Data.Entities
+﻿namespace ASP.NET_OLX_DATABASE.Entities
 {
     public class BaseEntity
     {

@@ -1,7 +1,7 @@
-using ASP.NET_OLX.Models.Data;
 using FluentValidation.AspNetCore;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using ASP.NET_OLX_DATABASE;
 
 namespace ASP.NET_OLX
 {
