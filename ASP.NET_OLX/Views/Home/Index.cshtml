@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Всі oголошення";
 }
-<h3 class="mb-3">@(@Model.Count() == 0 ? "Немає оголошень" :"Ми знайшли @Model.Count() оголошень")</h3>
+<h3 class="mb-3">@(@Model.Count() == 0 ? "Немає оголошень" :$"Ми знайшли {@Model.Count()} оголошень")</h3>
 <div class="d-flex flex-column gap-4 w-100">
     @foreach (var item in Model)
     {
