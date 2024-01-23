@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ASP.NET_OLX.Services
 {
-    public class AdvertRemover(IWebHostEnvironment env, IConfiguration config) : IAdvertRemover
+    public class AdvertRemover : IAdvertRemover
     {
-        public async Task RemoveAdvert(int id, OlxDBContext context)
+        public async Task RemoveAdvert(int id, OlxDBContext context, IWebHostEnvironment env, IConfiguration config)
         {
             var images = context.Images.Where(x => x.AdvertId == id);
             foreach (var image in images)

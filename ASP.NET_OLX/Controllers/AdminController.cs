@@ -25,9 +25,9 @@ namespace ASP.NET_OLX.Controllers
                 .FirstOrDefaultAsync(x=>x.Id == id));
         }
 
-        public async Task<IActionResult> DeleteElement(int id, [FromServices] AdvertRemover remover)
+        public async Task<IActionResult> DeleteElement(int id, [FromServices] AdvertRemover remover, [FromServices] IWebHostEnvironment env, [FromServices] IConfiguration config)
         {
-            await remover.RemoveAdvert(id, context);
+            await remover.RemoveAdvert(id, context, env, config);
             return RedirectToAction("Index");
         }
     }

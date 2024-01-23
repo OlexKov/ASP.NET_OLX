@@ -38,7 +38,7 @@ namespace ASP.NET_OLX.Controllers
             this.environment = env;
         }
 
-		[NonAction]
+		
 		public async Task RemoveImage(string url)
         {
             var deleteImage = await context.Images.FirstOrDefaultAsync(x=>x.Url == url) ?? new();
@@ -49,9 +49,9 @@ namespace ASP.NET_OLX.Controllers
 
         public async Task<IActionResult> ShowAdvert(int id) => View(await adverts.FirstOrDefaultAsync(x => x.Id == id));
 
-        public async Task<IActionResult> DeleteElement(int id, [FromServices] AdvertRemover remover)
+        public async Task<IActionResult> DeleteElement(int id, [FromServices] AdvertRemover remover, [FromServices] IWebHostEnvironment env, [FromServices] IConfiguration config)
         {
-            await remover.RemoveAdvert(id, context);
+            await remover.RemoveAdvert(id, context,env,config);
             return RedirectToAction("Index");
         }
 

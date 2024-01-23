@@ -3,6 +3,7 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using ASP.NET_OLX_DATABASE;
 using ASP.NET_OLX.Services;
+using ASP.NET_OLX.Services.Interfaces;
 
 namespace ASP.NET_OLX
 {
@@ -28,7 +29,7 @@ namespace ASP.NET_OLX
             // Load an assembly reference rather than using a marker type.
             builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 
-            builder.Services.AddScoped<AdvertRemover>(x => new AdvertRemover(builder.Environment,builder.Configuration));
+            builder.Services.AddScoped<AdvertRemover>(x=> new());
 
             var app = builder.Build();
 
