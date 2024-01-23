@@ -8,24 +8,11 @@ using System.Diagnostics;
 
 namespace ASP.NET_OLX.Controllers
 {
-    public class HomeController : Controller
-    {
-        private readonly OlxDBContext context;
-        private readonly IIncludableQueryable<Advert, ICollection<Image>> adverts;
+    public class HomeController : AdvertShowController
+	{
+        public HomeController(OlxDBContext context):base(context){}
 
-        public HomeController(OlxDBContext context)
-        {
-            this.context = context;
-            adverts = context.Adverts.Include(x => x.Category).Include(x => x.City).Include(x => x.Images);
-        }
-
-        public async Task<IActionResult> Index() => View(await adverts.ToArrayAsync());
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        public override async Task<IActionResult> Index() => await base.Index();
+       
     }
 }

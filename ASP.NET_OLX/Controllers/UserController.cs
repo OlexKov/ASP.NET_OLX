@@ -8,20 +8,20 @@ using System.Diagnostics;
 
 namespace ASP.NET_OLX.Controllers
 {
-    public class UserController : Controller
-    {
-        private readonly OlxDBContext context;
+    public class UserController : AdvertShowDeleteController
+	{
         private readonly IWebHostEnvironment environment;
         private readonly IConfiguration configuration;
-        private readonly IIncludableQueryable<Advert, ICollection<Image>> adverts;
 
-        private async Task setDataToBag()
+		[NonAction]
+		private async Task setDataToBag()
         {
 			ViewBag.Categories = await context.Categories.Select(x => x.Name).ToArrayAsync();
 			ViewBag.Cities = await context.Cities.Select(x => x.Name).ToArrayAsync();
 		}
 
-        private async Task<string> saveImage(IFormFile file)
+		[NonAction]
+		private async Task<string> saveImage(IFormFile file)
         {
             string fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(file.FileName);
             string filePath = Path.Combine(environment.WebRootPath, configuration["UserImgDir"] ?? string.Empty, fileName);
@@ -31,16 +31,14 @@ namespace ASP.NET_OLX.Controllers
             return imageUrl.AbsoluteUri;
         }
 
-        public UserController(OlxDBContext context, IWebHostEnvironment env, IConfiguration config)
+        public UserController(OlxDBContext context, IWebHostEnvironment env, IConfiguration config):base(context)
         {
             this.configuration = config;
             this.environment = env;
-            this.context = context;
-            adverts = context.Adverts.Include(x => x.Category).Include(x => x.City).Include(x => x.Images);
         }
 
-               
-        public async Task RemoveImage(string url)
+		[NonAction]
+		public async Task RemoveImage(string url)
         {
             var deleteImage = await context.Images.FirstOrDefaultAsync(x=>x.Url == url) ?? new();
             context.Images.Remove(deleteImage);
@@ -68,12 +66,9 @@ namespace ASP.NET_OLX.Controllers
 			return View("AddAdvert", advertModel);
         }
 
-        public async Task<IActionResult> PersonalAccount()
-        {
-            return View(await adverts.ToArrayAsync());
-        }
-   
-        [HttpPost]
+		public override async Task<IActionResult> Index() => await base.Index();
+
+		[HttpPost]
         public async Task<IActionResult> Create(AdvertModel advertModel)
         {
             if (!ModelState.IsValid)
@@ -114,13 +109,8 @@ namespace ASP.NET_OLX.Controllers
             if(advertModel.Id == 0)
                 await context.Adverts.AddAsync(advert);
             await context.SaveChangesAsync();
-            return RedirectToAction("PersonalAccount");
+            return RedirectToAction("Index");
         }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+      
     }
 }
