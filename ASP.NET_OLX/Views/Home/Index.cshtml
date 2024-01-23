@@ -2,11 +2,11 @@
 @{
     ViewData["Title"] = "Всі oголошення";
 }
-<h3 class="mb-3">Ми знайшли @Model.Count() оголошень</h3>
+<h3 class="mb-3">@(@Model.Count() == 0 ? "Немає оголошень" :"Ми знайшли @Model.Count() оголошень")</h3>
 <div class="d-flex flex-column gap-4 w-100">
     @foreach (var item in Model)
     {
-        <a asp-action="ShowAdvert" cursor:="pointer" asp-route-id="@item.Id" class="text-decoration-none">
+        <a asp-action="ShowAdvert" cursor:="pointer" asp-route-id="@item.Id" class="text-muted text-decoration-none">
         <div class=" w-100 d-flex  p-1 rounded border border-1 bg-white">
             <div style="min-height:140px;min-width:200px;max-height:140px;max-width:200px">
                 @if (@item.Images.Count() > 0)
