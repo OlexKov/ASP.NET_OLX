@@ -1,4 +1,5 @@
 using ASP.NET_OLX.Models;
+using ASP.NET_OLX.Services;
 using ASP.NET_OLX_DATABASE;
 using ASP.NET_OLX_DATABASE.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,7 @@ using System.Diagnostics;
 
 namespace ASP.NET_OLX.Controllers
 {
-    public class UserController : AdvertShowDeleteController
+    public class UserController : BaseController
 	{
         private readonly IWebHostEnvironment environment;
         private readonly IConfiguration configuration;
@@ -44,6 +45,14 @@ namespace ASP.NET_OLX.Controllers
             context.Images.Remove(deleteImage);
             await context.SaveChangesAsync();
             System.IO.File.Delete(Path.Combine(environment.WebRootPath, configuration["UserImgDir"] ?? string.Empty, Path.GetFileName(url)));
+        }
+
+        public async Task<IActionResult> ShowAdvert(int id) => View(await adverts.FirstOrDefaultAsync(x => x.Id == id));
+
+        public async Task<IActionResult> DeleteElement(int id, [FromServices] AdvertRemover remover)
+        {
+            await remover.RemoveAdvert(id, context);
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> AddAdvert(int id)

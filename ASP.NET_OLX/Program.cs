@@ -2,6 +2,7 @@ using FluentValidation.AspNetCore;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using ASP.NET_OLX_DATABASE;
+using ASP.NET_OLX.Services;
 
 namespace ASP.NET_OLX
 {
@@ -22,10 +23,12 @@ namespace ASP.NET_OLX
             // enable client-side validation
             builder.Services.AddFluentValidationClientsideAdapters();
 
-           builder.Services.AddFluentValidationAutoValidation();
+            builder.Services.AddFluentValidationAutoValidation();
 
             // Load an assembly reference rather than using a marker type.
             builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+
+            builder.Services.AddScoped<AdvertRemover>(x => new AdvertRemover(builder.Environment,builder.Configuration));
 
             var app = builder.Build();
 

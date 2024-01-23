@@ -8,11 +8,13 @@ using System.Diagnostics;
 
 namespace ASP.NET_OLX.Controllers
 {
-    public class HomeController : AdvertShowController
+    public class HomeController : BaseController
 	{
         public HomeController(OlxDBContext context):base(context){}
 
         public override async Task<IActionResult> Index() => await base.Index();
-       
+
+        public async Task<IActionResult> ShowAdvert(int id) => View(await adverts.FirstOrDefaultAsync(x => x.Id == id));
+
     }
 }
