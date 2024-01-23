@@ -1,5 +1,53 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Advert
 @{
 }
+<a asp-action="Index" class="mb-3 btn btn-info">Повернутися</a>
+<div class="d-flex gap-3">
+
+    <div class="w-70 d-flex flex-column gap-3 ">
+        <div id="carousel" class="border rounded-3 p-1 carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                @for (int i = 0; i < Model.Images.Count(); i++)
+                {
+                    string @cls = @i == 0 ? "active" : "";
+                    <button class=@cls type="button" data-bs-target="#carousel" data-bs-slide-to=@i aria-label=$"Slide {@i}"></button>
+                }
+            </div>
+            <div class="carousel-inner">
+                @for (int i = 0; i < Model.Images.Count(); i++)
+                {
+                    string @cls = @i == 0 ? "active" : "";
+                    <div class="b-gray carousel-item @cls ">
+                        <img src=@Model.Images.ElementAt(@i).Url class="d-block  m-auto" style="height:60vh;">
+                    </div>
+                }
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="border rounded-3 p-3">
+            <h5>Опис</h5>
+            <p>@Model.Description</p>
+        </div>
+    </div>
+    <div class="w-30 d-flex flex-column gap-3 ">
+        <div class="border rounded-3 p-3">
+            <h3 class="fs-6 text-muted">@Model.Date.ToShortDateString()</h3>
+            <h5>@Model.Title</h5>
+            <h5>@Model.Price гр.</h5>
+        </div>
+        
+        <div class="border rounded-3 p-3">
+            <h5>Користувач</h5>
+            <p>@Model.SellerName</p>
+            <p>@Model.City.Name</p>
+        </div>
+    </div>
+   
+</div>
