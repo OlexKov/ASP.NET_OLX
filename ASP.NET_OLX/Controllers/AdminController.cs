@@ -22,11 +22,11 @@ namespace ASP.NET_OLX.Controllers
             
         public async Task<IActionResult> ShowPartialView(int id)
         {
-            var element = await context.Adverts
+			return PartialView("_ShowPartialView", await context.Adverts
                 .Include(x => x.Category)
-                .Include(x => x.City).Include(x => x.Images)
-                .FirstOrDefaultAsync(x=>x.Id == id);
-            return PartialView("_ShowPartialView", element);
+                .Include(x => x.City)
+                .Include(x => x.Images)
+                .FirstOrDefaultAsync(x=>x.Id == id));
         }
 
         public async Task<IActionResult> DeleteElement(int id, [FromServices] IWebHostEnvironment env, [FromServices] IConfiguration config)
