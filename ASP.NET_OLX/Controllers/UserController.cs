@@ -27,8 +27,8 @@ namespace ASP.NET_OLX.Controllers
             string filePath = Path.Combine(environment.WebRootPath, configuration["UserImgDir"] ?? string.Empty, fileName);
             using Stream fileStream = new FileStream(filePath, FileMode.Create);
             await file.CopyToAsync(fileStream);
-            var location = new Uri($"{Request.Scheme}://{Request.Host}/{configuration["UserImgDir"]}/{fileName}");
-            return location.AbsoluteUri;
+            var imageUrl = new Uri($"{Request.Scheme}://{Request.Host}/{configuration["UserImgDir"]}/{fileName}");
+            return imageUrl.AbsoluteUri;
         }
 
         public UserController(OlxDBContext context, IWebHostEnvironment env, IConfiguration config)
