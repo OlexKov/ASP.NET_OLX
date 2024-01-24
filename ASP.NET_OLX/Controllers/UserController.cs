@@ -58,9 +58,10 @@ namespace ASP.NET_OLX.Controllers
 
         public async Task<IActionResult> AddAdvert(int id)
         {
-            var advertModel = new AdvertModel();
+            setDataToBag();
             if (id != 0)
             {
+                var advertModel = new AdvertModel();
                 var advert = await adverts.FirstOrDefaultAsync(x => x.Id == id) ?? new();
                 advertModel.Id = advert.Id;
                 advertModel.SellerName = advert.SellerName;
@@ -73,9 +74,9 @@ namespace ASP.NET_OLX.Controllers
                 advertModel.IsNew = advert.IsNew;
                 advertModel.Price = advert.Price;
                 advertModel.ImagesUrls = advert.Images.Select(x=>x.Url).ToList();
+                return View("AddAdvert", advertModel);
             }
-			setDataToBag();
-			return View("AddAdvert", advertModel);
+			return View("AddAdvert");
         }
 
 		public override async Task<IActionResult> Index() => await base.Index();
@@ -83,13 +84,14 @@ namespace ASP.NET_OLX.Controllers
 		[HttpPost]
         public async Task<IActionResult> Create(AdvertModel advertModel)
         {
+            Advert advert;
+
             if (!ModelState.IsValid)
             {
                 setDataToBag();
 				return View("AddAdvert", advertModel);
             }
-            Advert advert;
-         
+              
             if (advertModel.Id != 0)
             {
                 advert = await adverts.FirstOrDefaultAsync(x=>x.Id == advertModel.Id) ?? new();
