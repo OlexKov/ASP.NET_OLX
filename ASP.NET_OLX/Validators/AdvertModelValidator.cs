@@ -11,6 +11,7 @@ namespace ASP.NET_OLX.Validators
                 .NotEmpty().WithMessage("Опис  не може бути пустим")
                 .Length(10, 2000).WithMessage("Опис має містити від 10 до 2000 символів");
             RuleFor(x => x.Price)
+                .NotEmpty().WithMessage("Ціна не може бути пустою")
                 .GreaterThanOrEqualTo(0)
                 .WithMessage("Ціна не може менше нуля");
             RuleFor(x => x.Title)
