@@ -65,18 +65,16 @@ namespace ASP.NET_OLX.Controllers
                 var advert = await adverts.FirstOrDefaultAsync(x => x.Id == id) ?? new();
                 advertModel.Id = advert.Id;
                 advertModel.SellerName = advert.SellerName;
-                advertModel.City = advert.City;
                 advertModel.CategoryId = advert.CategoryId;
                 advertModel.CityId = advert.CityId;
-                advertModel.Category = advert.Category;
                 advertModel.Title = advert.Title;
                 advertModel.Description = advert.Description;
                 advertModel.IsNew = advert.IsNew;
                 advertModel.Price = advert.Price;
                 advertModel.ImagesUrls = advert.Images.Select(x=>x.Url).ToList();
-                return View("AddAdvert", advertModel);
+                return View(advertModel);
             }
-			return View("AddAdvert");
+			return View();
         }
 
 		public override async Task<IActionResult> Index() => await base.Index();
