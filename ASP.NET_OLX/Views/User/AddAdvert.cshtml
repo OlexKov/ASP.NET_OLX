@@ -44,8 +44,8 @@
     </div>
     
     <div class="col-12">
-        <label asp-for=Images class="fw-bold form-label">@(Model == null ? "Фото" : "Додати фото")</label>
-        <input  data-val="false" id="imageFiles" asp-for=Images type="file" class="mb-3 form-control" multiple onchange="displayNames(this)" accept="image/png, image/jpeg , image/jpg , image/webp">
+        <label asp-for=ImageFiles class="fw-bold form-label">@(Model == null ? "Фото" : "Додати фото")</label>
+        <input  data-val="false" id="imageFiles" asp-for=ImageFiles type="file" class="mb-3 form-control" multiple onchange="displayNames(this)" accept="image/png, image/jpeg , image/jpg , image/webp">
         <span id="imagesError" class="form-text text-danger"></span>
     </div>
    

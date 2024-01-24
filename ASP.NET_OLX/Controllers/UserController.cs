@@ -2,6 +2,8 @@ using ASP.NET_OLX.Models;
 using ASP.NET_OLX.Services;
 using ASP.NET_OLX_DATABASE;
 using ASP.NET_OLX_DATABASE.Entities;
+using AutoMapper;
+using Microsoft.AspNetCore.Components.Forms.Mapping;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,8 +16,9 @@ namespace ASP.NET_OLX.Controllers
 	{
         private readonly IWebHostEnvironment environment;
         private readonly IConfiguration configuration;
+        private readonly IMapper mapper;
 
-		[NonAction]
+        [NonAction]
 		private  void setDataToBag()
         {
             ViewBag.Categories = new SelectList(context.Categories.ToList(), nameof(Category.Id), nameof(Category.Name));
@@ -33,8 +36,9 @@ namespace ASP.NET_OLX.Controllers
             return imageUrl.AbsoluteUri;
         }
 
-        public UserController(OlxDBContext context, IWebHostEnvironment env, IConfiguration config):base(context)
+        public UserController(OlxDBContext context, IWebHostEnvironment env, IConfiguration config, IMapper mapper) :base(context)
         {
+            this.mapper = mapper;
             this.configuration = config;
             this.environment = env;
         }
@@ -61,16 +65,9 @@ namespace ASP.NET_OLX.Controllers
             setDataToBag();
             if (id != 0)
             {
-                var advertModel = new AdvertModel();
-                var advert = await adverts.FirstOrDefaultAsync(x => x.Id == id) ?? new();
-                advertModel.Id = advert.Id;
-                advertModel.SellerName = advert.SellerName;
-                advertModel.CategoryId = advert.CategoryId;
-                advertModel.CityId = advert.CityId;
-                advertModel.Title = advert.Title;
-                advertModel.Description = advert.Description;
-                advertModel.IsNew = advert.IsNew;
-                advertModel.Price = advert.Price;
+                var advert = await adverts.FirstOrDefaultAsync(x => x.Id == id);
+                if (advert == null) return NotFound();
+                AdvertModel advertModel = mapper.Map<AdvertModel>(advert);
                 advertModel.ImagesUrls = advert.Images.Select(x=>x.Url).ToList();
                 return View(advertModel);
             }
@@ -82,7 +79,7 @@ namespace ASP.NET_OLX.Controllers
 		[HttpPost]
         public async Task<IActionResult> Create(AdvertModel advertModel)
         {
-            Advert advert;
+            Advert? advert;
 
             if (!ModelState.IsValid)
             {
@@ -91,36 +88,22 @@ namespace ASP.NET_OLX.Controllers
             }
               
             if (advertModel.Id != 0)
-            {
-                advert = await adverts.FirstOrDefaultAsync(x=>x.Id == advertModel.Id) ?? new();
-                advert.Description = advertModel.Description ?? string.Empty;
-                advert.SellerName = advertModel.SellerName ?? string.Empty;
-				advert.IsNew = advertModel.IsNew;
-                advert.CategoryId = advertModel.CategoryId;
-                advert.CityId = advertModel.CityId;
-                advert.Price = advertModel.Price;
-                advert.Title = advertModel.Title ?? string.Empty;
-            }
+                advert = mapper.Map<Advert>(advertModel);
+                 
             else
             {
-                advert = new Advert
-                {
-                    Date = DateTime.Now,
-                    Description = advertModel.Description ?? string.Empty,
-                    SellerName = advertModel.SellerName ?? string.Empty,
-                    IsNew = advertModel.IsNew,
-                    CategoryId = advertModel.CategoryId,
-                    CityId = advertModel.CityId,
-                    Price = advertModel.Price,
-                    Title = advertModel.Title ?? string.Empty
-				};
+                advert = mapper.Map<Advert>(advertModel);
+                advert.Date = DateTime.Now;
             }
-            foreach (var item in advertModel.Images)
+
+            foreach (var item in advertModel.ImageFiles)
                 advert.Images.Add(new Image() { Url = await saveImage(item) });
+
             if(advertModel.Id == 0)
                 await context.Adverts.AddAsync(advert);
             else
                 context.Adverts.Update(advert);
+
             await context.SaveChangesAsync();
             return RedirectToAction("Index");
         }

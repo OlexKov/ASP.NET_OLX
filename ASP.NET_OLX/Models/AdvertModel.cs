@@ -22,6 +22,6 @@ namespace ASP.NET_OLX.Models
 
         public List<string> ImagesUrls { get; set; } = [];
 
-        public List<IFormFile> Images { get; set; } = [];
+        public List<IFormFile> ImageFiles { get; set; } = [];
     }
 }

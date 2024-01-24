@@ -31,6 +31,9 @@ namespace ASP.NET_OLX
 
             builder.Services.AddScoped<AdvertRemover>(x=> new());
 
+            // auto mapper
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
