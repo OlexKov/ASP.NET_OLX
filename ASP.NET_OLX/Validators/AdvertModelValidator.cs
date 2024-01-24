@@ -20,6 +20,10 @@ namespace ASP.NET_OLX.Validators
                 .NotEmpty().WithMessage("Ім'я не може бути пустим")
                 .Matches(@"^[A-Z А-Я].*").WithMessage("Ім'я повинно починатися з великої букви")
                 .Length(2, 60).WithMessage("Ім'я має містити від 2 до 60 символів");
+            RuleFor(x => x.CategoryId)
+               .NotEmpty().WithMessage("Категорія не обрана");
+            RuleFor(x => x.CityId)
+               .NotEmpty().WithMessage("Miсто не обране");
         }
     }
 }

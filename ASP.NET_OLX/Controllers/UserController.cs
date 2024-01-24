@@ -3,6 +3,7 @@ using ASP.NET_OLX.Services;
 using ASP.NET_OLX_DATABASE;
 using ASP.NET_OLX_DATABASE.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Diagnostics;
@@ -15,11 +16,11 @@ namespace ASP.NET_OLX.Controllers
         private readonly IConfiguration configuration;
 
 		[NonAction]
-		private async Task setDataToBag()
+		private  void setDataToBag()
         {
-			ViewBag.Categories = await context.Categories.Select(x => x.Name).ToArrayAsync();
-			ViewBag.Cities = await context.Cities.Select(x => x.Name).ToArrayAsync();
-		}
+            ViewBag.Categories = new SelectList(context.Categories.ToList(), nameof(Category.Id), nameof(Category.Name));
+            ViewBag.Cities = new SelectList(context.Cities.ToList(), nameof(City.Id), nameof(City.Name));
+        }
 
 		[NonAction]
 		private async Task<string> saveImage(IFormFile file)
@@ -63,15 +64,17 @@ namespace ASP.NET_OLX.Controllers
                 var advert = await adverts.FirstOrDefaultAsync(x => x.Id == id) ?? new();
                 advertModel.Id = advert.Id;
                 advertModel.SellerName = advert.SellerName;
-                advertModel.City = advert.City.Name;
-                advertModel.Category = advert.Category.Name;
+                advertModel.City = advert.City;
+                advertModel.CategoryId = advert.CategoryId;
+                advertModel.CityId = advert.CityId;
+                advertModel.Category = advert.Category;
                 advertModel.Title = advert.Title;
                 advertModel.Description = advert.Description;
                 advertModel.IsNew = advert.IsNew;
                 advertModel.Price = advert.Price;
                 advertModel.ImagesUrls = advert.Images.Select(x=>x.Url).ToList();
             }
-			await setDataToBag();
+			setDataToBag();
 			return View("AddAdvert", advertModel);
         }
 
@@ -82,20 +85,19 @@ namespace ASP.NET_OLX.Controllers
         {
             if (!ModelState.IsValid)
             {
-                await setDataToBag();
+                setDataToBag();
 				return View("AddAdvert", advertModel);
             }
             Advert advert;
-            var category = await context.Categories.FirstOrDefaultAsync(x => x.Name == advertModel.Category) ?? new();
-            var city = await context.Cities.FirstOrDefaultAsync(x => x.Name == advertModel.City) ?? new();
+         
             if (advertModel.Id != 0)
             {
                 advert = await adverts.FirstOrDefaultAsync(x=>x.Id == advertModel.Id) ?? new();
                 advert.Description = advertModel.Description ?? string.Empty;
                 advert.SellerName = advertModel.SellerName ?? string.Empty;
 				advert.IsNew = advertModel.IsNew;
-                advert.CategoryId = category.Id;
-                advert.CityId = city.Id;
+                advert.CategoryId = advertModel.CategoryId;
+                advert.CityId = advertModel.CityId;
                 advert.Price = advertModel.Price;
                 advert.Title = advertModel.Title ?? string.Empty;
             }
@@ -107,8 +109,8 @@ namespace ASP.NET_OLX.Controllers
                     Description = advertModel.Description ?? string.Empty,
                     SellerName = advertModel.SellerName ?? string.Empty,
                     IsNew = advertModel.IsNew,
-                    CategoryId = category.Id,
-                    CityId = city.Id,
+                    CategoryId = advertModel.CategoryId,
+                    CityId = advertModel.CityId,
                     Price = advertModel.Price,
                     Title = advertModel.Title ?? string.Empty
 				};
@@ -117,6 +119,8 @@ namespace ASP.NET_OLX.Controllers
                 advert.Images.Add(new Image() { Url = await saveImage(item) });
             if(advertModel.Id == 0)
                 await context.Adverts.AddAsync(advert);
+            else
+                context.Adverts.Update(advert);
             await context.SaveChangesAsync();
             return RedirectToAction("Index");
         }

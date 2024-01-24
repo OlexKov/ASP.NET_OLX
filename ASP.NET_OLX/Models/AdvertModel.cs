@@ -1,14 +1,20 @@
-﻿namespace ASP.NET_OLX.Models
+﻿using ASP.NET_OLX_DATABASE.Entities;
+
+namespace ASP.NET_OLX.Models
 {
     public class AdvertModel
     {
         public int Id { get; set; }
 
-        public string? SellerName { get; set; } 
+        public string? SellerName { get; set; }
 
-        public string City { get; set; }
+        public int CityId { get; set; }
 
-        public string Category { get; set; } 
+        public City City { get; set; } = new() { Name="NoName"};
+
+        public int CategoryId { get; set; }
+
+        public Category Category { get; set; } = new() { Name = "NoName" };
 
         public string? Title { get; set; }
         

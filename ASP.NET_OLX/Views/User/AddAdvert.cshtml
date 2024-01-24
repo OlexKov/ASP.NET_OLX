@@ -17,24 +17,18 @@
     </div>
    
     <div class="col-md-6">
-        <label asp-for=City class="fw-bold form-label">Місто</label>
-        <select asp-for=City class="form-select">
-            <option selected>@ViewBag.Cities[0]</option>
-            @for (int i = 1; i < @ViewBag.Cities.Length; i++)
-            {
-                <option>@ViewBag.Cities[i]</option>
-            }
+        <label asp-for=CityId class="fw-bold form-label">Місто</label>
+        <select  asp-for=CityId asp-items="ViewBag.Cities" class="form-select">
+            <option selected disabled>Оберіть місто</option>
         </select>
+        <span asp-validation-for=CityId class="form-text text-danger"></span>
     </div>
     <div class="col-md-6">
-        <label asp-for=Category class="fw-bold form-label">Категорія</label>
-        <select asp-for=Category class="form-select">
-            <option selected>@ViewBag.Categories[0]</option>
-            @for (int i = 1; i < @ViewBag.Categories.Length; i++)
-            {
-                <option>@ViewBag.Categories[i]</option>
-            }
+        <label asp-for=CategoryId class="fw-bold form-label">Категорія</label>
+        <select  asp-for=CategoryId asp-items="ViewBag.Categories" class="form-select">
+            <option selected disabled>Оберіть категорію</option>
         </select>
+        <span asp-validation-for=CategoryId class="form-text text-danger"></span>
     </div>
 
     <div class="col-md-12">

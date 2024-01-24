@@ -33,8 +33,8 @@
                     <a asp-action="DeleteElement" asp-route-id="@item.Id" class="btn btn-danger">Видалити</a>
                 </div>
                 <div class="d-flex justify-content-between mt-auto">
-                    <small class="text-muted">@item.Date.ToShortDateString()</small>
-                    <small class="text-muted">@item.Category.Name</small>
+                    <small>@item.Date.ToShortDateString()</small>
+                    <small>@item.Category.Name</small>
                 </div>
             </div>
         </div>
