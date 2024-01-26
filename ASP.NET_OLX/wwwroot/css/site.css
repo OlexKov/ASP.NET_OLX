@@ -52,3 +52,20 @@ body {
     background-color:lightgray;
 }
 
+.card img {
+    padding: 10px;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.card .title-link {
+    text-decoration: none;
+    color: black;
+}
+
+    .card .title-link:hover {
+        text-decoration: underline;
+        color: darkgray;
+    }
+

@@ -1,0 +1,10 @@
+﻿@model Advert[];
+
+<div class="text-center">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+        @foreach (var i in Model)
+        {
+           <partial name="_AdvertCardPartial" model="@i" />
+        }
+    </div>
+</div>

@@ -1,4 +1,5 @@
-﻿@model AdvertModel
+﻿
+@model AdvertModel
 
 @{
     ViewData["Title"] = Model == null ? "Створення нового оголошення" : "Редагування оголошення";
@@ -25,7 +26,7 @@
     </div>
     <div class="col-md-6">
         <label asp-for=CategoryId class="fw-bold form-label">Категорія</label>
-        <select  asp-for=CategoryId asp-items="ViewBag.Categories" class="form-select">
+        <select asp-for=CategoryId asp-items="ViewBag.Categories" class="form-select">
             <option selected disabled>Оберіть категорію</option>
         </select>
         <span asp-validation-for=CategoryId class="form-text text-danger"></span>
@@ -83,9 +84,10 @@
     </div>
 </form>
 
+
 @section Scripts {
     @{
-        <script src="~/js/user_add_advert_script.js"></script>
-        <partial name="_ValidationScriptsPartial.cshtml" />
+            <script src="~/js/user_add_advert_script.js"></script>
+            <partial name="_ValidationScriptsPartial.cshtml" />
     }
 }

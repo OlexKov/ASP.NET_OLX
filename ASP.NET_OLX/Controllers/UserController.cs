@@ -80,7 +80,7 @@ namespace ASP.NET_OLX.Controllers
         public async Task<IActionResult> Create(AdvertModel advertModel)
         {
             Advert? advert;
-
+            
             if (!ModelState.IsValid)
             {
                 setDataToBag();
@@ -89,7 +89,6 @@ namespace ASP.NET_OLX.Controllers
               
             if (advertModel.Id != 0)
                 advert = mapper.Map<Advert>(advertModel);
-                 
             else
             {
                 advert = mapper.Map<Advert>(advertModel);
@@ -107,6 +106,5 @@ namespace ASP.NET_OLX.Controllers
             await context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-      
     }
 }

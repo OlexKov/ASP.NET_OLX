@@ -1,7 +1,6 @@
 ﻿using ASP.NET_OLX.Models;
 using ASP.NET_OLX_DATABASE;
 using ASP.NET_OLX_DATABASE.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
@@ -9,7 +8,7 @@ using System.Diagnostics;
 
 namespace ASP.NET_OLX.Controllers
 {
-	public class BaseController : Controller
+    public class BaseController : Controller
 	{
 		protected readonly OlxDBContext context;
 		protected readonly IIncludableQueryable<Advert, ICollection<Image>> adverts;

@@ -1,18 +1,28 @@
-﻿using ASP.NET_OLX.Models;
-using ASP.NET_OLX_DATABASE;
+﻿using ASP.NET_OLX_DATABASE;
 using ASP.NET_OLX_DATABASE.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
-using System.Diagnostics;
 
 namespace ASP.NET_OLX.Controllers
 {
-    public class HomeController : BaseController
+	public class HomeController :Controller
 	{
-        public HomeController(OlxDBContext context):base(context){}
+		protected readonly OlxDBContext context;
+		protected readonly IIncludableQueryable<Advert, ICollection<Image>> adverts;
 
-        public override async Task<IActionResult> Index() => await base.Index();
+		public HomeController(OlxDBContext context)
+		{
+			this.context = context;
+			adverts = context.Adverts.Include(x => x.Category).Include(x => x.City).Include(x => x.Images);
+		}
+
+        public async Task<IActionResult> Index(string partial) 
+        {
+            if (partial == null) ViewBag.Partial = "_ShowAdvertsPartial";
+            else ViewBag.Partial = partial;
+			return View(await adverts.ToArrayAsync());
+		}
 
         public async Task<IActionResult> ShowAdvert(int id) => View(await adverts.FirstOrDefaultAsync(x => x.Id == id));
 
