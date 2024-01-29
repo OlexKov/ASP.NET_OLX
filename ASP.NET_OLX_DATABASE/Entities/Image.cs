@@ -1,6 +1,7 @@
-﻿namespace ASP.NET_OLX_DATABASE.Entities
+﻿
+namespace DataAccess.Entities
 {
-    public class Image : BaseEntity
+	public class Image : BaseEntity
     {
         public string Url { get; set; }
         public int AdvertId { get; set; }

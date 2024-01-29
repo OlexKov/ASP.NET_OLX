@@ -1,5 +1,6 @@
 ﻿@model Advert[]
 <div class="d-flex flex-column gap-4 w-100">
+    <input id="element-count" value="@Model.Count()" class="d-none" />
     @foreach (var item in Model)
     {
         <a asp-action="ShowAdvert" cursor:="pointer" asp-route-id="@item.Id" class="text-muted text-decoration-none">

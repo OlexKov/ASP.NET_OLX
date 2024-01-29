@@ -1,18 +1,15 @@
-using ASP.NET_OLX.Models;
-using ASP.NET_OLX.Services;
-using ASP.NET_OLX_DATABASE;
-using ASP.NET_OLX_DATABASE.Entities;
+using ApplicationCore.Models;
+using ApplicationCore.Services;
 using AutoMapper;
-using Microsoft.AspNetCore.Components.Forms.Mapping;
+using DataAccess;
+using DataAccess.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
-using System.Diagnostics;
 
 namespace ASP.NET_OLX.Controllers
 {
-    public class UserController : BaseController
+	public class UserController : BaseController
 	{
         private readonly IWebHostEnvironment environment;
         private readonly IConfiguration configuration;

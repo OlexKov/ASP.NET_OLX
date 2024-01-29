@@ -1,13 +1,11 @@
-using FluentValidation.AspNetCore;
-using FluentValidation;
 using Microsoft.EntityFrameworkCore;
-using ASP.NET_OLX_DATABASE;
-using ASP.NET_OLX.Services;
-using ASP.NET_OLX.Services.Interfaces;
+using DataAccess;
+using BusinessLogic;
+using ApplicationCore.Services;
 
 namespace ASP.NET_OLX
 {
-    public class Program
+	public class Program
     {
         public static void Main(string[] args)
         {
@@ -20,19 +18,15 @@ namespace ASP.NET_OLX
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-          
-            // enable client-side validation
-            builder.Services.AddFluentValidationClientsideAdapters();
+			// enable client-side validation
+			builder.Services.AddAutoMapper();
 
-            builder.Services.AddFluentValidationAutoValidation();
+			builder.Services.AddFluentValidator();
 
-            // Load an assembly reference rather than using a marker type.
-            builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
-
-            builder.Services.AddScoped<AdvertRemover>(x=> new());
+			builder.Services.AddAdvertRemover();
 
             // auto mapper
-            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+          
 
             var app = builder.Build();
 

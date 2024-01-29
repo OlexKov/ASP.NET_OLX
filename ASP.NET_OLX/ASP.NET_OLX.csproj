@@ -7,17 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="12.0.1" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="wwwroot\UsersAdvertsImages\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ASP.NET_OLX_DATABASE\ASP.NET_OLX_DATABASE.csproj" />
+    <ProjectReference Include="..\ApplicationCore\ApplicationCore.csproj" />
+    <ProjectReference Include="..\ASP.NET_OLX_DATABASE\DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

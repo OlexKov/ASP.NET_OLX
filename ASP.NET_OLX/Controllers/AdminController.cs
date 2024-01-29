@@ -1,14 +1,13 @@
-﻿using ASP.NET_OLX.Models;
-using ASP.NET_OLX.Services;
-using ASP.NET_OLX_DATABASE;
+﻿using ApplicationCore.Services;
+using DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
+
 
 
 namespace ASP.NET_OLX.Controllers
 {
-    public class AdminController : BaseController
+	public class AdminController : BaseController
 	{
         public AdminController(OlxDBContext context):base(context){}
 

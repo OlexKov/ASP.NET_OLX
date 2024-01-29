@@ -1,14 +1,120 @@
 ﻿@model Advert[]
 @{
-    ViewData["Title"] = "Всі oголошення";
+	ViewData["Title"] = "Всі oголошення";
 }
-<div class="d-flex justify-content-between my-2 ">
-	<h3 class="mb-3">@(@Model.Count() == 0 ? "Немає оголошень" : $"Ми знайшли {@Model.Count()} оголошень")</h3>
-	<div class="d-flex gap-2 ">
-		<a asp-action="Index" asp-route-partial="_ShowAdvertsPartial" class="material-icons mb-3 btn btn-info">list</a>
-		<a asp-action="Index" asp-route-partial="_ShowAdvertsDashboardPartial" class="material-icons mb-3 btn btn-info">dashboard</a>
+
+
+<div class=" d-flex  gap-2 justify-content-between p-2 bg-light">
+	<div class="input-group">
+		<div class="input-group-text material-icons" id="btnGroupAddon">search</div>
+		<input type="text" class="form-control" id="find-str" placeholder="Що шукаєте?">
 	</div>
+	<div class="input-group">
+		<span class="material-icons input-group-text" id="basic-addon1">room</span>
+		<input class="form-control" list="datalistOptions" id="find-city" placeholder="Де шукаєте?">
+		<datalist id="datalistOptions">
+			<option default>Всі міста</option>
+			@foreach (var item in ViewBag.Cities)
+			{
+				<option default>@item.Name</option>
+			}
+		</datalist>
+	</div>
+	<button class="btn btn-outline-success me-2" id="find-button" type="button">Знайти</button>
+</div>
+<div class=" d-flex  gap-2  p-2 bg-light">
+	<div class="input-group">
+		<div class="input-group-text material-icons" id="category">category</div>
+		<select id="filter-category" class="form-select">
+			<option default>Всі категорії</option>
+			@foreach (var item in ViewBag.Categories)
+			{
+				<option default>@item.Name</option>
+			}
+		</select>
+	</div>
+
+	<div class="input-group">
+		<span class="input-group-text">Ціна</span>
+		<input type="text" class="form-control" id="price-from" placeholder="від">
+		<input type="text" class="form-control" id="price-to" placeholder="до">
+	</div>
+	<div class="btn-group" role="group" >
+		  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+		  <label class="btn btn-outline-primary" for="btnradio1">Все</label>
+		  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+		  <label class="btn btn-outline-primary" for="btnradio2">Нове</label>
+		  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+		  <label class="btn btn-outline-primary" for="btnradio3">Вживане</label>
+    </div>
+	<button class="btn btn-outline-success me-2" id="confirm-filter" type="button">Застосувати</button>
 </div>
 
-<partial name="@ViewBag.Partial" model="@Model" />
+<div class="d-flex justify-content-between my-2">
+	<h3 id="count-header" class="mb-3"></h3>
+	<div class="d-flex gap-2">
+		<button data-bs-toggle="dropdown" class="material-icons mb-3 btn btn-info dropdown-toggle">filter_alt</button>
+		<button id="list-show" class="material-icons mb-3 btn btn-info">list</button>
+		<button id="module-show" class="material-icons mb-3 btn btn-info">view_module</button>
+		<ul class="dropdown-menu" aria-labelledby="sort-button">
+			<li><a class="dropdown-item" id="title-sort" href="#">Заголовок</a></li>
+			<li><a class="dropdown-item" id="date-sort" href="#">Дата</a></li>
+		</ul>
+	</div>
+</div>
+<div id="content"></div>
+@section Scripts {
+	@{
+		// <script src="~/js/home_script.js"></script>
+									<script>
+			                            $count_header = $('#count-header');
+										
+										$content = $('#content');
+										$localStorage = window.localStorage;
+										$partial = "_ShowAdvertsPartial";
+										$sort = $localStorage.getItem("Sort");
+										$partial = $localStorage.getItem("Partial");
+									  	$category = $localStorage.getItem("Category");
+										
 
+										$('#confirm-filter').click(() => {
+										 	$category = $('#filter-category').val();
+										 	setContent($partial);
+										});
+
+
+
+										$('#list-show').click(() => setContent("_ShowAdvertsPartial"));
+										$('#module-show').click(() => setContent("_ShowAdvertsDashboardPartial"));
+										$('#title-sort').click(() => {
+											$sort = "title";
+											setContent($partial);
+											
+										});
+										$('#date-sort').click(() => {
+										 	$sort = "date";
+											setContent($partial);
+									    });
+									
+										if (!$localStorage.getItem("Partial")) {
+											$localStorage.setItem("Partial", partial);
+										 	$localStorage.setItem("Category", "Всі категорії");
+										}
+										setContent($partial);
+										
+
+										function setContent(partial) {
+											$partial = partial;
+											$localStorage.setItem("Partial", partial);
+											$localStorage.setItem("Sort", $sort);
+											$localStorage.setItem("Category", $category);
+											$.get(`/Home/AdvertPartial?partial=${partial}&sort=${$sort}&category=${$category}`).done((res) => {
+												$content.empty();
+												$content.html(res);
+					                            $el_count = $('#element-count').val();
+				                            	$count_header.text($el_count == 0 ? "Не знайдено жодного оголошення" : $el_count < 5 ? `Знайдено ${$el_count} оголошеня` : `Знайдено ${$el_count} оголошень`)
+											});
+			                     		}
+									</script>
+	}
+}
