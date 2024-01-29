@@ -1,4 +1,6 @@
-﻿using ApplicationCore.Services;
+﻿using ApplicationCore.DTOs;
+using ApplicationCore.Services;
+using AutoMapper;
 using DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,19 +11,17 @@ namespace ASP.NET_OLX.Controllers
 {
 	public class AdminController : BaseController
 	{
-        public AdminController(OlxDBContext context):base(context){}
+        public AdminController(OlxDBContext context, IMapper mapper):base(context, mapper){}
 
-        public override async Task<IActionResult> Index() => View(await context.Adverts
+        public override async Task<IActionResult> Index() => View(mapper.Map<AdvertDto[]>(await context.Adverts
             .Include(x => x.Category)
-            .Include(x => x.City).ToArrayAsync());
+            .Include(x => x.City).ToArrayAsync()));
             
         public async Task<IActionResult> ShowPartialView(int id)
         {
-			return PartialView("_ShowPartialView", await context.Adverts
-                .Include(x => x.Category)
-                .Include(x => x.City)
-                .Include(x => x.Images)
-                .FirstOrDefaultAsync(x=>x.Id == id));
+            var advert = await adverts.FirstOrDefaultAsync(x => x.Id == id);
+            ViewBag.Images = mapper.Map<ImageDto[]>(advert.Images);
+            return PartialView("_ShowPartialView", mapper.Map<AdvertDto>(advert));
         }
 
         public async Task<IActionResult> DeleteElement(int id, [FromServices] AdvertRemover remover, [FromServices] IWebHostEnvironment env, [FromServices] IConfiguration config)

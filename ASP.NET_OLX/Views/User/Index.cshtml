@@ -1,4 +1,4 @@
-﻿@model Advert[]
+﻿@model AdvertDto[]
 
 @{
     ViewData["Title"] = "Особистий кабінет";
@@ -14,10 +14,7 @@
     {
         <div class=" w-100 d-flex  p-1 rounded border border-1 bg-white">
             <div style="min-height:140px;min-width:200px;max-height:140px;max-width:200px">
-                @if (@item.Images.Any())
-                {
-                    <img style="object-fit: cover;" src="@item.Images.ElementAt(0).Url" class="h-100 w-100 rounded-start">
-                }
+                <img style="object-fit: cover;" src="@item.FirstImage" class="h-100 w-100 rounded-start">
             </div>
             <div class="d-flex flex-column  p-1 w-100 mx-3">
                 <div>
@@ -34,7 +31,7 @@
                 </div>
                 <div class="d-flex justify-content-between mt-auto">
                     <small>@item.Date.ToShortDateString()</small>
-                    <small>@item.Category.Name</small>
+                    <small>@item.CategoryName</small>
                 </div>
             </div>
         </div>

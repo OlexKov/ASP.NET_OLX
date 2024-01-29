@@ -1,3 +1,4 @@
+using ApplicationCore.DTOs;
 using ApplicationCore.Models;
 using ApplicationCore.Services;
 using AutoMapper;
@@ -13,13 +14,12 @@ namespace ASP.NET_OLX.Controllers
 	{
         private readonly IWebHostEnvironment environment;
         private readonly IConfiguration configuration;
-        private readonly IMapper mapper;
 
         [NonAction]
-		private  void setDataToBag()
+		private async Task setDataToBag()
         {
-            ViewBag.Categories = new SelectList(context.Categories.ToList(), nameof(Category.Id), nameof(Category.Name));
-            ViewBag.Cities = new SelectList(context.Cities.ToList(), nameof(City.Id), nameof(City.Name));
+            ViewBag.Categories = new SelectList(mapper.Map<CategoryDto[]> (await context.Categories.ToListAsync()), nameof(CategoryDto.Id), nameof(CategoryDto.Name));
+            ViewBag.Cities = new SelectList(mapper.Map<CityDto[]>(await context.Cities.ToListAsync()), nameof(City.Id), nameof(City.Name));
         }
 
 		[NonAction]
@@ -33,9 +33,8 @@ namespace ASP.NET_OLX.Controllers
             return imageUrl.AbsoluteUri;
         }
 
-        public UserController(OlxDBContext context, IWebHostEnvironment env, IConfiguration config, IMapper mapper) :base(context)
+        public UserController(OlxDBContext context, IWebHostEnvironment env, IConfiguration config, IMapper mapper) :base(context, mapper)
         {
-            this.mapper = mapper;
             this.configuration = config;
             this.environment = env;
         }
@@ -49,7 +48,12 @@ namespace ASP.NET_OLX.Controllers
             System.IO.File.Delete(Path.Combine(environment.WebRootPath, configuration["UserImgDir"] ?? string.Empty, Path.GetFileName(url)));
         }
 
-        public async Task<IActionResult> ShowAdvert(int id) => View(await adverts.FirstOrDefaultAsync(x => x.Id == id));
+        public async Task<IActionResult> ShowAdvert(int id)
+        {
+            var advert = await adverts.FirstOrDefaultAsync(x => x.Id == id);
+            ViewBag.Images = mapper.Map<ImageDto[]>(advert.Images);
+            return View(mapper.Map<AdvertDto>(advert));
+        }
 
         public async Task<IActionResult> DeleteElement(int id, [FromServices] AdvertRemover remover, [FromServices] IWebHostEnvironment env, [FromServices] IConfiguration config)
         {
@@ -59,7 +63,7 @@ namespace ASP.NET_OLX.Controllers
 
         public async Task<IActionResult> AddAdvert(int id)
         {
-            setDataToBag();
+            await setDataToBag();
             if (id != 0)
             {
                 var advert = await adverts.FirstOrDefaultAsync(x => x.Id == id);

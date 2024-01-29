@@ -1,4 +1,4 @@
-﻿@model Advert[]
+﻿@model AdvertDto[]
 @{
     ViewData["Title"] = "Сторінка адміністратора";
 }
@@ -24,8 +24,8 @@
             <tr class="align-middle">
                 <td>@item.Id</td>
                 <td>@item.SellerName</td>
-                <td>@item.City.Name</td>
-                <td>@item.Category.Name</td>
+                <td>@item.CityName</td>
+                <td>@item.CategoryName</td>
                 <td>@item.Date.ToShortDateString()</td>
                 <td>@item.Title</td>
                 <td>@item.Price</td>

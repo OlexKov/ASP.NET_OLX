@@ -1,5 +1,5 @@
 ﻿﻿
-@model Advert
+@model AdvertDto
 
 <div class="col">
     <div class="card h-100">
@@ -7,7 +7,7 @@
            asp-action="ShowAdvert"
            asp-route-id="@Model.Id"
            asp-route-returnUrl="@Context.Request.Path">
-            <img src="@Model.Images.ElementAt(0).Url" class="card-img-top" alt="Image Url">
+            <img src="@Model.FirstImage" class="card-img-top" alt="Image Url">
         </a>
         <div class="card-body">
             <h5 class="card-title">
@@ -21,7 +21,7 @@
             </h5>
             <p class="card-text">
                 @Model.Price$<br />
-                @Model.Category?.Name
+                @Model.CategoryName
             </p>
         </div>
         <div class="card-footer">

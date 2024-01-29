@@ -1,4 +1,4 @@
-﻿@model Advert
+﻿@model AdvertDto
 @{
 }
 <a asp-action="Index" class="mb-3 btn btn-info">Повернутися</a>
@@ -7,18 +7,18 @@
     <div class="w-70 d-flex flex-column gap-3 ">
         <div id="carousel" class="border rounded-3 p-1 carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
-                @for (int i = 0; i < Model.Images.Count(); i++)
+                @for (int i = 0; i < ViewBag.Images.Length; i++)
                 {
                     string @cls = @i == 0 ? "active" : "";
                     <button class=@cls type="button" data-bs-target="#carousel" data-bs-slide-to=@i aria-label=$"Slide {@i}"></button>
                 }
             </div>
             <div class="carousel-inner">
-                @for (int i = 0; i < Model.Images.Count(); i++)
+                @for (int i = 0; i < ViewBag.Images.Length; i++)
                 {
                     string @cls = @i == 0 ? "active" : "";
                     <div class="b-gray carousel-item @cls ">
-                        <img src=@Model.Images.ElementAt(@i).Url class="d-block  m-auto" style="height:60vh;">
+                        <img src=@ViewBag.Images[@i].Url class="d-block  m-auto" style="height:60vh;">
                     </div>
                 }
             </div>
@@ -46,7 +46,7 @@
         <div class="border rounded-3 p-3">
             <h5>Користувач</h5>
             <p>@Model.SellerName</p>
-            <p>@Model.City.Name</p>
+            <p>@Model.CityName</p>
         </div>
     </div>
    
