@@ -8,7 +8,7 @@ namespace ApplicationCore.DTOs
 {
 	public class ImageDto:BaseEntityDto
 	{
-		public string Url { get; set; }
+		public string Name { get; set; }
 		public int AdvertId { get; set; }
 	}
 }

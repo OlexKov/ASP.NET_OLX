@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.DTOs;
+using ApplicationCore.Services.Interfaces;
 using AutoMapper;
 using DataAccess;
 using DataAccess.Entities;
@@ -10,37 +11,26 @@ namespace ASP.NET_OLX.Controllers
 {
 	public class HomeController :BaseController
 	{
-		private bool advertsFilter(Advert advert,string category)
-		{
-			if (category == "Всі категорії") return true;
-			return advert.Category.Name == category;
-		}
-
-		public HomeController(OlxDBContext context, IMapper mapper) :base(context, mapper) {}
+		
+		public HomeController(IAdvertService advertService) :base(advertService) {}
 
 		public override async Task<IActionResult> Index()
 		{
-			ViewBag.Cities = mapper.Map<CityDto[]>(await context.Cities.ToArrayAsync());
-			ViewBag.Categories = mapper.Map<CategoryDto[]>(await context.Categories.ToArrayAsync());
-			return View(mapper.Map<AdvertDto[]>(await adverts.ToArrayAsync()));
+			ViewBag.Cities = await advertService.GetAllCities();
+			ViewBag.Categories = await advertService.GetAllCategories();
+			return View(await advertService.GetAllAdverts());
 		}
 
-		public async Task<IActionResult> AdvertPartial(string partial,string sort,string category)
+		public async Task<IActionResult> AdvertPartial(string partial,string sort,string category,string state,decimal from,decimal to,string? find ,string fcity)
 		{
-			var filteredAdverts = adverts.ToArray().Where(x => advertsFilter(x, category)).ToArray();
-			var sortedAdverts = sort == null
-				 ? filteredAdverts
-				 : sort == "date"
-				 ? filteredAdverts.OrderBy(x => x.Date).ToArray()
-				 : filteredAdverts.OrderBy(x => x.Title).ToArray();
-			return PartialView(partial, mapper.Map<AdvertDto>( sortedAdverts));
+			return PartialView(partial,await advertService.AdvertFilter(sort,category,state,from,to,find,fcity));
 		}
 
-		public async Task<IActionResult> ShowAdvert(int id)
+		public async Task<IActionResult> ShowAdvert(int id, [FromServices] IConfiguration config)
 		{
-			var advert = await adverts.FirstOrDefaultAsync(x => x.Id == id);
-			ViewBag.Images = mapper.Map<ImageDto[]>(advert.Images);
-            return View(mapper.Map<AdvertDto>(advert));
+			var advert = await advertService.GetAdvert(id);
+            ViewBag.Images = (await advertService.GetAdvertImages(id)).ToArray();
+            return View(advert);
 		}
 
     }

@@ -11,9 +11,9 @@ namespace ASP.NET_OLX
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            var connStr = builder.Configuration.GetConnectionString("LocalDb");
+            var connStr = builder.Configuration.GetConnectionString("LocalDb")!;
 
-            builder.Services.AddDbContext<OlxDBContext>(opts => opts.UseSqlServer(connStr));
+            builder.Services.AddDbContext(connStr);
             
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -23,7 +23,7 @@ namespace ASP.NET_OLX
 
 			builder.Services.AddFluentValidator();
 
-			builder.Services.AddAdvertRemover();
+			builder.Services.AddAdvertSetvice();
 
             // auto mapper
           

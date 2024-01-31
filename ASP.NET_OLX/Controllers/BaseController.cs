@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.DTOs;
 using ApplicationCore.Models;
+using ApplicationCore.Services.Interfaces;
 using AutoMapper;
 using DataAccess;
 using DataAccess.Entities;
@@ -12,23 +13,11 @@ namespace ASP.NET_OLX.Controllers
 {
 	public class BaseController : Controller
 	{
-		protected readonly OlxDBContext context;
-		protected readonly IMapper mapper;
-		protected readonly IIncludableQueryable<Advert, ICollection<Image>> adverts;
-
-		public virtual async Task<IActionResult> Index()
-		{
-			return View(mapper.Map<AdvertDto[]>(await adverts.ToArrayAsync()));
-		}
-
-
-		public BaseController(OlxDBContext context, IMapper mapper)
-        {
-			this.mapper = mapper;
-			this.context = context;
-			adverts = context.Adverts.Include(x => x.Category).Include(x => x.City).Include(x => x.Images);
-		}
-
+		protected readonly IAdvertService advertService;
+       
+        public virtual async Task<IActionResult> Index() => View(await advertService.GetAllAdverts());
+		
+		public BaseController(IAdvertService advertService) {this.advertService = advertService;}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 		public IActionResult Error()

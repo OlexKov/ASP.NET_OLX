@@ -1,13 +1,15 @@
-﻿﻿
+﻿@inject IConfiguration Configuration﻿
 @model AdvertDto
-
+@{
+    string url = new Uri($"{Context.Request.Scheme}://{Context.Request.Host}/{Configuration["UserImgDir"]}/").AbsoluteUri;
+}
 <div class="col">
     <div class="card h-100">
         <a asp-controller="Home"
            asp-action="ShowAdvert"
            asp-route-id="@Model.Id"
            asp-route-returnUrl="@Context.Request.Path">
-            <img src="@Model.FirstImage" class="card-img-top" alt="Image Url">
+            <img src="@(url+@Model.FirstImage)" class="card-img-top" alt="Image Url">
         </a>
         <div class="card-body">
             <h5 class="card-title">

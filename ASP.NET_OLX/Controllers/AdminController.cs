@@ -1,9 +1,13 @@
 ﻿using ApplicationCore.DTOs;
 using ApplicationCore.Services;
+using ApplicationCore.Services.Interfaces;
 using AutoMapper;
 using DataAccess;
+using DataAccess.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.Extensions.Hosting;
 
 
 
@@ -11,22 +15,20 @@ namespace ASP.NET_OLX.Controllers
 {
 	public class AdminController : BaseController
 	{
-        public AdminController(OlxDBContext context, IMapper mapper):base(context, mapper){}
+        public AdminController(IAdvertService advertService) :base(advertService){ }
 
-        public override async Task<IActionResult> Index() => View(mapper.Map<AdvertDto[]>(await context.Adverts
-            .Include(x => x.Category)
-            .Include(x => x.City).ToArrayAsync()));
-            
+        public override async Task<IActionResult> Index() => View(await advertService.GetAllAdverts());
+                    
         public async Task<IActionResult> ShowPartialView(int id)
         {
-            var advert = await adverts.FirstOrDefaultAsync(x => x.Id == id);
-            ViewBag.Images = mapper.Map<ImageDto[]>(advert.Images);
-            return PartialView("_ShowPartialView", mapper.Map<AdvertDto>(advert));
+            var advert = await advertService.GetAdvert(id);
+            ViewBag.Images = await advertService.GetAdvertImages(id);
+            return PartialView("_ShowPartialView", advert);
         }
 
-        public async Task<IActionResult> DeleteElement(int id, [FromServices] AdvertRemover remover, [FromServices] IWebHostEnvironment env, [FromServices] IConfiguration config)
+        public async Task<IActionResult> DeleteElement(int id)
         {
-            await remover.RemoveAdvert(id, context, env, config);
+            await advertService.RemoveAdvert(id);
             return RedirectToAction("Index");
         }
     }

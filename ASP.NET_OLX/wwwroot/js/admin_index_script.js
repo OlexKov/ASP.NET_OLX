@@ -1,4 +1,5 @@
-﻿function setModalContent(isConfirm) {
+﻿window.sessionStorage.clear();
+function setModalContent(isConfirm) {
     $modalDialog = $('#infoModal .modal-dialog');
     $modalBody = $("#infoModal div .modal-body");
     $dellButton = $('#infoModal .modal-footer .btn-danger');

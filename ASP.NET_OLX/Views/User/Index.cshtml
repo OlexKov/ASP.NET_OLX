@@ -1,7 +1,9 @@
-﻿@model AdvertDto[]
+﻿@inject IConfiguration Configuration﻿
+@model IEnumerable<AdvertDto>
 
 @{
     ViewData["Title"] = "Особистий кабінет";
+    string url = new Uri($"{Context.Request.Scheme}://{Context.Request.Host}/{Configuration["UserImgDir"]}/").AbsoluteUri;
 }
 
 <h3 class="mb-3">@ViewData["Title"]</h3>
@@ -14,7 +16,7 @@
     {
         <div class=" w-100 d-flex  p-1 rounded border border-1 bg-white">
             <div style="min-height:140px;min-width:200px;max-height:140px;max-width:200px">
-                <img style="object-fit: cover;" src="@item.FirstImage" class="h-100 w-100 rounded-start">
+                <img style="object-fit: cover;" src="@(url+@item.FirstImage)" class="h-100 w-100 rounded-start">
             </div>
             <div class="d-flex flex-column  p-1 w-100 mx-3">
                 <div>
@@ -37,3 +39,4 @@
         </div>
     }
 </div>
+<script>window.sessionStorage.clear();</script>

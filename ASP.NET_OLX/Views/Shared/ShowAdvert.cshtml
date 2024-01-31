@@ -1,5 +1,7 @@
-﻿@model AdvertDto
+﻿@inject IConfiguration Configuration
+@model AdvertDto
 @{
+    string url = new Uri($"{Context.Request.Scheme}://{Context.Request.Host}/{Configuration["UserImgDir"]}/").AbsoluteUri;
 }
 <a asp-action="Index" class="mb-3 btn btn-info">Повернутися</a>
 <div class="d-flex gap-3">
@@ -18,7 +20,7 @@
                 {
                     string @cls = @i == 0 ? "active" : "";
                     <div class="b-gray carousel-item @cls ">
-                        <img src=@ViewBag.Images[@i].Url class="d-block  m-auto" style="height:60vh;">
+                        <img src=@(url + ViewBag.Images[@i].Name) class="d-block  m-auto" style="height:60vh;">
                     </div>
                 }
             </div>

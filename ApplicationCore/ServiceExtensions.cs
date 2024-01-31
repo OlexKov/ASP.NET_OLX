@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Services;
+using ApplicationCore.Services.Interfaces;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,10 +21,12 @@ namespace BusinessLogic
 			services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 		}
 
-		public static void AddAdvertRemover(this IServiceCollection services)
+		public static void AddAdvertSetvice(this IServiceCollection services)
 		{
-			services.AddScoped<AdvertRemover>(x => new());
+			services.AddScoped<IAdvertService, AdvertService>();
 		}
+
+		
 
 	}
 }
