@@ -54,12 +54,12 @@ namespace ASP.NET_OLX.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(AdvertModel advertModel)
         {
-                    
             if (!ModelState.IsValid)
             {
                 await setDataToBag();
 				return View("AddAdvert", advertModel);
             }
+
             await  advertService.CreateAdvert(advertModel);
 			
             return RedirectToAction("Index");
