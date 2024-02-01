@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using DataAccess;
-using BusinessLogic;
+using ApplicationCore.Expressions;
 
 namespace ASP.NET_OLX
 {
-	public class Program
+    public class Program
     {
         public static void Main(string[] args)
         {

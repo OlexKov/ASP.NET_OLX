@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.DTOs;
+using ApplicationCore.Expressions;
 using ApplicationCore.Models;
 using ApplicationCore.Services.Interfaces;
 using AutoMapper;
@@ -13,7 +14,7 @@ using System.Linq.Expressions;
 
 namespace ApplicationCore.Services
 {
-	internal class AdvertService : IAdvertService
+    internal class AdvertService : IAdvertService
 	{
 		private readonly OlxDBContext context;
 		private readonly IWebHostEnvironment env;
@@ -40,7 +41,6 @@ namespace ApplicationCore.Services
 																		  || (fcity == "Всі міста" && x.Title.ToLower().Contains(find)
 																		  || (fcity == x.City.Name && x.Title.ToLower().Contains(find)));
 			return categoryExpression.AndAlso(stateExpression).AndAlso(fromToExpression).AndAlso(findCityExpression);
-
 		}
 
 		private async Task<string> saveImage(IFormFile file)
