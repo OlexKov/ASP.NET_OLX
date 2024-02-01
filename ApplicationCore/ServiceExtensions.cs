@@ -26,7 +26,10 @@ namespace BusinessLogic
 			services.AddScoped<IAdvertService, AdvertService>();
 		}
 
-		
+        public static bool ContainsText(this string text, string sub)
+        {
+            throw new NotImplementedException("This method is not supposed to run on client");
+        }
 
-	}
+    }
 }

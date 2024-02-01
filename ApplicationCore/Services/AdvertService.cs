@@ -130,10 +130,8 @@ namespace ApplicationCore.Services
 			var filteredAdverts = adverts.Where(x => (category == "Всі категорії" || x.Category.Name == category)
 																	   && (state == "all" || (state == "new" && x.IsNew) || (state == "used" && !x.IsNew))
 																	   && ((from == 0 && to == 0) || (x.Price >= from && (to == 0 || x.Price <= to)))
-																	   && ((fcity == "Всі міста" && String.IsNullOrEmpty(find)) || (String.IsNullOrEmpty(find) && fcity == x.City.Name))
-																	   /*&& ((fcity == "Всі міста" && x.Title.ToLower().Contains(find)) || (fcity == x.City.Name && x.Title.ToLower().Contains(find)))*/);
-
-
+																	   && (((fcity == "Всі міста" && String.IsNullOrEmpty(find)) || (String.IsNullOrEmpty(find) && fcity == x.City.Name))
+																	      || ((fcity == "Всі міста" && x.Title.ToLower().Contains(find)) || (fcity == x.City.Name && x.Title.ToLower().Contains(find)))));
 			var sortedAdverts = sort == null
 				 ? filteredAdverts
 				 : sort == "date"
