@@ -1,8 +1,10 @@
 ﻿@inject IConfiguration Configuration
+
 @model IEnumerable<AdvertDto>
 @{
     string url = new Uri($"{Context.Request.Scheme}://{Context.Request.Host}/{Configuration["UserImgDir"]}/").AbsoluteUri;
 }
+
 <div class="d-flex flex-column gap-4 w-100">
     <input id="element-count" value="@Model.Count()" class="d-none" />
     @foreach (var item in Model)

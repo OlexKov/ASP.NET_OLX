@@ -1,8 +1,9 @@
 ﻿@inject IConfiguration Configuration
+
 @model IEnumerable<AdvertDto>
+
 @{
 	ViewData["Title"] = "Всі oголошення";
-
 }
 
 <div class="d-flex  gap-2 justify-content-between p-2 bg-light">
@@ -33,7 +34,6 @@
 			}
 		</select>
 	</div>
-
 	<div class="input-group">
 		<span class="input-group-text">Ціна</span>
 		<input type="number" class="form-control" id="price-from" placeholder="від">
@@ -49,7 +49,6 @@
 	</div>
 	<button class="btn btn-outline-success me-2" id="confirm-filter" type="button">Застосувати</button>
 </div>
-
 <div class="d-flex justify-content-between my-2">
 	<h3 id="count-header" class="mb-3"></h3>
 	<div class="d-flex gap-2">
@@ -65,94 +64,94 @@
 <div id="content"></div>
 @section Scripts {
 	@{
-		// <script src="~/js/home_script.js"></script>
-	<script>
-		$storage = window.sessionStorage;
-		$count_header = $('#count-header');
-		$content = $('#content');
+		 //<script src="~/js/home_script.js"></script>
+        <script>
+			$storage = window.sessionStorage;
+			$count_header = $('#count-header');
+			$content = $('#content');
 
-		if (!$storage.getItem("Partial")) {
-			$storage.setItem("Partial", "_ShowAdvertsPartial");
-			$storage.setItem("FindCity", "Всі міста");
-			$storage.setItem("FindStr", "");
-			resetFilter();
-		}
+			if (!$storage.getItem("Partial")) {
+				$storage.setItem("Partial", "_ShowAdvertsPartial");
+				$storage.setItem("FindCity", "Всі міста");
+				$storage.setItem("FindStr", "");
+				resetFilter();
+			}
 
-		load();
-		
-
-
-		$('#confirm-filter').click(() => {
-			$category = $('#filter-category').val();
-			$state = $('input[name=btnradio]:checked').val();
-			$price_from = $('#price-from').val();
-			$price_to = $('#price-to').val();
-			$storage.setItem("Category", $category);
-			$storage.setItem("State", $state);
-			$storage.setItem("PriceFrom", $price_from);
-			$storage.setItem("PriceTo", $price_to);
-			setContent($partial);
-		});
-
-		$('#list-show').click(() => setContent("_ShowAdvertsPartial"));
-
-		$('#module-show').click(() => setContent("_ShowAdvertsDashboardPartial"));
-
-		$('#title-sort').click(() => {
-			$sort = "title";
-			setContent($partial);
-		});
-
-		$('#date-sort').click(() => {
-			$sort = "date";
-			setContent($partial);
-		});
-
-		$('#find-button').click(() => { 
-												
-			$storage.setItem("FindStr", $('#find-str').val());
-			$storage.setItem("FindCity", $('#find-city').val());
-			resetFilter();
 			load();
-		});
 
-		function resetFilter() {
-			$storage.setItem("Category", "Всі категорії");
-			$storage.setItem("State", "all");
-			$storage.setItem("PriceFrom", '');
-			$storage.setItem("PriceTo", '');
-		}
 
-		function load() {
-			$find_str = $storage.getItem("FindStr");
-			$find_city = $storage.getItem("FindCity");
-			$sort = $storage.getItem("Sort");
-			$partial = $storage.getItem("Partial");
-			$category = $storage.getItem("Category");
-			$state = $storage.getItem("State");
-			$price_from = $storage.getItem("PriceFrom");
-			$price_to = $storage.getItem("PriceTo");
-			$('#filter-category').val($category);
-			$(`input:radio[id=${$state}]`).prop('checked', true);
-			$('#price-from').val($price_from);
-			$('#price-to').val($price_to);
-			$('#find-str').val($find_str);
-			$('#find-city').val($find_city);
-			setContent($partial);
-		}
 
-		function setContent(partial) {
-			$partial = partial;
-			$storage.setItem("Partial", partial);
-			$storage.setItem("Sort", $sort);
+			$('#confirm-filter').click(() => {
+				$category = $('#filter-category').val();
+				$state = $('input[name=btnradio]:checked').val();
+				$price_from = $('#price-from').val();
+				$price_to = $('#price-to').val();
+				$storage.setItem("Category", $category);
+				$storage.setItem("State", $state);
+				$storage.setItem("PriceFrom", $price_from);
+				$storage.setItem("PriceTo", $price_to);
+				setContent($partial);
+			});
+
+			$('#list-show').click(() => setContent("_ShowAdvertsPartial"));
+
+			$('#module-show').click(() => setContent("_ShowAdvertsDashboardPartial"));
+
+			$('#title-sort').click(() => {
+				$sort = "title";
+				setContent($partial);
+			});
+
+			$('#date-sort').click(() => {
+				$sort = "date";
+				setContent($partial);
+			});
+
+			$('#find-button').click(() => {
+
+				$storage.setItem("FindStr", $('#find-str').val());
+				$storage.setItem("FindCity", $('#find-city').val());
+				resetFilter();
+				load();
+			});
+
+			function resetFilter() {
+				$storage.setItem("Category", "Всі категорії");
+				$storage.setItem("State", "all");
+				$storage.setItem("PriceFrom", '');
+				$storage.setItem("PriceTo", '');
+			}
+
+			function load() {
+				$find_str = $storage.getItem("FindStr");
+				$find_city = $storage.getItem("FindCity");
+				$sort = $storage.getItem("Sort");
+				$partial = $storage.getItem("Partial");
+				$category = $storage.getItem("Category");
+				$state = $storage.getItem("State");
+				$price_from = $storage.getItem("PriceFrom");
+				$price_to = $storage.getItem("PriceTo");
+				$('#filter-category').val($category);
+				$(`input:radio[id=${$state}]`).prop('checked', true);
+				$('#price-from').val($price_from);
+				$('#price-to').val($price_to);
+				$('#find-str').val($find_str);
+				$('#find-city').val($find_city);
+				setContent($partial);
+			}
+
+			function setContent(partial) {
+				$partial = partial;
+				$storage.setItem("Partial", partial);
+				$storage.setItem("Sort", $sort);
 
 				$.get(`/Home/AdvertPartial?partial=${partial}&sort=${$sort}&category=${$category}&state=${$state}&from=${$price_from}&to=${$price_to}&find=${$find_str}&fcity=${$find_city}`).done((res) => {
-				$content.empty();
-				$content.html(res);
-				$el_count = $('#element-count').val();
-				$count_header.text($el_count == 0 ? "Не знайдено жодного оголошення" : $el_count < 5 ? `Знайдено ${$el_count} оголошеня` : `Знайдено ${$el_count} оголошень`)
-			}).fail((info) => console.info(info.responseText));
-		}
-	</script>
+					$content.empty();
+					$content.html(res);
+					$el_count = $('#element-count').val();
+					$count_header.text($el_count == 0 ? "Не знайдено жодного оголошення" : $el_count < 5 ? `Знайдено ${$el_count} оголошеня` : `Знайдено ${$el_count} оголошень`)
+				}).fail((info) => console.info(info.responseText));
+			}
+		</script>
 	}
 }

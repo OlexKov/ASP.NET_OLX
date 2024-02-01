@@ -1,9 +1,6 @@
 using ApplicationCore.DTOs;
 using ApplicationCore.Models;
-using ApplicationCore.Services;
 using ApplicationCore.Services.Interfaces;
-using AutoMapper;
-using DataAccess;
 using DataAccess.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ASP.NET_OLX.Controllers
 {
-	public class UserController : BaseController
+    public class UserController : BaseController
 	{
         [NonAction]
 		private async Task setDataToBag()

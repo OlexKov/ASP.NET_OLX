@@ -1,17 +1,11 @@
-﻿using ApplicationCore.DTOs;
-using ApplicationCore.Models;
+﻿using ApplicationCore.Models;
 using ApplicationCore.Services.Interfaces;
-using AutoMapper;
-using DataAccess;
-using DataAccess.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 using System.Diagnostics;
 
 namespace ASP.NET_OLX.Controllers
 {
-	public class BaseController : Controller
+    public abstract class BaseController : Controller
 	{
 		protected readonly IAdvertService advertService;
        

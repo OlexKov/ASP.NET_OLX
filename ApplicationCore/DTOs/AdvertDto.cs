@@ -1,13 +1,6 @@
-﻿using DataAccess.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ApplicationCore.DTOs
+﻿namespace ApplicationCore.DTOs
 {
-	public class AdvertDto : BaseEntityDto
+    public class AdvertDto : BaseEntityDto
 	{
 		public string SellerName { get; set; }
 

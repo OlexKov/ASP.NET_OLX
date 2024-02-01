@@ -1,8 +1,11 @@
 ﻿@inject IConfiguration Configuration
+
 @model AdvertDto
+
 @{
     string url = new Uri($"{Context.Request.Scheme}://{Context.Request.Host}/{Configuration["UserImgDir"]}/").AbsoluteUri;
 }
+
 <div class="d-flex flex-column align-items-center">
     <div class="d-flex justify-content-center gap-4 py-2 flex-wrap w-90 border rounded-1">
             @foreach (var item in ViewBag.Images)

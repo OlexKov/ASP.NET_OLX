@@ -1,19 +1,11 @@
-﻿using ApplicationCore.DTOs;
-using ApplicationCore.Services;
-using ApplicationCore.Services.Interfaces;
-using AutoMapper;
-using DataAccess;
-using DataAccess.Entities;
+﻿using ApplicationCore.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.Extensions.Hosting;
 
 
 
 namespace ASP.NET_OLX.Controllers
 {
-	public class AdminController : BaseController
+    public class AdminController : BaseController
 	{
         public AdminController(IAdvertService advertService) :base(advertService){ }
 

@@ -1,15 +1,10 @@
-﻿using ApplicationCore.DTOs;
-using ApplicationCore.Services.Interfaces;
-using AutoMapper;
-using DataAccess;
-using DataAccess.Entities;
+﻿using ApplicationCore.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 
 namespace ASP.NET_OLX.Controllers
 {
-	public class HomeController :BaseController
+    public class HomeController :BaseController
 	{
 		
 		public HomeController(IAdvertService advertService) :base(advertService) {}

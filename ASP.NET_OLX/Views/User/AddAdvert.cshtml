@@ -1,10 +1,12 @@
 ﻿@inject IConfiguration Configuration﻿
+
 @model AdvertModel
 
 @{
     ViewData["Title"] = Model == null ? "Створення нового оголошення" : "Редагування оголошення";
     string url = new Uri($"{Context.Request.Scheme}://{Context.Request.Host}/{Configuration["UserImgDir"]}/").AbsoluteUri;
 }
+
 <h3 class="mb-3">@ViewData["Title"]</h3>
 <form class="row g-3" method="post" asp-action="Create" onsubmit="return validateImage();" enctype="multipart/form-data">
     <div class="col-md-6">
@@ -85,10 +87,9 @@
     </div>
 </form>
 
-
 @section Scripts {
     @{
-            <script src="~/js/user_add_advert_script.js"></script>
-            <partial name="_ValidationScriptsPartial.cshtml" />
+        <script src="~/js/user_add_advert_script.js"></script>
+        <partial name="_ValidationScriptsPartial.cshtml"/>
     }
 }

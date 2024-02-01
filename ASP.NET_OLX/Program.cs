@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using DataAccess;
 using BusinessLogic;
-using ApplicationCore.Services;
 
 namespace ASP.NET_OLX
 {
@@ -17,16 +16,14 @@ namespace ASP.NET_OLX
             
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+           
+            // auto mapper
+            builder.Services.AddAutoMapper();
 
-			// enable client-side validation
-			builder.Services.AddAutoMapper();
-
-			builder.Services.AddFluentValidator();
+            // enable client-side validation
+            builder.Services.AddFluentValidator();
 
 			builder.Services.AddAdvertSetvice();
-
-            // auto mapper
-          
 
             var app = builder.Build();
 

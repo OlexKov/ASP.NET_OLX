@@ -1,8 +1,10 @@
 ﻿@inject IConfiguration Configuration﻿
+
 @model AdvertDto
 @{
     string url = new Uri($"{Context.Request.Scheme}://{Context.Request.Host}/{Configuration["UserImgDir"]}/").AbsoluteUri;
 }
+
 <div class="col">
     <div class="card h-100">
         <a asp-controller="Home"

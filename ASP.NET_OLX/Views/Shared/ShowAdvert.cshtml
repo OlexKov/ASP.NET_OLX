@@ -1,8 +1,10 @@
 ﻿@inject IConfiguration Configuration
+
 @model AdvertDto
 @{
     string url = new Uri($"{Context.Request.Scheme}://{Context.Request.Host}/{Configuration["UserImgDir"]}/").AbsoluteUri;
 }
+
 <a asp-action="Index" class="mb-3 btn btn-info">Повернутися</a>
 <div class="d-flex gap-3">
 
@@ -11,15 +13,13 @@
             <div class="carousel-indicators">
                 @for (int i = 0; i < ViewBag.Images.Length; i++)
                 {
-                    string @cls = @i == 0 ? "active" : "";
-                    <button class=@cls type="button" data-bs-target="#carousel" data-bs-slide-to=@i aria-label=$"Slide {@i}"></button>
+                    <button class=@(@i == 0 ? "active" : "") type="button" data-bs-target="#carousel" data-bs-slide-to=@i aria-label=$"Slide {@i}"></button>
                 }
             </div>
             <div class="carousel-inner">
                 @for (int i = 0; i < ViewBag.Images.Length; i++)
                 {
-                    string @cls = @i == 0 ? "active" : "";
-                    <div class="b-gray carousel-item @cls ">
+                    <div class="b-gray carousel-item @(@i == 0 ? "active" : "") ">
                         <img src=@(url + ViewBag.Images[@i].Name) class="d-block  m-auto" style="height:60vh;">
                     </div>
                 }
@@ -44,12 +44,10 @@
             <h5>@Model.Title</h5>
             <h5>@Model.Price гр.</h5>
         </div>
-        
         <div class="border rounded-3 p-3">
             <h5>Користувач</h5>
             <p>@Model.SellerName</p>
             <p>@Model.CityName</p>
         </div>
     </div>
-   
 </div>

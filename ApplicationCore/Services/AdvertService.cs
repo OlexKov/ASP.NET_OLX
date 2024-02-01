@@ -10,16 +10,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.Extensions.Configuration;
 
-using Image = DataAccess.Entities.Image;
-
 namespace ApplicationCore.Services
 {
 	internal class AdvertService : IAdvertService
 	{
-		private OlxDBContext context;
-		private IWebHostEnvironment env;
-		private IConfiguration config;
-		private IMapper mapper;
+		private readonly OlxDBContext context;
+		private readonly IWebHostEnvironment env;
+		private readonly IConfiguration config;
+		private readonly IMapper mapper;
 		private readonly IIncludableQueryable<Advert, ICollection<Image>> adverts;
 
 		public AdvertService(OlxDBContext context, IWebHostEnvironment env, IConfiguration config, IMapper mapper) 
@@ -31,8 +29,7 @@ namespace ApplicationCore.Services
 			adverts = context.Adverts.Include(x => x.Category).Include(x => x.City).Include(x => x.Images);
 		}
 
-
-		private async Task<string> saveImage(IFormFile file/*,string scheme, HostString host*/)
+		private async Task<string> saveImage(IFormFile file)
 		{
 			string fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(file.FileName);
 			string filePath = Path.Combine(env.WebRootPath, config["UserImgDir"] ?? string.Empty, fileName);
@@ -41,20 +38,16 @@ namespace ApplicationCore.Services
 			return fileName;
         }
 
-
 		public async Task<AdvertDto> GetAdvert(int id)
 		{
 			var advert = await adverts.FirstOrDefaultAsync(x => x.Id == id);
 			var advertDto = mapper.Map<AdvertDto>(advert);
-			advertDto.FirstImage = advert?.Images.ElementAt(0).Name ?? string.Empty;
+			//advertDto.FirstImage = advert?.Images.ElementAt(0).Name ?? string.Empty;
 			return advertDto;
 		}
 
-		public async Task<IEnumerable<AdvertDto>> GetAllAdverts()
-		{
-			return mapper.Map<IEnumerable<AdvertDto>>(await adverts.ToArrayAsync());
-		}
-
+		public async Task<IEnumerable<AdvertDto>> GetAllAdverts() => mapper.Map<IEnumerable<AdvertDto>>(await adverts.ToArrayAsync());
+		
 		public async Task RemoveAdvert(int id)
 		{
 			var images = context.Images.Where(x => x.AdvertId == id);
@@ -66,47 +59,28 @@ namespace ApplicationCore.Services
 			await context.SaveChangesAsync();
 		}
 
-		public async Task<IEnumerable<ImageDto>> GetAdvertImages(int id)
-		{
-		    return mapper.Map<IEnumerable<ImageDto>>((await adverts.FirstOrDefaultAsync(x => x.Id == id))?.Images);
-		}
+		public async Task<IEnumerable<ImageDto>> GetAdvertImages(int id) => mapper.Map<IEnumerable<ImageDto>>((await adverts.FirstOrDefaultAsync(x => x.Id == id))?.Images);
+		
+		public async Task<IEnumerable<CategoryDto>> GetAllCategories() => mapper.Map<IEnumerable<CategoryDto>>(await context.Categories.ToArrayAsync());
+		
+		public async Task<IEnumerable<CityDto>> GetAllCities() => mapper.Map<IEnumerable<CityDto>>(await context.Cities.ToArrayAsync());
 
-		public async Task<IEnumerable<CategoryDto>> GetAllCategories()
-		{
-			return mapper.Map<IEnumerable<CategoryDto>>( await context.Categories.ToArrayAsync());
-		}
+        public async Task<ImageDto> GetImage(string url) => mapper.Map<ImageDto>(await context.Images.FirstOrDefaultAsync(x => x.Name == url) ?? new());
 
-		public async Task<IEnumerable<CityDto>> GetAllCities()
-		{
-			return mapper.Map<IEnumerable<CityDto>>(await context.Cities.ToArrayAsync());
-		}
-
-		public async Task CreateAdvert(AdvertModel advertModel)
+        public async Task CreateAdvert(AdvertModel advertModel)
 		{
 			Advert? advert;
-
-			if (advertModel.Id != 0)
-				advert = mapper.Map<Advert>(advertModel);
-			else
-			{
-				advert = mapper.Map<Advert>(advertModel);
-				advert.Date = DateTime.Now;
-			}
-
-			foreach (var item in advertModel.ImageFiles)
-				advert.Images.Add(new Image() { Name = await saveImage(item) });
-
+            advert = mapper.Map<Advert>(advertModel);
+            foreach (var item in advertModel.ImageFiles)
+                advert.Images.Add(new Image() { Name = await saveImage(item) });
 			if (advertModel.Id == 0)
+			{
+				advert.Date = DateTime.Now;
 				await context.Adverts.AddAsync(advert);
+			}
 			else
 				context.Adverts.Update(advert);
-
 			await context.SaveChangesAsync();
-		}
-
-		public async Task<ImageDto> GetImage(string url)
-		{
-			return mapper.Map<ImageDto>( await context.Images.FirstOrDefaultAsync(x => x.Name == url) ?? new());
 		}
 
 		public async Task RemoveImage(string url)
