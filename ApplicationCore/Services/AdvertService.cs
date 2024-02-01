@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.Extensions.Configuration;
+using System.Linq.Expressions;
 
 namespace ApplicationCore.Services
 {
@@ -29,6 +30,19 @@ namespace ApplicationCore.Services
 			adverts = context.Adverts.Include(x => x.Category).Include(x => x.City).Include(x => x.Images);
 		}
 
+		private Expression<Func<Advert, bool>> advertFilter(string category, string state, decimal from, decimal to, string? find, string fcity)
+		{
+			Expression<Func<Advert, bool>> categoryExpression = x=> category == "Всі категорії" || x.Category.Name == category;
+			Expression<Func<Advert, bool>> stateExpression = x => state == "all" || (state == "new" && x.IsNew) || (state == "used" && !x.IsNew);
+			Expression<Func<Advert, bool>> fromToExpression = x => (from == 0 && to == 0) || (x.Price >= from && (to == 0 || x.Price <= to));
+			Expression<Func<Advert, bool>> findCityExpression = x => (fcity == "Всі міста" && String.IsNullOrEmpty(find)) 
+			                                                              || (String.IsNullOrEmpty(find) && fcity == x.City.Name)
+																		  || (fcity == "Всі міста" && x.Title.ToLower().Contains(find)
+																		  || (fcity == x.City.Name && x.Title.ToLower().Contains(find)));
+			return categoryExpression.AndAlso(stateExpression).AndAlso(fromToExpression).AndAlso(findCityExpression);
+
+		}
+
 		private async Task<string> saveImage(IFormFile file)
 		{
 			string fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(file.FileName);
@@ -42,7 +56,6 @@ namespace ApplicationCore.Services
 		{
 			var advert = await adverts.FirstOrDefaultAsync(x => x.Id == id);
 			var advertDto = mapper.Map<AdvertDto>(advert);
-			//advertDto.FirstImage = advert?.Images.ElementAt(0).Name ?? string.Empty;
 			return advertDto;
 		}
 
@@ -101,11 +114,7 @@ namespace ApplicationCore.Services
 		public async Task<IEnumerable<AdvertDto>> AdvertFilter(string sort, string category, string state, decimal from, decimal to, string? find, string fcity)
 		{
             find = find?.ToLower() ?? string.Empty;
-			var filteredAdverts = adverts.Where(x => (category == "Всі категорії" || x.Category.Name == category)
-																	   && (state == "all" || (state == "new" && x.IsNew) || (state == "used" && !x.IsNew))
-																	   && ((from == 0 && to == 0) || (x.Price >= from && (to == 0 || x.Price <= to)))
-																	   && (((fcity == "Всі міста" && String.IsNullOrEmpty(find)) || (String.IsNullOrEmpty(find) && fcity == x.City.Name))
-																	      || ((fcity == "Всі міста" && x.Title.ToLower().Contains(find)) || (fcity == x.City.Name && x.Title.ToLower().Contains(find)))));
+			var filteredAdverts = adverts.Where(advertFilter(category,state,from,to,find,fcity));
 			var sortedAdverts = sort == null
 				 ? filteredAdverts
 				 : sort == "date"
