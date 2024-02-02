@@ -14,28 +14,26 @@
     <input id="element-count" value="@Model.Count()" class="d-none" />
     @foreach (var item in Model)
     {
-       
-            <div class="text-muted  w-100 d-flex  p-1 rounded border border-1 bg-white">
-                <div style="min-height:140px;min-width:200px;max-height:140px;max-width:200px">
-                    <img style="object-fit: cover;" src="@(url+ @item.FirstImage)" class="h-100 w-100 rounded-start">
-                </div>
-                <div class="d-flex flex-column  p-1 w-100 mx-3">
-                    <div>
-                        <div class="d-flex justify-content-between">
-                        <a asp-action="ShowAdvert" cursor:="pointer" asp-route-id="@item.Id" class="fs-5 text-muted text-decoration-none card-title">@item.Title</a>
-                            <h5 class="text-muted text-nowrap">@item.Price гр.</h5>
-                        </div>
-                        <span  class="badge @(item.IsNew ? "bg-success" : "bg-secondary") p-2">@(item.IsNew ? "Нове" : "Вживане")</span>
+        <div class="text-muted  w-100 d-flex  p-1 rounded border border-1 bg-white">
+            <div style="min-height:140px;min-width:200px;max-height:140px;max-width:200px">
+                <img style="object-fit: cover;" src="@(url+ @item.FirstImage)" class="h-100 w-100 rounded-start">
+            </div>
+            <div class="d-flex flex-column  p-1 w-100 mx-3">
+                <div>
+                    <div class="d-flex justify-content-between">
+                    <a asp-action="ShowAdvert" cursor:="pointer" asp-route-id="@item.Id" class="fs-5 text-muted text-decoration-none card-title">@item.Title</a>
+                        <h5 class="text-muted text-nowrap">@item.Price гр.</h5>
                     </div>
-                    <div class="d-flex justify-content-between mt-auto">
-                        <small class="text-muted">@item.SellerName @item.CityName </small>
-                        <div class="d-flex gap-2">
-                           <small class="text-muted">@item.CategoryName</small>
-                           <div onclick="setFavourite(@item.Id)" id="@item.Id" class="cur-pointer  material-icons d-block">@(favouriteIds.Contains(@item.Id) ? "favorite" : "favorite_border")</div>
-                        </div>
+                    <span  class="badge @(item.IsNew ? "bg-success" : "bg-secondary") p-2">@(item.IsNew ? "Нове" : "Вживане")</span>
+                </div>
+                <div class="d-flex justify-content-between mt-auto">
+                    <small class="text-muted">@item.SellerName @item.CityName </small>
+                    <div class="d-flex gap-2">
+                        <small class="text-muted">@item.CategoryName</small>
+                        <div onclick="setFavourite(@item.Id)" id="@item.Id" class="cur-pointer  material-icons d-block">@(favouriteIds.Contains(@item.Id) ? "favorite" : "favorite_border")</div>
                     </div>
                 </div>
             </div>
-       
+        </div>
     }
 </div>

@@ -11,8 +11,6 @@ if (!$storage.getItem("Partial")) {
 
 load();
 
-
-
 $('#confirm-filter').click(() => {
 	$category = $('#filter-category').val();
 	$state = $('input[name=btnradio]:checked').val();
@@ -81,6 +79,6 @@ function setContent(partial) {
 		$content.empty();
 		$content.html(res);
 		$el_count = $('#element-count').val();
-		$count_header.text($el_count == 0 ? "Не знайдено жодного оголошення" : $el_count < 5 ? `Знайдено ${$el_count} оголошеня` : `Знайдено ${$el_count} оголошень`)
+		$count_header.text($el_count == 0 ? "Не знайдено жодного оголошення" : `Знайдено ${$el_count} позицій`);
 	}).fail((info) => console.info(info.responseText));
 }
