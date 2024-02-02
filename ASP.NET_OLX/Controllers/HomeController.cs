@@ -9,7 +9,7 @@ namespace ASP.NET_OLX.Controllers
 		
 		public HomeController(IAdvertService advertService) :base(advertService) {}
 
-		public override async Task<IActionResult> Index()
+		public async Task<IActionResult> Index()
 		{
 			ViewBag.Cities = await advertService.GetAllCities();
 			ViewBag.Categories = await advertService.GetAllCategories();

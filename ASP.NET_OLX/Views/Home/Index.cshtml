@@ -65,7 +65,10 @@
 @section Scripts {
 	@{
 		 //<script src="~/js/home_script.js"></script>
-        <script>
+		<script>
+									 	
+											
+
 			$storage = window.sessionStorage;
 			$count_header = $('#count-header');
 			$content = $('#content');
@@ -150,6 +153,7 @@
 					$content.html(res);
 					$el_count = $('#element-count').val();
 					$count_header.text($el_count == 0 ? "Не знайдено жодного оголошення" : $el_count < 5 ? `Знайдено ${$el_count} оголошеня` : `Знайдено ${$el_count} оголошень`)
+					//$('[name = favourite]').click(setFavourite);
 				}).fail((info) => console.info(info.responseText));
 			}
 		</script>

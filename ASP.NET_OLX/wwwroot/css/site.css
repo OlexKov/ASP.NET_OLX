@@ -64,8 +64,12 @@ body {
     color: black;
 }
 
-    .card .title-link:hover {
-        text-decoration: underline;
-        color: darkgray;
-    }
+.card .title-link:hover {
+    text-decoration: underline;
+    color: darkgray;
+}
+
+.cur-pointer{
+    cursor:pointer;
+}
 

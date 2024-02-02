@@ -9,7 +9,7 @@ namespace ASP.NET_OLX.Controllers
 	{
         public AdminController(IAdvertService advertService) :base(advertService){ }
 
-        public override async Task<IActionResult> Index() => View(await advertService.GetAllAdverts());
+        public async Task<IActionResult> Index() => View(await advertService.GetAllAdverts());
                     
         public async Task<IActionResult> ShowPartialView(int id)
         {

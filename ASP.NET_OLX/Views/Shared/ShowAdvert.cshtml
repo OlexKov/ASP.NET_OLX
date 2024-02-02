@@ -1,8 +1,10 @@
-﻿@inject IConfiguration Configuration
-
+﻿@using ASP.NET_OLX.Services.Interfaces
+@inject IConfiguration Configuration
+@inject IFavouriteService fauvoriteSarvice
 @model AdvertDto
 @{
     string url = new Uri($"{Context.Request.Scheme}://{Context.Request.Host}/{Configuration["UserImgDir"]}/").AbsoluteUri;
+    IEnumerable<int> favouriteIds = (await fauvoriteSarvice.GetFavouriteAdverts()).Select(x => x.Id);
 }
 
 <a asp-action="Index" class="mb-3 btn btn-info">Повернутися</a>
@@ -40,7 +42,10 @@
     </div>
     <div class="w-30 d-flex flex-column gap-3 ">
         <div class="border rounded-3 p-3">
-            <h3 class="fs-6 text-muted">@Model.Date.ToShortDateString()</h3>
+            <div class="d-flex justify-content-between">
+                <h3 class="fs-6 text-muted">@Model.Date.ToShortDateString()</h3>
+                <div onclick="setFavourite(@Model.Id)" id="@Model.Id" class="cur-pointer  material-icons d-block">@(favouriteIds.Contains(@Model.Id) ? "favorite" : "favorite_border")</div>
+            </div>
             <h5>@Model.Title</h5>
             <h5>@Model.Price гр.</h5>
         </div>

@@ -1,8 +1,10 @@
-﻿@inject IConfiguration Configuration﻿
-
+﻿@using ASP.NET_OLX.Services.Interfaces
+@inject IConfiguration Configuration﻿
+@inject IFavouriteService fauvoriteSarvice
 @model AdvertDto
 @{
     string url = new Uri($"{Context.Request.Scheme}://{Context.Request.Host}/{Configuration["UserImgDir"]}/").AbsoluteUri;
+    IEnumerable<int> favouriteIds = (await fauvoriteSarvice.GetFavouriteAdverts()).Select(x => x.Id);
 }
 
 <div class="col">
@@ -26,10 +28,12 @@
             <p class="card-text">
                 @Model.Price$<br />
                 @Model.CategoryName
+                <div onclick="setFavourite(@Model.Id)" id="@Model.Id" class="cur-pointer  material-icons d-block">@(favouriteIds.Contains(@Model.Id) ? "favorite" : "favorite_border")</div>
             </p>
         </div>
         <div class="card-footer">
-            <span class="badge @(Model.IsNew ? "bg-success" : "bg-secondary")  p-2">@(Model.IsNew ? "Нове" : "Вживане")</span>
+            <div class="badge @(Model.IsNew ? "bg-success" : "bg-secondary") p-2">@(Model.IsNew ? "Нове" : "Вживане")</div>
         </div>
     </div>
 </div>
+

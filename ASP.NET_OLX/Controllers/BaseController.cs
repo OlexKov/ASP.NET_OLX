@@ -9,9 +9,7 @@ namespace ASP.NET_OLX.Controllers
 	{
 		protected readonly IAdvertService advertService;
        
-        public virtual async Task<IActionResult> Index() => View(await advertService.GetAllAdverts());
-		
-		public BaseController(IAdvertService advertService) {this.advertService = advertService;}
+        public BaseController(IAdvertService advertService) {this.advertService = advertService;}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 		public IActionResult Error()

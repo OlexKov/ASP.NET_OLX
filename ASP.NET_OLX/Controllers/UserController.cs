@@ -46,7 +46,7 @@ namespace ASP.NET_OLX.Controllers
 			return View();
         }
 
-        public override async Task<IActionResult> Index() => View(await advertService.GetAllAdverts());
+        public async Task<IActionResult> Index() => View(await advertService.GetAllAdverts());
        
         [HttpPost]
         public async Task<IActionResult> Create(AdvertModel advertModel)

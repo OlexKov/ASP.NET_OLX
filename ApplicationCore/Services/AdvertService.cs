@@ -40,7 +40,9 @@ namespace ApplicationCore.Services
 			                                                              || (String.IsNullOrEmpty(find) && fcity == x.City.Name)
 																		  || (fcity == "Всі міста" && x.Title.ToLower().Contains(find)
 																		  || (fcity == x.City.Name && x.Title.ToLower().Contains(find)));
-			return categoryExpression.AndAlso(stateExpression).AndAlso(fromToExpression).AndAlso(findCityExpression);
+			return categoryExpression.AndAlso(stateExpression)
+				                     .AndAlso(fromToExpression)
+									 .AndAlso(findCityExpression);
 		}
 
 		private async Task<string> saveImage(IFormFile file)
@@ -115,12 +117,15 @@ namespace ApplicationCore.Services
 		{
             find = find?.ToLower() ?? string.Empty;
 			var filteredAdverts = adverts.Where(advertFilter(category,state,from,to,find,fcity));
-			var sortedAdverts = sort == null
-				 ? filteredAdverts
-				 : sort == "date"
-				 ? filteredAdverts.OrderBy(x => x.Date)
-				 : filteredAdverts.OrderBy(x => x.Title);
+			var sortedAdverts = (sort == null ? filteredAdverts 
+				                                             : sort == "date"  ? filteredAdverts.OrderBy(x => x.Date) 
+				                                             : filteredAdverts.OrderBy(x => x.Title));
 			return mapper.Map<AdvertDto[]>(await sortedAdverts.ToArrayAsync());
         }
-    }
+
+		public async Task<IEnumerable<AdvertDto>> GetAdverts(IEnumerable<int> ids)
+		{
+			return mapper.Map<AdvertDto[]>(await context.Adverts.Where(x=>ids.Contains(x.Id)).ToArrayAsync());
+		}
+	}
 }
