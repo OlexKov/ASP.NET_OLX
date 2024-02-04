@@ -16,20 +16,25 @@
             <img src="@(url+@Model.FirstImage)" class="card-img-top" alt="Image Url">
         </a>
         <div class="card-body">
-            <h5 class="card-title">
-                <a class="title-link"
-                   asp-controller="Home"
-                   asp-action="ShowAdvert"
-                   asp-route-id="@Model.Id"
-                   asp-route-returnUrl="@Context.Request.Path">
-                    @Model.Title
-                </a>
-            </h5>
-            <p class="card-text">
-                @Model.Price$<br />
-                @Model.CategoryName
-                <div onclick="setFavourite(@Model.Id)" id="@Model.Id" class="cur-pointer  material-icons d-block">@(favouriteIds.Contains(@Model.Id) ? "favorite" : "favorite_border")</div>
-            </p>
+            <div class="d-flex flex-column justify-content-between h-100">
+                <div>
+                    <h5 class="card-title">
+                        <a class="title-link"
+                           asp-controller="Home"
+                           asp-action="ShowAdvert"
+                           asp-route-id="@Model.Id"
+                           asp-route-returnUrl="@Context.Request.Path">
+                            @Model.Title
+                        </a>
+                    </h5>
+                    <p class="card-text">
+                        @Model.Price$<br/>
+                        @Model.CategoryName
+                    </p>
+                    <span onclick="setFavourite(@Model.Id)" id="@Model.Id" class="cur-pointer mb-3 material-icons">@(favouriteIds.Contains(@Model.Id) ? "favorite" : "favorite_border")</span>
+                </div>
+                <small class="text-muted">@Model.SellerName @Model.CityName @Model.Date.ToShortDateString() @Model.Date.ToShortTimeString() </small>
+            </div>
         </div>
         <div class="card-footer">
             <div class="badge @(Model.IsNew ? "bg-success" : "bg-secondary") p-2">@(Model.IsNew ? "Нове" : "Вживане")</div>

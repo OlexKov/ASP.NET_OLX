@@ -27,7 +27,7 @@
                     <span  class="badge @(item.IsNew ? "bg-success" : "bg-secondary") p-2">@(item.IsNew ? "Нове" : "Вживане")</span>
                 </div>
                 <div class="d-flex justify-content-between mt-auto">
-                    <small class="text-muted">@item.SellerName @item.CityName </small>
+                    <small class="text-muted">@item.SellerName @item.CityName @item.Date.ToShortDateString() @item.Date.ToShortTimeString() </small>
                     <div class="d-flex gap-2">
                         <small class="text-muted">@item.CategoryName</small>
                         <div onclick="setFavourite(@item.Id)" id="@item.Id" class="cur-pointer  material-icons d-block">@(favouriteIds.Contains(@item.Id) ? "favorite" : "favorite_border")</div>
