@@ -17,6 +17,13 @@ namespace ASP.NET_OLX.Controllers
 
         public async Task<IActionResult> Index() => View(await favouriteService.GetFavouriteAdverts());
 
+        public async Task<IActionResult> ShowAdvert(int id)
+        {
+            var advert = await advertService.GetAdvert(id);
+            ViewBag.Images = (await advertService.GetAdvertImages(id)).ToArray();
+            return View(advert);
+        }
+
         public int Add(int id)
         {
             favouriteService.Add(id);

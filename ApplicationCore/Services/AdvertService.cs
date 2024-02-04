@@ -125,7 +125,7 @@ namespace ApplicationCore.Services
 
 		public async Task<IEnumerable<AdvertDto>> GetAdverts(IEnumerable<int> ids)
 		{
-			return mapper.Map<AdvertDto[]>(await context.Adverts.Where(x=>ids.Contains(x.Id)).ToArrayAsync());
+			return mapper.Map<AdvertDto[]>(await adverts.Where(x=>ids.Contains(x.Id)).ToArrayAsync());
 		}
 	}
 }

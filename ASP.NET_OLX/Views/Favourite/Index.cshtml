@@ -1,24 +1,33 @@
 ﻿@model IEnumerable<AdvertDto>
+@inject IConfiguration Configuration
 @{
+    string url = new Uri($"{Context.Request.Scheme}://{Context.Request.Host}/{Configuration["UserImgDir"]}/").AbsoluteUri;
 }
 <div class="card text-center">
     <div class="card-header">
-        My Cart
+        Обрані оголошення
     </div>
     <div class="card-body">
-        <h5 class="card-title">Product List</h5>
-
         <ul class="list-group">
             @foreach (var i in Model)
             {
-                <li class="mb-3 list-group-item d-flex justify-content-between align-items-center">
-                    @i.Title - @i.CategoryName
-                    <span class="badge bg-primary rounded-pill">@i.Price$</span>
+                <li class="mb-3 p-2 border rounded-2 d-flex justify-content-between align-items-center">
+                    <div class="d-flex gap-2 align-items-center">
+                        @{string imgUrl = url + @i.FirstImage;}
+                        <div title="<img class='w-100' src='@imgUrl'/>" data-bs-toggle="tooltip" data-bs-html="true" style="height:60px;width:80px" class="rounded-1" data-bs-placement="right">
+                            <img style="object-fit:cover" src=@imgUrl class="h-100 w-100 p-0 border rounded-1"/>
+                        </div>
+                        <a asp-action="ShowAdvert" cursor:="pointer" asp-route-id="@i.Id" class="text-muted text-decoration-none">@i.Title</a>  @i.CategoryName
+                    </div>
+                    <span class="badge bg-primary p-2 rounded-pill">@i.Price гр.</span>
                 </li>
             }
         </ul>
     </div>
     <div class="card-footer text-muted">
-        Total: @Model.Sum(x => x.Price)$
+        Загальна ціна: @Model.Sum(x => x.Price)гр.
     </div>
 </div>
+
+
+
