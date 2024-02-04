@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<AdvertDto>
-
+@inject IConfiguration Configuration
 @{
     ViewData["Title"] = "Сторінка адміністратора";
+    string url = new Uri($"{Context.Request.Scheme}://{Context.Request.Host}/{Configuration["UserImgDir"]}/").AbsoluteUri;
 }
 
 <h3 class="mb-3">@ViewData["Title"]</h3>
@@ -10,7 +11,8 @@
     <thead class="table-dark">
         <tr>
             <th scope="col">Id</th>
-            <th scope="col">Ім'я продавця</th>
+            <th scope="col">Фото</th>
+            <th scope="col" class="text-nowrap">Ім'я продавця</th>
             <th scope="col">Місто</th>
             <th scope="col">Категорія</th>
             <th scope="col">Дата</th>
@@ -25,6 +27,12 @@
         {
             <tr class="align-middle">
                 <td>@item.Id</td>
+                <td>
+                    @{string imgUrl = url + @item.FirstImage;}
+                    <div title="<img class='w-100' src='@imgUrl'/>" data-bs-toggle="tooltip" data-bs-html="true" style="height:50px;width:70px" class="rounded-1" data-bs-placement="right">
+                        <img style="object-fit:cover" src=@imgUrl class="h-100 w-100 p-0 border rounded-1" />
+                    </div>
+                </td>
                 <td>@item.SellerName</td>
                 <td>@item.CityName</td>
                 <td>@item.CategoryName</td>
