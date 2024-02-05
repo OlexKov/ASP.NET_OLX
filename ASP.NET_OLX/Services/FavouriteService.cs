@@ -47,5 +47,8 @@ namespace ASP.NET_OLX.Services
 			ids.Remove(id);
 			SaveItems(ids);
 		}
+
+		public bool IsFavourite(int id) => GetItems()?.Contains(id) ?? false;
+
     }
 }

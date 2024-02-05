@@ -1,13 +1,9 @@
 ﻿@using ASP.NET_OLX.Services.Interfaces
-
 @inject IConfiguration Configuration
-
-@inject IFavouriteService fauvoriteSarvice
-
+@inject IFavouriteService favouriteService
 @model IEnumerable<AdvertDto>
 @{
     string url = new Uri($"{Context.Request.Scheme}://{Context.Request.Host}/{Configuration["UserImgDir"]}/").AbsoluteUri;
-    IEnumerable<int> favouriteIds = (await fauvoriteSarvice.GetFavouriteAdverts()).Select(x=>x.Id);
 }
 
 <div class="d-flex flex-column gap-4 w-100">
@@ -30,7 +26,7 @@
                     <small class="text-muted">@item.SellerName @item.CityName @item.Date.ToShortDateString() @item.Date.ToShortTimeString() </small>
                     <div class="d-flex gap-2">
                         <small class="text-muted">@item.CategoryName</small>
-                        <div onclick="setFavourite(@item.Id)" id="@item.Id" class="cur-pointer  material-icons d-block">@(favouriteIds.Contains(@item.Id) ? "favorite" : "favorite_border")</div>
+                        <div onclick="setFavourite(@item.Id)" id="@item.Id" class="cur-pointer  material-icons d-block">@(favouriteService.IsFavourite(@item.Id) ? "favorite" : "favorite_border")</div>
                     </div>
                 </div>
             </div>
