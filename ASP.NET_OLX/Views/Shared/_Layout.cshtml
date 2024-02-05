@@ -39,8 +39,8 @@
                         <li class="nav-item">
                             <a id="favourite" class="nav-link text-dark" asp-area="" asp-controller="Favourite" asp-action="Index">Обранe @(fCount != 0 ? $"({@fCount})":"")</a>
                         </li>
-                       
-                    </ul>
+                     </ul>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>

@@ -1,10 +1,11 @@
+ï»¿
 $storage = window.sessionStorage;
 $count_header = $('#count-header');
 $content = $('#content');
 
 if (!$storage.getItem("Partial")) {
 	$storage.setItem("Partial", "_ShowAdvertsPartial");
-	$storage.setItem("FindCity", "Âñ³ ì³ñòà");
+	$storage.setItem("FindCity", "Ð’ÑÑ– Ð¼Ñ–ÑÑ‚Ð°");
 	$storage.setItem("FindStr", "");
 	resetFilter();
 }
@@ -46,7 +47,7 @@ $('#find-button').click(() => {
 });
 
 function resetFilter() {
-	$storage.setItem("Category", "Âñ³ êàòåãîð³¿");
+	$storage.setItem("Category", "Ð’ÑÑ– ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ñ–Ñ—");
 	$storage.setItem("State", "all");
 	$storage.setItem("PriceFrom", '');
 	$storage.setItem("PriceTo", '');
@@ -79,6 +80,6 @@ function setContent(partial) {
 		$content.empty();
 		$content.html(res);
 		$el_count = $('#element-count').val();
-		$count_header.text($el_count == 0 ? "Íå çíàéäåíî æîäíîãî îãîëîøåííÿ" : `Çíàéäåíî ${$el_count} ïîçèö³é`);
+		$count_header.text($el_count == 0 ? "ÐÐµ Ð·Ð½Ð°Ð¹Ð´ÐµÐ½Ð¾ Ð¶Ð¾Ð´Ð½Ð¾Ð³Ð¾ Ð¾Ð³Ð¾Ð»Ð¾ÑˆÐµÐ½Ð½Ñ" : `Ð—Ð½Ð°Ð¹Ð´ÐµÐ½Ð¾ ${$el_count} Ð¿Ð¾Ð·Ð¸Ñ†Ñ–Ð¹`);
 	}).fail((info) => console.info(info.responseText));
 }

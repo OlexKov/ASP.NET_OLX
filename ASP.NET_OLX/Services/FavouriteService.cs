@@ -3,6 +3,8 @@ using ApplicationCore.Services.Interfaces;
 using ASP.NET_OLX.Expressions;
 using ASP.NET_OLX.Services.Interfaces;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Newtonsoft.Json.Linq;
+using System.Text.Json;
 
 namespace ASP.NET_OLX.Services
 {
@@ -13,12 +15,12 @@ namespace ASP.NET_OLX.Services
 		private readonly IAdvertService advertService;
 
 		public FavouriteService(IHttpContextAccessor httpContextAccessor, IAdvertService advertService)
-        {
-            this.advertService = advertService;
+		{
+			this.advertService = advertService;
 			httpContext = httpContextAccessor.HttpContext!;
 		}
 
-		private void SaveItems(IEnumerable<int> items) => httpContext.Session.Set(fauvorite_key, items);
+		private void SaveItems(IEnumerable<int> items) =>  httpContext.Session.Set(fauvorite_key, items);
 
 		private List<int>? GetItems() => httpContext.Session.Get<List<int>>(fauvorite_key);
 

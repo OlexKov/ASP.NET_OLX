@@ -1,10 +1,11 @@
 ﻿using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 using DataAccess.Entities.Configs;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace DataAccess
 {
-	public class OlxDBContext : DbContext
+	public class OlxDBContext : IdentityDbContext
 	{
 		public OlxDBContext(DbContextOptions options) : base(options)
 		{

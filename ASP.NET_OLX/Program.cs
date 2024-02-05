@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using DataAccess;
 using ApplicationCore.Expressions;
 using ASP.NET_OLX.Expressions;
+using Microsoft.AspNetCore.Identity;
 
 namespace ASP.NET_OLX
 {
@@ -14,7 +15,15 @@ namespace ASP.NET_OLX
             var connStr = builder.Configuration.GetConnectionString("LocalDb")!;
 
             builder.Services.AddDbContext(connStr);
-            
+
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+            })
+               .AddDefaultTokenProviders()
+               .AddDefaultUI()
+               .AddEntityFrameworkStores<OlxDBContext>();
+                       
             // Add services to the container.
             builder.Services.AddControllersWithViews();
            
@@ -37,7 +46,6 @@ namespace ASP.NET_OLX
 				options.Cookie.IsEssential = true;
 			});
 
-
 			var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -57,6 +65,8 @@ namespace ASP.NET_OLX
             app.UseAuthorization();
 
 			app.UseSession();
+
+			app.MapRazorPages();
 
 			app.MapControllerRoute(
                 name: "default",

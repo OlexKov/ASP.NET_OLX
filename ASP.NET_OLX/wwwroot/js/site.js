@@ -27,3 +27,4 @@ function setFavourite(id) {
 		else $favourite.text(`Обране (${res})`);
 	});
 }
+
