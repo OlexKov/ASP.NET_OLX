@@ -3,6 +3,7 @@ using DataAccess;
 using ApplicationCore.Expressions;
 using ASP.NET_OLX.Expressions;
 using Microsoft.AspNetCore.Identity;
+using DataAccess.Entities;
 
 namespace ASP.NET_OLX
 {
@@ -16,7 +17,8 @@ namespace ASP.NET_OLX
 
             builder.Services.AddDbContext(connStr);
 
-            builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            
+            builder.Services.AddIdentity<User, IdentityRole>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
             })

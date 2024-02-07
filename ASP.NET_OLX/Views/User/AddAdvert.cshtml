@@ -60,7 +60,7 @@
                 {
                     @foreach (var item in Model.ImagesUrls)
                     {
-                        <div class="my-2" style="height:140px;width:200px;">
+                        <div class="my-2"  style="height:140px;width:200px;">
                             <img style="object-fit: cover;" src=@(url+@item) class="h-100 w-100 rounded">
                             <a id=@item onclick="removeOldImage(event)" class="bottom-100  position-relative btn-sm btn btn-danger material-icons">close</a>
                         </div>

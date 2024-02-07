@@ -1,0 +1,50 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Профіль";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<h3>@ViewData["Title"]</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="row">
+    <div class="col-md-6">
+        <form id="profile-form" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div class="form-floating mb-3">
+                <input asp-for="Username" class="form-control" placeholder="Виберіть ім'я користувача." disabled />
+                <label asp-for="Username" class="form-label"></label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Name" class="form-control" aria-required="true" placeholder="Ваше ім'я" />
+                <label asp-for="Input.Name">Ім'я</label>
+                <span asp-validation-for="Input.Name"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Surname" class="form-control" aria-required="true" placeholder="Ваше прізвище" />
+                <label asp-for="Input.Surname">Прізвище</label>
+                <span asp-validation-for="Input.Surname"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Birthdate" class="form-control" autocomplete="birthdate" aria-required="true" />
+                <label asp-for="Input.Birthdate">Дата народження</label>
+                <span asp-validation-for="Input.Birthdate" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Будь ласка, введіть свій номер телефону." />
+                <label asp-for="Input.PhoneNumber" class="form-label"></label>
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+
+
+            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Зберегти</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,10 +1,13 @@
 ﻿using ApplicationCore.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
 
 namespace ASP.NET_OLX.Controllers
 {
+    [Authorize]
+   // [Authorize(Roles = "Admin")]
     public class AdminController : BaseController
 	{
         public AdminController(IAdvertService advertService) :base(advertService){ }

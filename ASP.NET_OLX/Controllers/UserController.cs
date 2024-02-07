@@ -2,12 +2,15 @@ using ApplicationCore.DTOs;
 using ApplicationCore.Models;
 using ApplicationCore.Services.Interfaces;
 using DataAccess.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 
 namespace ASP.NET_OLX.Controllers
 {
+    [Authorize]
+    //[Authorize(Roles = "User")]
     public class UserController : BaseController
 	{
         [NonAction]

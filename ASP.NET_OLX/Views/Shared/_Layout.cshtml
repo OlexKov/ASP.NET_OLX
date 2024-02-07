@@ -1,6 +1,7 @@
 ﻿﻿@using ASP.NET_OLX.Services.Interfaces
 @inject IFavouriteService favouriteService;
 
+
 @{
     int fCount = favouriteService.GetCount();
 }
@@ -30,12 +31,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Оголошення</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Сторінка Адміністратора</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Особистий кабінет</a>
-                        </li>
+                        @if (@User.Identity.IsAuthenticated@* && User.IsInRole("Admin") *@)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Сторінка Адміністратора</a>
+                            </li>
+                        }
+                        @if (@User.Identity.IsAuthenticated @* && User.IsInRole("User") *@)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Особистий кабінет</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a id="favourite" class="nav-link text-dark" asp-area="" asp-controller="Favourite" asp-action="Index">Обранe @(fCount != 0 ? $"({@fCount})":"")</a>
                         </li>

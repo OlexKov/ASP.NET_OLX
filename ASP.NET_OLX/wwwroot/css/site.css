@@ -32,12 +32,20 @@ body {
 .w-60 {
     width: 60%;
 }
+
+.w-65 {
+    width: 65%;
+}
 .w-70 {
     width: 70%;
 }
 
 .w-30 {
     width: 30%;
+}
+
+.w-35 {
+    width: 35%;
 }
 
 .b-size {

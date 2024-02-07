@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace DataAccess
 {
-	public class OlxDBContext : IdentityDbContext
+	public class OlxDBContext : IdentityDbContext<User>
 	{
 		public OlxDBContext(DbContextOptions options) : base(options)
 		{

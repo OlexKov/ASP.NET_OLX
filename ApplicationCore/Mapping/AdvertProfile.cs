@@ -7,7 +7,7 @@ namespace ApplicationCore.Mapping
 {
 	public class AdvertProfile : Profile
 	{
-		public AdvertProfile() 
+		public AdvertProfile(﻿) 
 		{
 			CreateMap<AdvertModel, Advert>();
 			CreateMap<Advert, AdvertModel>()
