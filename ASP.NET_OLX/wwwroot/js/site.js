@@ -23,8 +23,8 @@ function setFavourite(id) {
 	}
 	$.get(`/Favourite/${$functName}?id=${id}`).done((res) => {
 		if (res == 0)
-			$favourite.text('Обране');
-		else $favourite.text(`Обране (${res})`);
+			$favourite.text('');
+		else $favourite.text(`(${res})`);
 	});
 }
 
