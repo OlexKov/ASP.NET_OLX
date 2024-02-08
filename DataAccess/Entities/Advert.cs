@@ -4,7 +4,9 @@ namespace DataAccess.Entities
 {
 	public class Advert : BaseEntity
 	{
-		public string SellerName { get; set; }
+		public string UserId { get; set; }
+
+		public User User { get; set; }
 
 		public int CityId { get; set; }
 
@@ -25,5 +27,8 @@ namespace DataAccess.Entities
 		public decimal Price { get; set; }
 
 		public ICollection<Image> Images { get; set; } = new HashSet<Image>();
-	}
+
+        public ICollection<UserFavouriteAdvert> UserFavouriteAdverts { get; set; } = new HashSet<UserFavouriteAdvert>();
+
+    }
 }

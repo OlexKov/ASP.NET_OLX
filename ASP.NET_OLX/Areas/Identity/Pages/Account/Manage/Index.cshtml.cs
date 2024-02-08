@@ -119,6 +119,9 @@ namespace ASP.NET_OLX.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
+              
+            
+
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
             {
@@ -126,6 +129,39 @@ namespace ASP.NET_OLX.Areas.Identity.Pages.Account.Manage
                 if (!setPhoneResult.Succeeded)
                 {
                     StatusMessage = "Неочікувана помилка під час спроби встановити номер телефону.";
+                    return RedirectToPage();
+                }
+            }
+
+            if (Input.Birthdate != user.Birthdate)
+            {
+                user.Birthdate = Input.Birthdate;
+                var result = await _userManager.UpdateAsync(user);
+                if (!result.Succeeded)
+                {
+                    StatusMessage = "Неочікувана помилка під час спроби встановити дату народження.";
+                    return RedirectToPage();
+                }
+            }
+
+            if (user.Name != Input.Name)
+            {
+                user.Name = Input.Name;
+                var result = await _userManager.UpdateAsync(user);
+                if (!result.Succeeded)
+                {
+                    StatusMessage = "Неочікувана помилка під час спроби встановити ім'я.";
+                    return RedirectToPage();
+                }
+            }
+
+            if (user.Surname != Input.Surname)
+            {
+                user.Surname = Input.Surname;
+                var result = await _userManager.UpdateAsync(user);
+                if (!result.Succeeded)
+                {
+                    StatusMessage = "Неочікувана помилка під час спроби встановити прізвище.";
                     return RedirectToPage();
                 }
             }

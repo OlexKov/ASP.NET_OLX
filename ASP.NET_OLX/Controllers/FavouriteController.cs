@@ -22,16 +22,16 @@ namespace ASP.NET_OLX.Controllers
             return View(advert);
         }
 
-        public int Add(int id)
+        public async Task<int> Add(int id)
         {
-            favouriteService.Add(id);
-            return favouriteService.GetCount();
+            await favouriteService.Add(id);
+            return await favouriteService.GetCount();
         }
 
-        public int Remove(int id)
+        public async Task<int> Remove(int id)
         {
-            favouriteService.Remove(id);
-            return favouriteService.GetCount();
+            await favouriteService.Remove(id);
+            return await favouriteService.GetCount();
         }
     }
 }

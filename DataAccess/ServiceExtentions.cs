@@ -7,7 +7,7 @@ namespace DataAccess
 	{
 		public static void AddDbContext(this IServiceCollection services, string connectionString)
 		{
-			services.AddDbContext<OlxDBContext>(opts =>
+			services.AddDbContext<OlxDBContext>( opts =>
 				opts.UseSqlServer(connectionString));
 		}
 	}

@@ -21,8 +21,9 @@ namespace DataAccess
 			modelBuilder.ApplyConfiguration<Image>(new ImageConfig());
 			modelBuilder.ApplyConfiguration<Category>(new CategoryConfig());
 			modelBuilder.ApplyConfiguration<Advert>(new AdvertConfig());
-			DefaultData.Initialize(modelBuilder);
-		}
+            modelBuilder.ApplyConfiguration<UserFavouriteAdvert>(new UserFavouriteAdvertConfig());
+            DefaultData.Initialize(modelBuilder);
+        }
 
 		public DbSet<City> Cities { get; set; }
 
@@ -31,5 +32,7 @@ namespace DataAccess
 		public DbSet<Image> Images { get; set; }
 
 		public DbSet<Advert> Adverts { get; set; }
-	}
+
+        public DbSet<UserFavouriteAdvert> UserFavouriteAdverts { get; set; }
+    }
 }

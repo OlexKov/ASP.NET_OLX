@@ -11,7 +11,7 @@
             Вітаємо 
             <strong>
                 @{var user = await @UserManager.FindByNameAsync(User.Identity.Name);}
-                @user.Name  @user.Surname
+                @user?.Name  @user?.Surname
             </strong> !
         </a>
     </li>

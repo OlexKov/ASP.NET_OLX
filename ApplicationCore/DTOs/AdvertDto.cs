@@ -4,6 +4,8 @@
 	{
 		public string SellerName { get; set; }
 
+		public string UserId { get; set; }
+
 		public int CityId { get; set; }
 
 		public string CityName { get; set; }
@@ -23,5 +25,6 @@
 		public decimal Price { get; set; }
 
 		public string FirstImage { get; set; }
+
 	}
 }

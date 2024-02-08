@@ -6,9 +6,9 @@ namespace ASP.NET_OLX.Services.Interfaces
 	public interface IFavouriteService
 	{
 		Task<IEnumerable<AdvertDto>> GetFavouriteAdverts();
-		void Add(int id);
-		void Remove(int id);
-		int GetCount();
+		Task Add(int id);
+		Task Remove(int id);
+		Task<int> GetCount();
 		bool IsFavourite(int id);
     }
 }

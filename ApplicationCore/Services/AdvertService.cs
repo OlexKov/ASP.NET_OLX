@@ -7,6 +7,7 @@ using DataAccess;
 using DataAccess.Entities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.Extensions.Configuration;
@@ -20,15 +21,19 @@ namespace ApplicationCore.Services
 		private readonly IWebHostEnvironment env;
 		private readonly IConfiguration config;
 		private readonly IMapper mapper;
+		private readonly IHttpContextAccessor httpContextAccessor;
+		private readonly UserManager<User> userManager;
 		private readonly IIncludableQueryable<Advert, ICollection<Image>> adverts;
 
-		public AdvertService(OlxDBContext context, IWebHostEnvironment env, IConfiguration config, IMapper mapper) 
+		public AdvertService(OlxDBContext context, UserManager<User> userManager,IHttpContextAccessor httpContextAccessor, IWebHostEnvironment env, IConfiguration config, IMapper mapper) 
 		{
+			this.userManager = userManager;
+			this.httpContextAccessor = httpContextAccessor;
 			this.context = context;
 			this.env = env;
 			this.config = config;
 			this.mapper = mapper;
-			adverts = context.Adverts.Include(x => x.Category).Include(x => x.City).Include(x => x.Images);
+			adverts = context.Adverts.Include(x=>x.User).Include(x => x.Category).Include(x => x.City).Include(x => x.Images);
 		}
 
 		private Expression<Func<Advert, bool>> advertFilter(string category, string state, decimal from, decimal to, string? find, string fcity)
@@ -91,6 +96,8 @@ namespace ApplicationCore.Services
 			if (advertModel.Id == 0)
 			{
 				advert.Date = DateTime.Now;
+				var currentUser = await userManager.FindByNameAsync(httpContextAccessor.HttpContext.User.Identity.Name);
+				advert.UserId = currentUser.Id;
 				await context.Adverts.AddAsync(advert);
 			}
 			else
@@ -127,5 +134,8 @@ namespace ApplicationCore.Services
 		{
 			return mapper.Map<AdvertDto[]>(await adverts.Where(x=>ids.Contains(x.Id)).ToArrayAsync());
 		}
+
+		public async Task<IEnumerable<AdvertDto>> GetUserAdverts(string id) => mapper.Map<IEnumerable<AdvertDto>>(await adverts.Where(x=>x.UserId == id).ToArrayAsync());
+		
 	}
 }

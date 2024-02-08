@@ -3,6 +3,7 @@ using ApplicationCore.Models;
 using ApplicationCore.Services.Interfaces;
 using DataAccess.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -49,7 +50,12 @@ namespace ASP.NET_OLX.Controllers
 			return View();
         }
 
-        public async Task<IActionResult> Index() => View(await advertService.GetAllAdverts());
+        public async Task<IActionResult> Index([FromServices]UserManager<User> userManager)
+        {
+            var currentUser = await userManager.FindByNameAsync(User.Identity.Name);
+
+			return View(await advertService.GetUserAdverts(currentUser.Id));
+        }
        
         [HttpPost]
         public async Task<IActionResult> Create(AdvertModel advertModel)

@@ -9,11 +9,8 @@
 
 <h3 class="mb-3">@ViewData["Title"]</h3>
 <form class="row g-3" method="post" asp-action="Create" onsubmit="return validateImage();" enctype="multipart/form-data">
-    <div class="col-md-6">
-        <label asp-for=SellerName for="inputEmail4" class="fw-bold form-label">Імя продавця</label>
-        <input asp-for=SellerName type="text" class="form-control" placeholder="Імя продавця">
-        <span asp-validation-for=SellerName class="form-text text-danger"></span>
-    </div>
+    
+         
     <div class="col-6">
         <label asp-for=Price class="fw-bold form-label">Ціна</label>
         <input asp-for=Price type="number" min="0" class="form-control">
@@ -66,6 +63,7 @@
                         </div>
                     }
                     <input asp-for=Id type="number" value=@Model.Id  class="d-none form-control">
+                    <input asp-for=UserId type="text" value=@Model.UserId class="d-none form-control">
                 }
             </div>
         </div>

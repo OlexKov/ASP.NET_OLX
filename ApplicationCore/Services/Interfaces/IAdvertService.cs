@@ -9,6 +9,7 @@ namespace ApplicationCore.Services.Interfaces
 		Task<IEnumerable<AdvertDto>> GetAllAdverts();
 		Task<AdvertDto> GetAdvert(int id);
 		Task<IEnumerable<AdvertDto>> GetAdverts(IEnumerable<int> ids);
+		Task<IEnumerable<AdvertDto>> GetUserAdverts(string id);
 		Task<AdvertModel> GetAdvertModel(int id);
 		Task<IEnumerable<ImageDto>> GetAdvertImages(int id);
 		Task<IEnumerable<CategoryDto>> GetAllCategories();

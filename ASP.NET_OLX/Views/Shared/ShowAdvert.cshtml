@@ -3,61 +3,66 @@
 @inject IFavouriteService favouriteService
 @model AdvertDto
 @{
-    string url = new Uri($"{Context.Request.Scheme}://{Context.Request.Host}/{Configuration["UserImgDir"]}/").AbsoluteUri;
+	string url = new Uri($"{Context.Request.Scheme}://{Context.Request.Host}/{Configuration["UserImgDir"]}/").AbsoluteUri;
 }
 
 <a asp-action="Index" class="mb-3 btn btn-info">Повернутися</a>
 <div class="d-flex gap-3">
 
-    <div class="w-65 d-flex flex-column gap-3 ">
-        <div id="carousel" class="border rounded-3 p-1 carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                @for (int i = 0; i < ViewBag.Images.Length; i++)
-                {
-                    <button class=@(@i == 0 ? "active" : "") type="button" data-bs-target="#carousel" data-bs-slide-to=@i aria-label=$"Slide {@i}"></button>
-                }
-            </div>
-            <div class="carousel-inner">
-                @for (int i = 0; i < ViewBag.Images.Length; i++)
-                {
-                    <div class="carousel-item @(@i == 0 ? "active" : "") ">
-                        <img src=@(url + ViewBag.Images[@i].Name) class="d-block  m-auto" style="height:55vh;">
-                    </div>
-                }
-            </div>
-            
-            <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
-                <div class="bg-light border rounded-2 d-flex align-middle p-1">
-                    <span class="material-icons fs-1 text-black-50">arrow_back_ios_new</span>
-                </div>
-                <span  class="visually-hidden">Previous</span>
-            </button>
-           
-            <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
-                <div class="bg-light border rounded-2 d-flex align-middle  p-1">
-                    <span class="material-icons fs-1 text-black-50" aria-hidden="true">arrow_forward_ios</span>
-                </div>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-        <div class="border rounded-3 p-3">
-            <h5>Опис</h5>
-            <p class="lh-base">@Model.Description</p>
-        </div>
-    </div>
-    <div class="w-35 d-flex flex-column gap-3 ">
-        <div class="border rounded-3 p-3">
-            <div class="d-flex justify-content-between">
-                <h3 class="fs-6 text-muted">@Model.Date.ToShortDateString()</h3>
-                <div onclick="setFavourite(@Model.Id)" id="@Model.Id" class="cur-pointer  material-icons d-block">@(favouriteService.IsFavourite(@Model.Id) ? "favorite" : "favorite_border")</div>
-            </div>
-            <h5>@Model.Title</h5>
-            <h5>@Model.Price гр.</h5>
-        </div>
-        <div class="border rounded-3 p-3">
-            <h5>Користувач</h5>
-            <p>@Model.SellerName</p>
-            <p>@Model.CityName</p>
-        </div>
-    </div>
+	<div class="w-70 d-flex flex-column gap-3 ">
+		<div id="carousel" class="border rounded-3 p-1 carousel slide" data-bs-ride="carousel">
+			<div class="carousel-indicators">
+				@for (int i = 0; i < ViewBag.Images.Length; i++)
+				{
+					<button class=@(@i == 0 ? "active" : "") type="button" data-bs-target="#carousel" data-bs-slide-to=@i aria-label=$"Slide {@i}"></button>
+				}
+			</div>
+			<div class="carousel-inner">
+				@for (int i = 0; i < ViewBag.Images.Length; i++)
+				{
+					<div class="bg-light carousel-item @(@i == 0 ? "active" : "") ">
+						<img src=@(url + ViewBag.Images[@i].Name) class="d-block  m-auto" style="height:60vh;">
+					</div>
+				}
+			</div>
+
+			<button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+				<div class="bg-light border rounded-2 d-flex align-middle p-1">
+					<span class="material-icons fs-1 text-black-50">arrow_back_ios_new</span>
+				</div>
+				<span class="visually-hidden">Previous</span>
+			</button>
+
+			<button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+				<div class="bg-light border rounded-2 d-flex align-middle  p-1">
+					<span class="material-icons fs-1 text-black-50" aria-hidden="true">arrow_forward_ios</span>
+				</div>
+				<span class="visually-hidden">Next</span>
+			</button>
+		</div>
+		<div class="border rounded-3 p-3">
+			<h5>Опис</h5>
+			<p class="lh-base">@Model.Description</p>
+			<hr />
+		</div>
+	</div>
+	<div class="w-30 d-flex flex-column gap-3 ">
+		<div class="d-flex flex-column gap-4 border rounded-3 p-3">
+			<div class="d-flex justify-content-between">
+				<small class="text-muted">Опубліковано @Model.Date.ToShortDateString()</small>
+				<div onclick="setFavourite(@Model.Id)" id="@Model.Id" class="cur-pointer  material-icons d-block">@(favouriteService.IsFavourite(@Model.Id) ? "favorite" : "favorite_border")</div>
+			</div>
+			<h6>@Model.Title</h6>
+			<h5>@Model.Price гр.</h5>
+			<div class ="d-flex flex-column gap-2" >
+				<button type="button" class="btn btn-outline-secondary">Написати</button>
+				<button type="button" class="btn btn-outline-secondary">Купити</button>
+			</div>
+		</div>
+		<div class="border rounded-3 p-3">
+			<h5>Користувач</h5>
+			<p>@Model.SellerName</p>
+			<p>@Model.CityName</p>
+		</div>
+	</div>
 </div>
