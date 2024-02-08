@@ -30,7 +30,7 @@
                         @Model.Price$<br/>
                         @Model.CategoryName
                     </p>
-                    <span onclick="setFavourite(@Model.Id)" id="@Model.Id" class="cur-pointer mb-3 material-icons">@(favouriteService.IsFavourite(@Model.Id) ? "favorite" : "favorite_border")</span>
+                    <span onclick="setFavourite(@Model.Id)" id="@Model.Id" class="cur-pointer mb-3 material-icons">@(await favouriteService.IsFavourite(@Model.Id) ? "favorite" : "favorite_border")</span>
                 </div>
                 <small class="text-muted">@Model.SellerName @Model.CityName @Model.Date.ToShortDateString() @Model.Date.ToShortTimeString() </small>
             </div>

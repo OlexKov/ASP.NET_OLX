@@ -50,7 +50,7 @@
 		<div class="d-flex flex-column gap-4 border rounded-3 p-3">
 			<div class="d-flex justify-content-between">
 				<small class="text-muted">Опубліковано @Model.Date.ToShortDateString()</small>
-				<div onclick="setFavourite(@Model.Id)" id="@Model.Id" class="cur-pointer  material-icons d-block">@(favouriteService.IsFavourite(@Model.Id) ? "favorite" : "favorite_border")</div>
+				<div onclick="setFavourite(@Model.Id)" id="@Model.Id" class="cur-pointer  material-icons d-block">@(await favouriteService.IsFavourite(@Model.Id) ? "favorite" : "favorite_border")</div>
 			</div>
 			<h6>@Model.Title</h6>
 			<h5>@Model.Price гр.</h5>

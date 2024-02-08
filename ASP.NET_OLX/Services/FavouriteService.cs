@@ -4,19 +4,12 @@ using ASP.NET_OLX.Expressions;
 using ASP.NET_OLX.Services.Interfaces;
 using DataAccess;
 using DataAccess.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Net.Http;
-using System.Text.Json;
 
 namespace ASP.NET_OLX.Services
 {
-	public class FavouriteService : IFavouriteService
+    public class FavouriteService : IFavouriteService
 	{
 		private readonly string fauvorite_key = "fauvorite_adverts_key";
 		private readonly HttpContext httpContext;
@@ -39,19 +32,19 @@ namespace ASP.NET_OLX.Services
 
         private void SaveItems(IEnumerable<int> items) => httpContext.Session.Set(fauvorite_key, items);
 
-		private  List<int>? GetItems()
+		private async Task<List<int>?> GetItems()
 		{
             var user = currentUser;
 			return user == null ? httpContext.Session.Get<List<int>>(fauvorite_key)
-			                    : dbContext.UserFavouriteAdverts.Where(x => x.UserId == user.Id)
+			                    :await dbContext.UserFavouriteAdverts.Where(x => x.UserId == user.Id)
                                                     .Select(x => x.AdvertId)
-                                                    .ToList();
+                                                    .ToListAsync();
         }
 
 		public async Task<int> GetCount()
 		{
             var user = currentUser;
-			return user == null ? GetItems()?.Count ?? 0
+			return user == null ? (await GetItems())?.Count ?? 0
 								: await dbContext.UserFavouriteAdverts.Where(x => x.UserId == user.Id).CountAsync();
         }
 
@@ -60,7 +53,7 @@ namespace ASP.NET_OLX.Services
 			var user = currentUser;
             if (user == null)
 			{
-				var ids = GetItems();
+				var ids = await GetItems();
 				ids ??= [];
 				ids.Add(id);
 				SaveItems(ids);
@@ -74,7 +67,7 @@ namespace ASP.NET_OLX.Services
 
 		public async Task<IEnumerable<AdvertDto>> GetFavouriteAdverts()
 		{
-			var ids = GetItems() ?? [];
+			var ids = await GetItems() ?? [];
 			return await advertService.GetAdverts(ids);
         }
 
@@ -83,7 +76,7 @@ namespace ASP.NET_OLX.Services
             var user = currentUser;
 			if (user == null)
 			{
-				var ids = GetItems();
+				var ids = await GetItems();
 				if (ids == null) return;
 				ids.Remove(id);
 				SaveItems(ids);
@@ -95,6 +88,6 @@ namespace ASP.NET_OLX.Services
 				await dbContext.SaveChangesAsync();
             }
 		}
-		public bool IsFavourite(int id) => GetItems()?.Contains(id) ?? false;
+		public async Task<bool> IsFavourite(int id) =>(await GetItems())?.Contains(id) ?? false;
     }
 }

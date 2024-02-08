@@ -9,6 +9,6 @@ namespace ASP.NET_OLX.Services.Interfaces
 		Task Add(int id);
 		Task Remove(int id);
 		Task<int> GetCount();
-		bool IsFavourite(int id);
+		Task<bool> IsFavourite(int id);
     }
 }
