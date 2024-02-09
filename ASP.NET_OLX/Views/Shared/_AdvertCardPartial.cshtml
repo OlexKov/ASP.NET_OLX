@@ -1,10 +1,7 @@
 ﻿@using ASP.NET_OLX.Services.Interfaces
-@inject IConfiguration Configuration﻿
 @inject IFavouriteService favouriteService
 @model AdvertDto
-@{
-    string url = new Uri($"{Context.Request.Scheme}://{Context.Request.Host}/{Configuration["UserImgDir"]}/").AbsoluteUri;
-}
+
 
 <div class="col">
     <div class="card h-100">
@@ -12,7 +9,7 @@
            asp-action="ShowAdvert"
            asp-route-id="@Model.Id"
            asp-route-returnUrl="@Context.Request.Path">
-            <img src="@(url+@Model.FirstImage)" class="card-img-top" alt="Image Url">
+            <img src="@Model.FirstImage" class="card-img-top" alt="Image Url">
         </a>
         <div class="card-body">
             <div class="d-flex flex-column justify-content-between h-100">

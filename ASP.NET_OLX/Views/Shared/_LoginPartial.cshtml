@@ -12,6 +12,10 @@
             <strong>
                 @{var user = await @UserManager.GetUserAsync(User);}
                 @user?.Name  @user?.Surname
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <small slass="text-moted">(Адмін)</small>
+                    }
             </strong> !
         </a>
     </li>

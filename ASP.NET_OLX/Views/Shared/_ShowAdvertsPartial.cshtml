@@ -1,10 +1,8 @@
 ﻿@using ASP.NET_OLX.Services.Interfaces
-@inject IConfiguration Configuration
+
 @inject IFavouriteService favouriteService
 @model IEnumerable<AdvertDto>
-@{
-    string url = new Uri($"{Context.Request.Scheme}://{Context.Request.Host}/{Configuration["UserImgDir"]}/").AbsoluteUri;
-}
+
 
 <div class="d-flex flex-column gap-4 w-100">
     <input id="element-count" value="@Model.Count()" class="d-none" />
@@ -12,7 +10,7 @@
     {
         <div class="text-muted  w-100 d-flex  p-1 rounded border border-1 bg-white">
             <div style="min-height:140px;min-width:200px;max-height:140px;max-width:200px">
-                <img style="object-fit: cover;" src="@(url+ @item.FirstImage)" class="h-100 w-100 rounded-start">
+                <img style="object-fit: cover;" src="@item.FirstImage" class="h-100 w-100 rounded-start">
             </div>
             <div class="d-flex flex-column  p-1 w-100 mx-3">
                 <div>
@@ -33,3 +31,4 @@
         </div>
     }
 </div>
+<partial name="_ToastPartial" />

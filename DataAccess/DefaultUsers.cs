@@ -25,7 +25,6 @@ namespace DataAccess
 					NormalizedName = "ADMIN",
 					Id = ADMIN_ROLE_ID,
 					ConcurrencyStamp = ADMIN_ROLE_ID,
-
 			    },
 				new IdentityRole
 				{

@@ -64,7 +64,9 @@ namespace ASP.NET_OLX
 
             app.UseRouting();
 
-            app.UseAuthorization();
+			app.UseAuthentication();
+
+			app.UseAuthorization();
 
 			app.UseSession();
 

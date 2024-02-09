@@ -18,7 +18,7 @@
 	<link rel="stylesheet" href="~/ASP.NET_OLX.styles.css" asp-append-version="true" />
 </head>
 <body>
-	<header class="sticky-lg-top">
+	<header style="z-index: 10" class="sticky-lg-top">
 		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
 			<div class="container-fluid">
 				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ASP.NET OLX</a>
@@ -31,13 +31,13 @@
 						<li class="nav-item">
 							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Оголошення</a>
 						</li>
-						@if (@User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+						@if (User.IsInRole("Admin"))
 						{
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Сторінка Адміністратора</a>
 							</li>
 						}
-						@if (@User.Identity.IsAuthenticated && User.IsInRole("User"))
+						@if (User.IsInRole("User"))
 						{
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Особистий кабінет</a>
@@ -49,7 +49,7 @@
 						<a class="nav-link fs-4 material-icons m-0 p-0" asp-area="" asp-controller="Favourite" asp-action="Index">favorite</a>
 						<span class="fs-6 align-self-end " id="favourite"> @(fCount != 0 ? $"({@fCount})" : "")</span>
 					</div>
-					@if (@User.Identity.IsAuthenticated && User.IsInRole("User"))
+					@if (User.IsInRole("User"))
 					{
 						<div class="d-flex mx-2">
 							<a class="nav-link fs-4 material-icons m-0 p-0" asp-area="" asp-controller="" asp-action="">email</a>
