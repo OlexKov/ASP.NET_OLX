@@ -2,11 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using DataAccess.Entities.Configs;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace DataAccess
 {
 	public class OlxDBContext : IdentityDbContext<User>
 	{
+		
 		public OlxDBContext(DbContextOptions options) : base(options)
 		{
 			//Database.EnsureDeleted();
@@ -16,14 +18,15 @@ namespace DataAccess
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
-
 			modelBuilder.ApplyConfiguration<City>(new CityConfig());
 			modelBuilder.ApplyConfiguration<Image>(new ImageConfig());
 			modelBuilder.ApplyConfiguration<Category>(new CategoryConfig());
 			modelBuilder.ApplyConfiguration<Advert>(new AdvertConfig());
             modelBuilder.ApplyConfiguration<UserFavouriteAdvert>(new UserFavouriteAdvertConfig());
-            DefaultData.Initialize(modelBuilder);
-        }
+			DefaultUsers.Initialize(modelBuilder);
+			DefaultData.Initialize(modelBuilder);
+
+		}
 
 		public DbSet<City> Cities { get; set; }
 

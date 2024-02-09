@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -250,6 +250,52 @@ namespace DataAccess.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "UserFavouriteAdverts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AdvertId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserFavouriteAdverts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserFavouriteAdverts_Adverts_AdvertId",
+                        column: x => x.AdvertId,
+                        principalTable: "Adverts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserFavouriteAdverts_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "15b04d9eff654d8d966a172db59e2722", "15b04d9eff654d8d966a172db59e2722", "Admin", "ADMIN" },
+                    { "59139483f3d1417db1efee50d14b6a7f", "59139483f3d1417db1efee50d14b6a7f", "User", "USER" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "Birthdate", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Surname", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { "028582c83a914a45b330b5234f4131fb", 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "5ac23043-20e1-40a4-a3de-193fff251a60", "User3@gmail.com", true, false, null, "Олег", null, "USER3@GMAIL.COM", "AQAAAAIAAYagAAAAEJmVAZHTQE9Z56KG4oKeZHI2Gea+8QhTyIMOc+ETNMPZl/HWDUbcd6JMMg4nAB3owA==", null, false, "9ad349ef-18aa-4b93-98de-35573b045835", "Панасенко", false, "User3@gmail.com" },
+                    { "c86dc56aedf549f6afe5ceb4d414ebf1", 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "4e34c77f-c1dd-4e2a-99ed-6e4f137ff680", "User2@gmail.com", true, false, null, "Петро", null, "USER2@GMAIL.COM", "AQAAAAIAAYagAAAAEEFlKVIGMpy3WIM6Cx0Lobxy9rJDkFRLzhK8zfkkmwBdlOOzLrvcY/Dy9DuuEBk9/g==", null, false, "fea0bad2-1716-46b3-b24e-54849d4311d5", "Дякуленко", false, "User2@gmail.com" },
+                    { "d1901b2435594da2a255db13fc57509b", 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "c280654d-2598-48a4-bd28-5210a1267d0e", "User1@gmail.com", true, false, null, "Iван", null, "USER1@GMAIL.COM", "AQAAAAIAAYagAAAAEOE6sngfkygBsH4rNWOXXIP0Xw22W7K11+E3KVkZBC32XrXWHXqgw1rM2nq/aYaUQw==", null, false, "6e0e67cb-beb6-4e5c-adf5-d44221929ec9", "Калита", false, "User1@gmail.com" },
+                    { "eb05f9548a2c4cf8adcc2be7305fc732", 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "547bb558-7ac8-45fb-8a57-bf0098dd216f", "User4@gmail.com", true, false, null, "Тимофій", null, "USER4@GMAIL.COM", "AQAAAAIAAYagAAAAEIP+Lpq+he9dQ2xk83vUvalgDNvRa3pDofl+aL7LBQK8bbyIgklA4VbjtOKttXtbXg==", null, false, "e7b386d3-a627-4af5-92fc-5773f633ac98", "Гнатенко", false, "User4@gmail.com" },
+                    { "f66e492517d7414495e988c4c50fd107", 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "0036cc7e-63c5-4acf-bade-cd7d21942b7c", "Admin@gmail.com", true, false, null, "Петро", null, "ADMIN@GMAIL.COM", "AQAAAAIAAYagAAAAEPTQxZXOxEuaTzOosMeQTyyUd5AcsqyZjxgCDNF2qZHTOqc2W2JJwdOkeQ6QzUA+aw==", null, false, "663a0d45-21b3-4d66-a29d-0b383b3e1fad", "Левак", false, "Admin@gmail.com" }
+                });
+
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "Name" },
@@ -282,6 +328,69 @@ namespace DataAccess.Migrations
                     { 8, "Луганськ" },
                     { 9, "Вінниця" },
                     { 10, "Чернігів" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Adverts",
+                columns: new[] { "Id", "CategoryId", "CityId", "Date", "Description", "IsNew", "Price", "Title", "UserId" },
+                values: new object[,]
+                {
+                    { 1, 1, 1, new DateTime(2024, 2, 9, 14, 51, 36, 590, DateTimeKind.Local).AddTicks(9416), "Продам телефон Redmi 9A в гарному стані на фото видно що має незначні царини роботі вони не впливають а загалом він як новий .", false, 1500m, "Телефон REDMI 9A", "d1901b2435594da2a255db13fc57509b" },
+                    { 2, 2, 1, new DateTime(2024, 2, 9, 14, 51, 36, 593, DateTimeKind.Local).AddTicks(3752), "Ніяких mdm блокувань немає. Ноутбук без жодних дефектів і повний комплект(зарядка, коробка, шнур, макулатура і наклейки). Фото коробки і інших дрібниць не кидаю але все маю, нічого не викидав.", false, 99900m, "MacBook M1 Max 14” 64RAM/32GPU/2Tb ssd", "d1901b2435594da2a255db13fc57509b" },
+                    { 3, 3, 3, new DateTime(2024, 2, 9, 14, 51, 36, 593, DateTimeKind.Local).AddTicks(3788), "Смарт тв 32” Samsung UE32T4510AUXUA, Smart TV, WiFi, T2. Телевізор білого кольору, 2021 року виробництва.Телевізор в ідеальному стані та повному комплекті, - пульт, ніжнки. Усе в оригіналі, всі функції перевірені та працюють", false, 7900m, "Смарт тв 32” Samsung UE32T4510AUXUA, Smart TV, WiFi, T2", "c86dc56aedf549f6afe5ceb4d414ebf1" },
+                    { 4, 4, 3, new DateTime(2024, 2, 9, 14, 51, 36, 593, DateTimeKind.Local).AddTicks(3805), "Продам полностью рабочую в отличном состоянии игровую видеокарту AMD RX 5700XT 8GB GDDR6 ASUS.Температура отличная, без каких либо проблем.Проходит тесты ОССТ/FurMark/3DMark без проблем.Потянет большинство популярных игр на хороших настройках графики!", false, 8500m, "Как новая! Видеокарта AMD RX 5700XT 8GB GDDR6 Гарантия!", "c86dc56aedf549f6afe5ceb4d414ebf1" },
+                    { 5, 5, 5, new DateTime(2024, 2, 9, 14, 51, 36, 593, DateTimeKind.Local).AddTicks(3809), "Intel i5 7400, причина продажу апгрейд, комплектаці BOX, любі тести, також можна купити комплектом, дивіться інші мої оголошення)комплектом віддам за 5к", false, 1500m, "Процессор intel i5 7400", "028582c83a914a45b330b5234f4131fb" },
+                    { 6, 6, 5, new DateTime(2024, 2, 9, 14, 51, 36, 593, DateTimeKind.Local).AddTicks(3813), "Продам оперативну пям'ять SAMSUNG 8 GB. SODIMM. DDR-4. 2400 MHz.Планки по 4GB.Були в роботі 1 рік.", false, 1000m, "Оперативна пям'ять DDR-4 2400 MHz", "028582c83a914a45b330b5234f4131fb" },
+                    { 7, 7, 7, new DateTime(2024, 2, 9, 14, 51, 36, 593, DateTimeKind.Local).AddTicks(3816), "Продам тихий игровой компьютер, в хорошем исполнении, с качественных комплектующих, с запасом на апгрейд. Любые проверки и тесты , предпочтительно по месту! Компьютер будет радовать своего нового владельца высокой продуктивностью, и ждет именно вас!", false, 14700m, "Silens! Игровой компьютер I5 9400f, z390, gtx 1070 8 gb,16 gb", "eb05f9548a2c4cf8adcc2be7305fc732" },
+                    { 8, 8, 7, new DateTime(2024, 2, 9, 14, 51, 36, 593, DateTimeKind.Local).AddTicks(3819), "Все летает , новые игры без проблем на ультрах! Battlefield 2042, Call of Duty Modern Warfare прошел 3 части!", false, 23500m, "Игровой компютер, комплект! GTX 1080, монитор MSI 244 герц!", "eb05f9548a2c4cf8adcc2be7305fc732" },
+                    { 9, 9, 7, new DateTime(2024, 2, 9, 14, 51, 36, 593, DateTimeKind.Local).AddTicks(3822), "Все летает , новые игры без проблем на ультрах! Battlefield 2042, Call of Duty Modern Warfare прошел 3 части!", true, 50m, "Зовнішня звукова карта USB 5.1 для комп'ютера та ноутбука (Внешняя)", "eb05f9548a2c4cf8adcc2be7305fc732" },
+                    { 10, 10, 5, new DateTime(2024, 2, 9, 14, 51, 36, 593, DateTimeKind.Local).AddTicks(3826), "Продаю свою GoPro 10 так як перейшов на новішу модель . Завжди була в захисних склах і у захиснобу силіконовому чохлі , не топилась (Використовувалась як влогова камера ) можлива зустріч у Києві (правий берег ) або Олх доставка/наложка Торг !!!", true, 8000m, "Пртдам Gopro 10 black в дуже горошому стані !!!", "028582c83a914a45b330b5234f4131fb" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[,]
+                {
+                    { "59139483f3d1417db1efee50d14b6a7f", "028582c83a914a45b330b5234f4131fb" },
+                    { "59139483f3d1417db1efee50d14b6a7f", "c86dc56aedf549f6afe5ceb4d414ebf1" },
+                    { "59139483f3d1417db1efee50d14b6a7f", "d1901b2435594da2a255db13fc57509b" },
+                    { "59139483f3d1417db1efee50d14b6a7f", "eb05f9548a2c4cf8adcc2be7305fc732" },
+                    { "15b04d9eff654d8d966a172db59e2722", "f66e492517d7414495e988c4c50fd107" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "AdvertId", "Name" },
+                values: new object[,]
+                {
+                    { 1, 1, "046a6c9cbe3948a388001eff7c842786.webp" },
+                    { 2, 1, "6c54c58f313c46b8b08fb276cd89ede1.webp" },
+                    { 3, 1, "07a281155d454adb81ad4b170fbd0a03.webp" },
+                    { 4, 2, "a366c4b673c4466aae1799e4b417b19b.webp" },
+                    { 5, 2, "5f3b586ef071461bbcdf7841cf2ff67c.webp" },
+                    { 6, 2, "ba0ff206dacc47d6956d606aef5edd5d.webp" },
+                    { 7, 3, "f2855d828be54f93acf0485d7b874cdb.webp" },
+                    { 8, 3, "844edaa8c7b8427b9d2b56063ce8977c.webp" },
+                    { 9, 3, "54b271dc78fe427fae3a68f07540a8ea.webp" },
+                    { 10, 4, "c81082a052484beb8699ff467d1122dc.webp" },
+                    { 11, 4, "2b69dadd1dcd40eb94ecc40bd8e66d31.webp" },
+                    { 12, 4, "c9e78a957e84442e9cf0915167d62add.webp" },
+                    { 13, 5, "d90a8e5655204c0eb035e382c8a293a3.webp" },
+                    { 14, 5, "d7229686d2444bf7aad0f9f22b5c671a.webp" },
+                    { 15, 5, "fff47682d2db4df9a0a51ac6288eb881.webp" },
+                    { 16, 6, "a165f34c4bcf4de28ac3df3e670217d6.webp" },
+                    { 17, 6, "7d6097e652cf44b5a5298d1e94db142c.webp" },
+                    { 18, 7, "3ba07c21e7b44ef993412fd0b40c3385.webp" },
+                    { 19, 7, "0af4ad7eb0a24f45b0008090b1b0a3f6.webp" },
+                    { 20, 7, "90cc095ed7134cc78c6af6e2f38b8403.webp" },
+                    { 21, 8, "2d49a4fb86c74a79bff1bcedcf8aae24.webp" },
+                    { 22, 8, "a92a25d946284f70bfb93866233f8c88.webp" },
+                    { 23, 8, "f2f938f084374eebb76be6436e689714.webp" },
+                    { 24, 9, "dc521bca678948cca942fa4b029c0905.webp" },
+                    { 25, 10, "eafe376a8c994ac282c37a12e8f989c3.webp" },
+                    { 26, 10, "75efa1d600fd4e0eb976ab4dddcdacb7.webp" },
+                    { 27, 10, "57e5aec69d234333bdc7625a54f96945.webp" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -354,6 +463,16 @@ namespace DataAccess.Migrations
                 name: "IX_Images_AdvertId",
                 table: "Images",
                 column: "AdvertId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserFavouriteAdverts_AdvertId",
+                table: "UserFavouriteAdverts",
+                column: "AdvertId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserFavouriteAdverts_UserId",
+                table: "UserFavouriteAdverts",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -376,6 +495,9 @@ namespace DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Images");
+
+            migrationBuilder.DropTable(
+                name: "UserFavouriteAdverts");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

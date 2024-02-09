@@ -10,8 +10,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ASP.NET_OLX.Controllers
 {
-    [Authorize]
-    //[Authorize(Roles = "User")]
+    //[Authorize]
+    [Authorize(Roles = "User")]
     public class UserController : BaseController
 	{
         [NonAction]

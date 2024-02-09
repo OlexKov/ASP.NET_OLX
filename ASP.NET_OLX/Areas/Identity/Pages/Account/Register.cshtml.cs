@@ -136,8 +136,9 @@ namespace ASP.NET_OLX.Areas.Identity.Pages.Account
                 user.Name = Input.Name;
                 user.Surname = Input.Surname;
                 var result = await _userManager.CreateAsync(user, Input.Password);
+               // _userManager.AddToRoleAsync(user, "User");
 
-                if (result.Succeeded)
+				if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
