@@ -1,11 +1,9 @@
 ﻿using ApplicationCore.Services.Interfaces;
 using ASP.NET_OLX.Services.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASP.NET_OLX.Controllers
 {
-	[Authorize(Roles = "User")]
 	public class FavouriteController : BaseController
 	{
         private readonly IFavouriteService favouriteService;
