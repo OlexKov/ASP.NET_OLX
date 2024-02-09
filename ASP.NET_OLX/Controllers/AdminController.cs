@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ASP.NET_OLX.Controllers
 {
-    //[Authorize]
-   [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : BaseController
 	{
         public AdminController(IAdvertService advertService) :base(advertService){ }
