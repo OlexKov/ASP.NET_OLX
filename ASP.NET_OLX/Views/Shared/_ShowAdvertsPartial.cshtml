@@ -24,7 +24,10 @@
                     <small class="text-muted">@item.SellerName @item.CityName @item.Date.ToShortDateString() @item.Date.ToShortTimeString() </small>
                     <div class="d-flex gap-2">
                         <small class="text-muted">@item.CategoryName</small>
-                        <div onclick="setFavourite(@item.Id)" id="@item.Id" class="cur-pointer  material-icons d-block">@(await favouriteService.IsFavourite(@item.Id) ? "favorite" : "favorite_border")</div>
+                        @if (!User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
+                        {
+                            <div onclick="setFavourite(@item.Id)" id="@item.Id" class="cur-pointer  material-icons d-block">@(await favouriteService.IsFavourite(@item.Id) ? "favorite" : "favorite_border")</div>
+                        }
                     </div>
                 </div>
             </div>

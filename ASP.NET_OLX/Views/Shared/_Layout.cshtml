@@ -45,10 +45,13 @@
 						}
 
 					</ul>
-					<div class="d-flex mx-2">
-						<a class="nav-link fs-4 material-icons m-0 p-0" asp-area="" asp-controller="Favourite" asp-action="Index">favorite</a>
-						<span class="fs-6 align-self-end " id="favourite"> @(fCount != 0 ? $"({@fCount})" : "")</span>
-					</div>
+					@if (!User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
+					{
+						<div class="d-flex mx-2">
+							<a class="nav-link fs-4 material-icons m-0 p-0" asp-area="" asp-controller="Favourite" asp-action="Index">favorite</a>
+							<span class="fs-6 align-self-end " id="favourite"> @(fCount != 0 ? $"({@fCount})" : "")</span>
+						</div>
+					}
 					@if (User.IsInRole("User"))
 					{
 						<div class="d-flex mx-2">

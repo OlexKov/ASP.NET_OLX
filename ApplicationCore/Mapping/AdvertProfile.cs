@@ -23,7 +23,10 @@ namespace ApplicationCore.Mapping
 			CreateMap<BaseEntity, BaseEntityDto>().ReverseMap();
 			CreateMap<Category, CategoryDto>().ReverseMap();
 			CreateMap<City, CityDto>().ReverseMap();
-			CreateMap<Image, ImageDto>().ReverseMap();
-		}
+			CreateMap<Image, ImageDto>()
+				.ForMember(x=>x.Name,opt=>opt.MapFrom(x=> $"/{Configuration["UserImgDir"]}/{x.Name}"));
+            CreateMap<ImageDto, Image>()
+                .ForMember(x => x.Name, opt => opt.MapFrom(x => Path.GetFileName(x.Name)));
+        }
 	}
 }
