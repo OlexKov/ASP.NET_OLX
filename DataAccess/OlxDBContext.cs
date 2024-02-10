@@ -2,13 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using DataAccess.Entities.Configs;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 
 namespace DataAccess
 {
 	public class OlxDBContext : IdentityDbContext<User>
 	{
-		
 		public OlxDBContext(DbContextOptions options) : base(options)
 		{
 			//Database.EnsureDeleted();

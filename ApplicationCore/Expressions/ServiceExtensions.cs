@@ -17,8 +17,7 @@ namespace ApplicationCore.Expressions
 			services.AddSingleton(provider => new MapperConfiguration(cfg =>
 			{
 				cfg.AddProfile(new AdvertProfile(provider.CreateScope().ServiceProvider.GetService<IConfiguration>()));
-				cfg.AddProfile(new OrderProfile(provider.CreateScope().ServiceProvider.GetService<IMapper>()));
-
+				cfg.AddProfile(new OrderProfile());
 			}).CreateMapper());
 		}
         public static void AddFluentValidator(this IServiceCollection services)
@@ -28,12 +27,17 @@ namespace ApplicationCore.Expressions
             services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
         }
 
-        public static void AddAdvertSetvice(this IServiceCollection services)
+        public static void AddAdvertService(this IServiceCollection services)
         {
             services.AddScoped<IAdvertService, AdvertService>();
         }
 
-        public static bool ContainsText(this string text, string sub)
+		public static void AddOrderService(this IServiceCollection services)
+		{
+			services.AddScoped<IOrderService, OrderService>();
+		}
+
+		public static bool ContainsText(this string text, string sub)
         {
             throw new NotImplementedException("This method is not supposed to run on client");
         }

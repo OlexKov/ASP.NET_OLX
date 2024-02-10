@@ -35,7 +35,9 @@ namespace ASP.NET_OLX
             // enable client-side validation
             builder.Services.AddFluentValidator();
 
-			builder.Services.AddAdvertSetvice();
+			builder.Services.AddAdvertService();
+
+			builder.Services.AddOrderService();
 
 			builder.Services.AddFavouriteService();
 

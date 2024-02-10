@@ -58,7 +58,7 @@
 			</div>
 			<div class="d-flex flex-column gap-2">
 				<a class="btn btn-outline-secondary">Написати</a>
-				<a asp-action="Order" asp-controller="Order" class="btn btn-outline-secondary">Купити</a>
+				<a asp-action="Order" asp-controller="Order" asp-route-id="@Model.Id" class="btn btn-outline-secondary">Купити</a>
 			</div>
 		</div>
 		<div class="d-flex gap-3 flex-column border rounded-3 p-3">

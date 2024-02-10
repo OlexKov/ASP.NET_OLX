@@ -21,6 +21,7 @@ namespace ApplicationCore.Validators
 			   .NotEmpty().WithMessage("Категорія не обрана");
 			RuleFor(x => x.CityId)
 			   .NotEmpty().WithMessage("Miсто не обране");
+
 		}
 	}
 }

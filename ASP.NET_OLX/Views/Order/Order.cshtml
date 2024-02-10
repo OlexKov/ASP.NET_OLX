@@ -1,6 +1,100 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using ApplicationCore.Services.Interfaces
+@using DataAccess.Entities
+@using Microsoft.AspNetCore.Identity
+@model OrderDto
+@inject IAdvertService advertService;
+@inject UserManager<User> userManager;
 @{
+	var advertDto = await advertService.GetAdvert(Model.AdvertId);
+	var currentUser = await userManager.GetUserAsync(User);
 }
-<h1>Order</h1>
+
+<h3 class="text-center my-4">@advertDto.Title</h3>
+<div class="container d-flex gap-3">
+	<div class="border rounded-2 bg-light w-70 p-3">
+		<h5 class="text-center">Контактні дані</h5>
+		<form class="d-flex flex-column  row g-3 p-3" method="post" asp-action="AddOrder" onsubmit="return validateImage()" enctype="multipart/form-data">
+			<div class="form-floating mb-3">
+				<input asp-for="@Model.Name" class="form-control" value="@currentUser?.Name" aria-required="true" placeholder="Ваше ім'я" />
+				<label asp-for="@Model.Name">Ім'я</label>
+				<span asp-validation-for="@Model.Name"></span>
+			</div>
+
+			<div class="form-floating mb-3">
+				<input asp-for="@Model.Surname" class="form-control" value="@currentUser?.Surname" aria-required="true" placeholder="Ваше прізвище" />
+				<label asp-for="@Model.Surname">Прізвище</label>
+				<span asp-validation-for="@Model.Surname"></span>
+			</div>
+
+			<div class="form-floating mb-3">
+				<input asp-for="@Model.SecondName" class="form-control" aria-required="true" placeholder="По батькові" />
+				<label asp-for="@Model.SecondName">По батькові</label>
+				<span asp-validation-for="@Model.SecondName"></span>
+			</div>
+
+			<div class="form-floating mb-3">
+				<input asp-for="@Model.Phone" class="form-control" type="tel" value="@currentUser?.PhoneNumber" aria-required="true" placeholder="Телефон" />
+				<label asp-for="@Model.Phone">Телефон</label>
+				<span asp-validation-for="@Model.Phone"></span>
+			</div>
+
+			<div class="form-floating mb-3">
+				<select asp-for=@Model.Postal class="form-select">
+					<option selected disabled>Оберіть курьєра</option>
+					<option>Нова пошта</option>
+					<option>Міст Експрес</option>
+				</select>
+				<label asp-for=@Model.Postal>Курьєр</label>
+				<span asp-validation-for=@Model.Postal></span>
+			</div>
+
+			<div class="form-floating mb-3">
+				<select asp-for=CityId asp-items="ViewBag.Cities" class="form-select">
+					<option selected disabled>Оберіть місто</option>
+				</select>
+				<label asp-for=CityId>Місто</label>
+				<span asp-validation-for=CityId></span>
+			</div>
+			<div class="form-floating mb-3">
+				<input asp-for="@Model.Branch" class="form-control" type="text" aria-required="true" placeholder="Відділення" />
+				<label asp-for="@Model.Branch">Відділення</label>
+				<span asp-validation-for="@Model.Branch"></span>
+			</div>
+
+			<div class="form-floating mb-3">
+				<input class="form-control" type="text" disabled value="@currentUser?.Email" aria-required="true" placeholder="Відділення" />
+				<label>Email</label>
+			</div>
+
+			<input asp-for=UserId type="text" value=@Model.UserId class="d-none form-control">
+			<input asp-for=AdvertId type="number" value=@Model.AdvertId class="d-none form-control">
+			<input asp-for=OrderDate type="datetime" value=@Model.OrderDate class="d-none form-control">
+			<hr />
+			<button type="submit" class="align-self-end w-auto btn btn-success">Замовити</button>
+		</form>
+	</div>
+
+	<div class="d-flex flex-column gap-2 border rounded-2 bg-light w-30 h-50 p-3">
+		<img style="height:300px;object-fit:contain" class="w-100 mb-3" src="@advertDto.FirstImage" />
+		<p>@advertDto.Title</p>
+		<div class="d-flex gap-2">
+			<span class="material-icons">
+				location_city
+			</span>
+			@advertDto.CityName
+		</div>
+		<div class="d-flex gap-2">
+			<span class="material-icons">person</span>
+			@advertDto.SellerName @advertDto.SellerSurname
+		</div>
+		<div class="d-flex gap-2">
+			<span class="material-icons align-middle">sell</span>
+			@advertDto.Price грн.
+		</div>
+	</div>
+
+</div>
+
+
+
+
