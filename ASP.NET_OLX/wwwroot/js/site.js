@@ -31,7 +31,7 @@ function setFavourite(id) {
 	$.get(`/Favourite/${$functName}?id=${id}`).done((res) => {
 		if (res == 0)
 			 $favourite.text('');
-		else $favourite.text(`(${res})`);
+		else $favourite.text(`${res}`);
 		var toast = new bootstrap.Toast(main_toast);
 		toast.show();
 	});

@@ -53,16 +53,20 @@
 					</ul>
 					@if (!User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
 					{
-						<div class="d-flex mx-2">
+						<div class="position-relative d-flex mx-2">
 							<a class="nav-link fs-4 material-icons m-0 p-0" asp-area="" asp-controller="Favourite" asp-action="Index">favorite</a>
-							<span class="fs-6 align-self-end " id="favourite"> @(fCount != 0 ? $"({@fCount})" : "")</span>
+							    <span class="fs-6 align-self-end ">
+							    	<span id="favourite" class=" position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">@(fCount != 0 ? $"{@fCount}" : "")</span>
+								</span>
 						</div>
 					}
 					@if (User.IsInRole("User"))
 					{
-						<div class="d-flex mx-2">
+						<div class="position-relative d-flex mx-2">
 							<a class="nav-link fs-4 material-icons m-0 p-0" asp-area="" asp-controller="" asp-action="">email</a>
-							<span class="fs-6 align-self-end " id="mails"> </span>
+							<span class="fs-6 align-self-end " >
+								<span id="mails" class=" position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">@* @(fCount != 0 ? $"{@fCount}" : "") *@</span>
+							</span>
 						</div>
 					}
 
