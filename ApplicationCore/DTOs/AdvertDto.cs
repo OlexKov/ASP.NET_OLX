@@ -4,7 +4,13 @@
 	{
 		public string SellerName { get; set; }
 
-		public string UserId { get; set; }
+		public string SellerSurname { get; set; }
+
+		public string SellerPhone { get; set; }
+
+        public string SellerEmail { get; set; }
+
+        public string UserId { get; set; }
 
 		public int CityId { get; set; }
 
