@@ -91,11 +91,13 @@ namespace ASP.NET_OLX.Areas.Identity.Pages.Account
             public string Password { get; set; }
 
             [Required]
+            [RegularExpression("^[A-Z А-Я].*", ErrorMessage = "Ім'я повино починатися з великої букви")]
             [StringLength(60, ErrorMessage = "{0} має бути мінімум {2} і максимум {1} символів в довжину.", MinimumLength = 2)]
             [Display(Name = "Ім'я")]
             public string Name { get; set; }
 
             [Required]
+            [RegularExpression("^[A-Z А-Я].*", ErrorMessage = "Приізвище повино починатися з великої букви")]
             [StringLength(60, ErrorMessage = "{0} має бути мінімум {2} і максимум {1} символів в довжину.", MinimumLength = 2)]
             [Display(Name = "Прізвище")]
             public string Surname { get; set; }
