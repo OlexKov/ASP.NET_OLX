@@ -8,6 +8,7 @@ namespace DataAccess.Entities
         public string Surname { get; set; }
         public DateTime Birthdate { get; set; }
         public ICollection<Advert> Adverts { get; set; } = new HashSet<Advert>();
-        public ICollection<UserFavouriteAdvert> UserFavouriteAdverts { get; set; } = new HashSet<UserFavouriteAdvert>();
+		public ICollection<Order> Orders { get; set; } = new HashSet<Order>();
+		public ICollection<UserFavouriteAdvert> UserFavouriteAdverts { get; set; } = new HashSet<UserFavouriteAdvert>();
     }
 }

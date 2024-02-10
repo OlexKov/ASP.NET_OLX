@@ -17,6 +17,7 @@ namespace ApplicationCore.Expressions
 			services.AddSingleton(provider => new MapperConfiguration(cfg =>
 			{
 				cfg.AddProfile(new AdvertProfile(provider.CreateScope().ServiceProvider.GetService<IConfiguration>()));
+				cfg.AddProfile(new OrderProfile(provider.CreateScope().ServiceProvider.GetService<IMapper>()));
 
 			}).CreateMapper());
 		}

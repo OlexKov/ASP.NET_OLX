@@ -23,6 +23,7 @@ namespace DataAccess
 			modelBuilder.ApplyConfiguration<Category>(new CategoryConfig());
 			modelBuilder.ApplyConfiguration<Advert>(new AdvertConfig());
             modelBuilder.ApplyConfiguration<UserFavouriteAdvert>(new UserFavouriteAdvertConfig());
+			modelBuilder.ApplyConfiguration<Order>(new OrderConfig());
 			DefaultUsers.Initialize(modelBuilder);
 			DefaultData.Initialize(modelBuilder);
 
@@ -36,6 +37,8 @@ namespace DataAccess
 
 		public DbSet<Advert> Adverts { get; set; }
 
-        public DbSet<UserFavouriteAdvert> UserFavouriteAdverts { get; set; }
+		public DbSet<Order> Orders { get; set; }
+
+		public DbSet<UserFavouriteAdvert> UserFavouriteAdverts { get; set; }
     }
 }

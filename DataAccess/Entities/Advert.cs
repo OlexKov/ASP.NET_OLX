@@ -28,7 +28,9 @@ namespace DataAccess.Entities
 
 		public ICollection<Image> Images { get; set; } = new HashSet<Image>();
 
-        public ICollection<UserFavouriteAdvert> UserFavouriteAdverts { get; set; } = new HashSet<UserFavouriteAdvert>();
+		public ICollection<Order> Orders { get; set; } = new HashSet<Order>();
+
+		public ICollection<UserFavouriteAdvert> UserFavouriteAdverts { get; set; } = new HashSet<UserFavouriteAdvert>();
 
     }
 }
