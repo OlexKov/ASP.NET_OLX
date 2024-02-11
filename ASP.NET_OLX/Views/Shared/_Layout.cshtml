@@ -1,7 +1,6 @@
 ﻿﻿@using ASP.NET_OLX.Services.Interfaces
 @inject IFavouriteService favouriteService;
 
-
 @{
 	int fCount = await favouriteService.GetCount();
 }
@@ -55,8 +54,8 @@
 					{
 						<div class="position-relative d-flex mx-2">
 							<a class="nav-link fs-4 material-icons m-0 p-0" asp-area="" asp-controller="Favourite" asp-action="Index">favorite</a>
-							    <span class="fs-6 align-self-end ">
-							    	<span id="favourite" class=" position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">@(fCount != 0 ? $"{@fCount}" : "")</span>
+							    <span class="fs-7 align-self-end ">
+								<span id="favourite" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">@(fCount != 0 ? $"{@fCount}" : "")</span>
 								</span>
 						</div>
 					}
@@ -64,12 +63,11 @@
 					{
 						<div class="position-relative d-flex mx-2">
 							<a class="nav-link fs-4 material-icons m-0 p-0" asp-area="" asp-controller="" asp-action="">email</a>
-							<span class="fs-6 align-self-end " >
+							<span class="fs-7 align-self-end " >
 								<span id="mails" class=" position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">@* @(fCount != 0 ? $"{@fCount}" : "") *@</span>
 							</span>
 						</div>
 					}
-
 					<partial name="_LoginPartial" />
 				</div>
 			</div>

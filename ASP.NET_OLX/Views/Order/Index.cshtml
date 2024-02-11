@@ -1,3 +1,76 @@
-﻿@model IEnumerable<OrderDto>
-
-<h1>@Model.Count()</h1>
+﻿@using ApplicationCore.Services.Interfaces
+@model IEnumerable<OrderDto>
+@inject IAdvertService advertService
+@{
+    ViewData["Title"] = "Архів замовлень";
+    var orderAdverts = await advertService.GetAdverts(Model.Select(x=>x.AdvertId));
+    var sities = await advertService.GetAllCities();
+}
+<div class="card text-center">
+    <div class="card-header">
+        Архів замовлень
+    </div>
+    <div class="card-body">
+        <ul class="list-group">
+            @if (Model.Count() > 0)
+            {
+                @foreach (var i in Model)
+                {
+                    var advert = @orderAdverts.FirstOrDefault(x => x.Id == @i.AdvertId);
+                    string? firstImage = advert?.FirstImage;
+                    <li class="mb-3  d-flex flex-column">
+                        <a asp-action="ShowAdvert" cursor:="pointer" asp-route-id="@i.AdvertId" class="fs-5 text-decoration-none">@advert?.Title</a>
+                        <div class="order-container  p-2 border rounded-2 gap-2">
+                            <div title="<img class='w-100' src='@firstImage'/>" data-bs-toggle="tooltip" data-bs-html="true" style="height:165px;width:190px" class="rounded-1 flex-grow-1 flex-shrink-0" data-bs-placement="right">
+                                <img style="object-fit:cover" src=@firstImage class="h-100 w-100 p-0 border rounded-1" />
+                            </div>
+                            <div class="order-container d-flex gap-2 w-100">
+                                <div class="d-flex w-100 p-2 border rounded-2  gap-3 ">
+                                    <div class="d-flex flex-column justify-content-evenly align-items-start ">
+                                        <span><strong>Категорія:</strong></span>
+                                        <span><strong>Продавець:</strong></span>
+                                        <span><strong>Телефон:</strong></span>
+                                        <span><strong>Email:</strong></span>
+                                        <span><strong>Місто:</strong></span>
+                                        <span><strong>Ціна:</strong></span>
+                                    </div>
+                                    <div class="d-flex flex-column  justify-content-evenly align-items-start">
+                                        <span>@advert?.CategoryName</span>
+                                        <span>@advert?.SellerName @advert?.SellerSurname</span>
+                                        <span>@advert?.SellerPhone</span>
+                                        <span>@advert?.SellerEmail</span>
+                                        <span>@advert?.CityName</span>
+                                        <span>@advert?.Price грн.</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex w-100 p-2 border rounded-2  gap-3 ">
+                                    <div class="d-flex flex-column justify-content-evenly align-items-start ">
+                                        <span><strong>Покупець:</strong></span>
+                                        <span><strong>Курьєр:</strong></span>
+                                        <span><strong>Місто:</strong></span>
+                                        <span><strong>Відділення:</strong></span>
+                                        <span><strong>Телефон:</strong></span>
+                                        <span><strong>Дата замовлення:</strong></span>
+                                    </div>
+                                    <div class="d-flex flex-column  justify-content-evenly align-items-start">
+                                        <span>@i?.Name @i?.Surname @i?.SecondName </span>
+                                        <span>@i?.Postal</span>
+                                        <span>@sities?.FirstOrDefault(x=>x.Id == @i?.CityId)?.Name</span>
+                                        <span>@i?.Branch</span>
+                                        <span>@i?.Phone</span>
+                                        <span>@i?.OrderDate.ToShortDateString() @i?.OrderDate.ToLongTimeString()</span>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                   </li>
+                }
+            }
+            else
+            {
+                <li class="fs-4 list-group-item">Архів порожній</li>
+            }
+        </ul>
+    </div>
+</div>

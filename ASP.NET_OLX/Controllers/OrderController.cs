@@ -39,9 +39,15 @@ namespace ASP.NET_OLX.Controllers
 			};
 			return View(orderDto);
 		}
-		
 
-		[HttpPost]
+        public async Task<IActionResult> ShowAdvert(int id)
+        {
+            var advert = await advertService.GetAdvert(id);
+            ViewBag.Images = (await advertService.GetAdvertImages(id)).ToArray();
+            return View(advert);
+        }
+
+        [HttpPost]
 		public async Task<IActionResult> AddOrder(OrderDto orderDto)
 		{
 			if (!ModelState.IsValid)

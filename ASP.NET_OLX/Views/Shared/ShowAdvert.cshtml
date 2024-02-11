@@ -5,7 +5,7 @@
 <a asp-action="Index" class="mb-3 btn btn-info">Повернутися</a>
 <div class="d-flex gap-3">
 
-	<div class="w-70 d-flex flex-column gap-3 ">
+	<div class="w-70 d-flex flex-column gap-3 bg-light ">
 		<div id="carousel" class="border rounded-3 p-1 carousel slide" data-bs-ride="carousel">
 			<div class="carousel-indicators">
 				@for (int i = 0; i < ViewBag.Images.Length; i++)
@@ -43,7 +43,7 @@
 		</div>
 	</div>
 	<div class="w-30 d-flex flex-column gap-3 ">
-		<div class="d-flex flex-column gap-4 border rounded-3 p-3">
+		<div class="d-flex flex-column gap-4 border rounded-3 p-3 bg-light ">
 			<div class="d-flex justify-content-between">
 				<small class="text-muted">Опубліковано @Model.Date.ToShortDateString() @Model.Date.ToShortTimeString()</small>
 				@if (!User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
@@ -61,7 +61,7 @@
 				<a asp-action="Order" asp-controller="Order" asp-route-id="@Model.Id" class="btn btn-outline-secondary">Купити</a>
 			</div>
 		</div>
-		<div class="d-flex gap-3 flex-column border rounded-3 p-3">
+		<div class="d-flex gap-3 flex-column border rounded-3 p-3 bg-light ">
 			<h5>Користувач</h5>
 			<div class="d-flex gap-2">
 				<span class="material-icons">

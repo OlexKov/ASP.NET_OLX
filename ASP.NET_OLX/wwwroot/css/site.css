@@ -47,6 +47,9 @@ body {
 .w-35 {
     width: 35%;
 }
+.w-40 {
+    width: 40%;
+}
 
 .b-size {
     height: calc(100% - 10em);
@@ -80,6 +83,25 @@ body {
 .cur-pointer{
     cursor:pointer;
 }
+
+.fs-7{
+    font-size:13px;
+}
+
+.order-container {
+    display:flex;
+    flex-direction:row;    
+
+}
+@media screen and (max-width: 1000px) {
+    .order-container {
+        display: flex;
+        flex-direction: column;
+        align-items:center;
+    }
+}
+
+
 
 
 
