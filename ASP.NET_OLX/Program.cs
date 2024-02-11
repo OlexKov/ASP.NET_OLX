@@ -52,6 +52,14 @@ namespace ASP.NET_OLX
 
 			var app = builder.Build();
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var serviceProvider = scope.ServiceProvider;
+
+                serviceProvider.SeedRoles().Wait();
+                serviceProvider.SeedAdmin().Wait();
+            }
+
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {

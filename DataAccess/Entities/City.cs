@@ -1,5 +1,4 @@
 ﻿
-using DataAccess.Migrations;
 
 namespace DataAccess.Entities
 {

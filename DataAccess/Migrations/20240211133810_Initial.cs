@@ -251,6 +251,49 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AdvertId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Postal = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    Surname = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    SecondName = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    CityId = table.Column<int>(type: "int", nullable: false),
+                    Branch = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.CheckConstraint("Branch_check", "[Branch] <> ''");
+                    table.CheckConstraint("Name_check2", "[Name] <> ''");
+                    table.CheckConstraint("Phone_check", "[Phone] <> ''");
+                    table.CheckConstraint("SecondName_check", "[SecondName] <> ''");
+                    table.CheckConstraint("Surname_check", "[Surname] <> ''");
+                    table.ForeignKey(
+                        name: "FK_Orders_Adverts_AdvertId",
+                        column: x => x.AdvertId,
+                        principalTable: "Adverts",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Orders_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Orders_Cities_CityId",
+                        column: x => x.CityId,
+                        principalTable: "Cities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserFavouriteAdverts",
                 columns: table => new
                 {
@@ -289,11 +332,11 @@ namespace DataAccess.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "Birthdate", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Surname", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "028582c83a914a45b330b5234f4131fb", 0, new DateTime(1999, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "e89faec2-86cf-4309-b218-35a2297779d5", "User3@gmail.com", true, false, null, "Олег", null, "USER3@GMAIL.COM", "AQAAAAIAAYagAAAAEK+poJi6A5Pgwf8gHAk9PKLvK1rz8WQY6c3ceLCeZrlQEWsnB70mZUZ/nu9JeMngEg==", null, false, "558511b0-9a39-4b29-a64e-c2bcf92639dd", "Панасенко", false, "User3@gmail.com" },
-                    { "c86dc56aedf549f6afe5ceb4d414ebf1", 0, new DateTime(2000, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "67341caf-b243-4985-9887-8efe156db04e", "User2@gmail.com", true, false, null, "Петро", null, "USER2@GMAIL.COM", "AQAAAAIAAYagAAAAEGxU70hsU6tjVYxt7d6iZ9RxNRGalefyKp3tLDu3j7WgZne8q4ApIljhURW7CUtk1A==", null, false, "ded86213-52c4-4d04-b9e7-935026591239", "Дякуленко", false, "User2@gmail.com" },
-                    { "d1901b2435594da2a255db13fc57509b", 0, new DateTime(1988, 10, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "ea38645e-7ca6-44a3-93a3-a8140e8de99c", "User1@gmail.com", true, false, null, "Iван", null, "USER1@GMAIL.COM", "AQAAAAIAAYagAAAAECZ0lOYTvuVNeCapF6wLhgzR0UTCwtHJGyLn3eb5w/pSkni0/blDcn9SxmuHQML9eQ==", null, false, "b2048d84-1b0f-447f-a23d-436907cba57b", "Калита", false, "User1@gmail.com" },
-                    { "eb05f9548a2c4cf8adcc2be7305fc732", 0, new DateTime(2001, 6, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "6bacbba0-e16a-4bd2-8f1e-4ae8b7fa1c22", "User4@gmail.com", true, false, null, "Тимофій", null, "USER4@GMAIL.COM", "AQAAAAIAAYagAAAAEOxz2sW2y79e/cDmyXyK3dJraM/D9EGLFvEkYZUBqxLEmkLE08a8r6fWyYJRfNqaFA==", null, false, "41220dcc-f9a5-4eed-979c-9d1aabb3e61f", "Гнатенко", false, "User4@gmail.com" },
-                    { "f66e492517d7414495e988c4c50fd107", 0, new DateTime(1998, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "04c99863-588c-4132-95f9-4300b7b124f7", "Admin@gmail.com", true, false, null, "Петро", null, "ADMIN@GMAIL.COM", "AQAAAAIAAYagAAAAEGSCLhjkasopUBGYiDimJPpnYMxCwWxKmGrNin77LvCaEZnx7ngryvD4k4xF2z7Bqg==", null, false, "dff33fc5-9168-4736-9000-79af7a470d35", "Левак", false, "Admin@gmail.com" }
+                    { "028582c83a914a45b330b5234f4131fb", 0, new DateTime(1999, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "76190b5f-ee3c-4657-b5dc-a42b21d14b8d", "User3@gmail.com", true, false, null, "Олег", null, "USER3@GMAIL.COM", "AQAAAAIAAYagAAAAENvr9S/y7vU1HqAR88hyI58GuYIydpDZKYU/qKZMxNuyLGWuQT2zsizdspTzcFmSZw==", null, false, "9fa9c44d-b7e2-40e2-8a9a-6380f2ca8bff", "Панасенко", false, "User3@gmail.com" },
+                    { "c86dc56aedf549f6afe5ceb4d414ebf1", 0, new DateTime(2000, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "1c7beef6-7426-45f6-931b-d0d9644f26f0", "User2@gmail.com", true, false, null, "Петро", null, "USER2@GMAIL.COM", "AQAAAAIAAYagAAAAEByNJk2F0zqFULa1oFjs24KTVijwkmKhbuzRLQbBcBTPE5ylI6F8IrSxS0iNhm0ccw==", null, false, "f940c93c-43d8-42e0-96a5-9d8a1538dce0", "Дякуленко", false, "User2@gmail.com" },
+                    { "d1901b2435594da2a255db13fc57509b", 0, new DateTime(1988, 10, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "c837164b-309f-4f2c-8597-77d1dfc443ca", "User1@gmail.com", true, false, null, "Iван", null, "USER1@GMAIL.COM", "AQAAAAIAAYagAAAAEKzl+JowkH+rHD07X0JXpgAuDIbuuShBbRGd0e631jn5YuYV4B5A3/bdS31hkYAdLA==", null, false, "ee545b8f-5aaf-4602-911b-dc2eaabd15f6", "Калита", false, "User1@gmail.com" },
+                    { "eb05f9548a2c4cf8adcc2be7305fc732", 0, new DateTime(2001, 6, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "26666cd3-c79c-4be1-a7fd-13850fbbf46a", "User4@gmail.com", true, false, null, "Тимофій", null, "USER4@GMAIL.COM", "AQAAAAIAAYagAAAAEO5M+KB0Y5DFMvL+OQNJb6w4OWN4xi9wDlac3rCvqLToPnwZxv1sNyXox0FbXrUtNw==", null, false, "b301f70f-1b24-44aa-b8d6-338692e6dfe8", "Гнатенко", false, "User4@gmail.com" },
+                    { "f66e492517d7414495e988c4c50fd107", 0, new DateTime(1998, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "e4257b6d-d303-4bdb-b7be-ca4c26523353", "Admin@gmail.com", true, false, null, "Петро", null, "ADMIN@GMAIL.COM", "AQAAAAIAAYagAAAAEP6YTzwcXUsBdMcilSEy+J0GvjaK5nUSGqSMzhbXM2GQgn5NzPkYOTA9Ji5/I+83uw==", null, false, "e0bae27f-63e0-4323-befe-4d0803470841", "Левак", false, "Admin@gmail.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -335,16 +378,16 @@ namespace DataAccess.Migrations
                 columns: new[] { "Id", "CategoryId", "CityId", "Date", "Description", "IsNew", "Price", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, new DateTime(2024, 2, 9, 15, 15, 19, 545, DateTimeKind.Local).AddTicks(3617), "Продам телефон Redmi 9A в гарному стані на фото видно що має незначні царини роботі вони не впливають а загалом він як новий .", false, 1500m, "Телефон REDMI 9A", "d1901b2435594da2a255db13fc57509b" },
-                    { 2, 2, 1, new DateTime(2024, 2, 9, 15, 15, 19, 547, DateTimeKind.Local).AddTicks(6711), "Ніяких mdm блокувань немає. Ноутбук без жодних дефектів і повний комплект(зарядка, коробка, шнур, макулатура і наклейки). Фото коробки і інших дрібниць не кидаю але все маю, нічого не викидав.", false, 99900m, "MacBook M1 Max 14” 64RAM/32GPU/2Tb ssd", "d1901b2435594da2a255db13fc57509b" },
-                    { 3, 3, 3, new DateTime(2024, 2, 9, 15, 15, 19, 547, DateTimeKind.Local).AddTicks(6747), "Смарт тв 32” Samsung UE32T4510AUXUA, Smart TV, WiFi, T2. Телевізор білого кольору, 2021 року виробництва.Телевізор в ідеальному стані та повному комплекті, - пульт, ніжнки. Усе в оригіналі, всі функції перевірені та працюють", false, 7900m, "Смарт тв 32” Samsung UE32T4510AUXUA, Smart TV, WiFi, T2", "c86dc56aedf549f6afe5ceb4d414ebf1" },
-                    { 4, 4, 3, new DateTime(2024, 2, 9, 15, 15, 19, 547, DateTimeKind.Local).AddTicks(6767), "Продам полностью рабочую в отличном состоянии игровую видеокарту AMD RX 5700XT 8GB GDDR6 ASUS.Температура отличная, без каких либо проблем.Проходит тесты ОССТ/FurMark/3DMark без проблем.Потянет большинство популярных игр на хороших настройках графики!", false, 8500m, "Как новая! Видеокарта AMD RX 5700XT 8GB GDDR6 Гарантия!", "c86dc56aedf549f6afe5ceb4d414ebf1" },
-                    { 5, 5, 5, new DateTime(2024, 2, 9, 15, 15, 19, 547, DateTimeKind.Local).AddTicks(6771), "Intel i5 7400, причина продажу апгрейд, комплектаці BOX, любі тести, також можна купити комплектом, дивіться інші мої оголошення)комплектом віддам за 5к", false, 1500m, "Процессор intel i5 7400", "028582c83a914a45b330b5234f4131fb" },
-                    { 6, 6, 5, new DateTime(2024, 2, 9, 15, 15, 19, 547, DateTimeKind.Local).AddTicks(6775), "Продам оперативну пям'ять SAMSUNG 8 GB. SODIMM. DDR-4. 2400 MHz.Планки по 4GB.Були в роботі 1 рік.", false, 1000m, "Оперативна пям'ять DDR-4 2400 MHz", "028582c83a914a45b330b5234f4131fb" },
-                    { 7, 7, 7, new DateTime(2024, 2, 9, 15, 15, 19, 547, DateTimeKind.Local).AddTicks(6779), "Продам тихий игровой компьютер, в хорошем исполнении, с качественных комплектующих, с запасом на апгрейд. Любые проверки и тесты , предпочтительно по месту! Компьютер будет радовать своего нового владельца высокой продуктивностью, и ждет именно вас!", false, 14700m, "Silens! Игровой компьютер I5 9400f, z390, gtx 1070 8 gb,16 gb", "eb05f9548a2c4cf8adcc2be7305fc732" },
-                    { 8, 8, 7, new DateTime(2024, 2, 9, 15, 15, 19, 547, DateTimeKind.Local).AddTicks(6783), "Все летает , новые игры без проблем на ультрах! Battlefield 2042, Call of Duty Modern Warfare прошел 3 части!", false, 23500m, "Игровой компютер, комплект! GTX 1080, монитор MSI 244 герц!", "eb05f9548a2c4cf8adcc2be7305fc732" },
-                    { 9, 9, 7, new DateTime(2024, 2, 9, 15, 15, 19, 547, DateTimeKind.Local).AddTicks(6787), "Все летает , новые игры без проблем на ультрах! Battlefield 2042, Call of Duty Modern Warfare прошел 3 части!", true, 50m, "Зовнішня звукова карта USB 5.1 для комп'ютера та ноутбука (Внешняя)", "eb05f9548a2c4cf8adcc2be7305fc732" },
-                    { 10, 10, 5, new DateTime(2024, 2, 9, 15, 15, 19, 547, DateTimeKind.Local).AddTicks(6851), "Продаю свою GoPro 10 так як перейшов на новішу модель . Завжди була в захисних склах і у захиснобу силіконовому чохлі , не топилась (Використовувалась як влогова камера ) можлива зустріч у Києві (правий берег ) або Олх доставка/наложка Торг !!!", true, 8000m, "Пртдам Gopro 10 black в дуже горошому стані !!!", "028582c83a914a45b330b5234f4131fb" }
+                    { 1, 1, 1, new DateTime(2024, 2, 11, 15, 38, 8, 959, DateTimeKind.Local).AddTicks(9180), "Продам телефон Redmi 9A в гарному стані на фото видно що має незначні царини роботі вони не впливають а загалом він як новий .", false, 1500m, "Телефон REDMI 9A", "d1901b2435594da2a255db13fc57509b" },
+                    { 2, 2, 1, new DateTime(2024, 2, 11, 15, 38, 8, 965, DateTimeKind.Local).AddTicks(6697), "Ніяких mdm блокувань немає. Ноутбук без жодних дефектів і повний комплект(зарядка, коробка, шнур, макулатура і наклейки). Фото коробки і інших дрібниць не кидаю але все маю, нічого не викидав.", false, 99900m, "MacBook M1 Max 14” 64RAM/32GPU/2Tb ssd", "d1901b2435594da2a255db13fc57509b" },
+                    { 3, 3, 3, new DateTime(2024, 2, 11, 15, 38, 8, 965, DateTimeKind.Local).AddTicks(6743), "Смарт тв 32” Samsung UE32T4510AUXUA, Smart TV, WiFi, T2. Телевізор білого кольору, 2021 року виробництва.Телевізор в ідеальному стані та повному комплекті, - пульт, ніжнки. Усе в оригіналі, всі функції перевірені та працюють", false, 7900m, "Смарт тв 32” Samsung UE32T4510AUXUA, Smart TV, WiFi, T2", "c86dc56aedf549f6afe5ceb4d414ebf1" },
+                    { 4, 4, 3, new DateTime(2024, 2, 11, 15, 38, 8, 965, DateTimeKind.Local).AddTicks(6751), "Продам полностью рабочую в отличном состоянии игровую видеокарту AMD RX 5700XT 8GB GDDR6 ASUS.Температура отличная, без каких либо проблем.Проходит тесты ОССТ/FurMark/3DMark без проблем.Потянет большинство популярных игр на хороших настройках графики!", false, 8500m, "Как новая! Видеокарта AMD RX 5700XT 8GB GDDR6 Гарантия!", "c86dc56aedf549f6afe5ceb4d414ebf1" },
+                    { 5, 5, 5, new DateTime(2024, 2, 11, 15, 38, 8, 965, DateTimeKind.Local).AddTicks(6756), "Intel i5 7400, причина продажу апгрейд, комплектаці BOX, любі тести, також можна купити комплектом, дивіться інші мої оголошення)комплектом віддам за 5к", false, 1500m, "Процессор intel i5 7400", "028582c83a914a45b330b5234f4131fb" },
+                    { 6, 6, 5, new DateTime(2024, 2, 11, 15, 38, 8, 965, DateTimeKind.Local).AddTicks(6761), "Продам оперативну пям'ять SAMSUNG 8 GB. SODIMM. DDR-4. 2400 MHz.Планки по 4GB.Були в роботі 1 рік.", false, 1000m, "Оперативна пям'ять DDR-4 2400 MHz", "028582c83a914a45b330b5234f4131fb" },
+                    { 7, 7, 7, new DateTime(2024, 2, 11, 15, 38, 8, 965, DateTimeKind.Local).AddTicks(6766), "Продам тихий игровой компьютер, в хорошем исполнении, с качественных комплектующих, с запасом на апгрейд. Любые проверки и тесты , предпочтительно по месту! Компьютер будет радовать своего нового владельца высокой продуктивностью, и ждет именно вас!", false, 14700m, "Silens! Игровой компьютер I5 9400f, z390, gtx 1070 8 gb,16 gb", "eb05f9548a2c4cf8adcc2be7305fc732" },
+                    { 8, 8, 7, new DateTime(2024, 2, 11, 15, 38, 8, 965, DateTimeKind.Local).AddTicks(6770), "Все летает , новые игры без проблем на ультрах! Battlefield 2042, Call of Duty Modern Warfare прошел 3 части!", false, 23500m, "Игровой компютер, комплект! GTX 1080, монитор MSI 244 герц!", "eb05f9548a2c4cf8adcc2be7305fc732" },
+                    { 9, 9, 7, new DateTime(2024, 2, 11, 15, 38, 8, 965, DateTimeKind.Local).AddTicks(6775), "Все летает , новые игры без проблем на ультрах! Battlefield 2042, Call of Duty Modern Warfare прошел 3 части!", true, 50m, "Зовнішня звукова карта USB 5.1 для комп'ютера та ноутбука (Внешняя)", "eb05f9548a2c4cf8adcc2be7305fc732" },
+                    { 10, 10, 5, new DateTime(2024, 2, 11, 15, 38, 8, 965, DateTimeKind.Local).AddTicks(6780), "Продаю свою GoPro 10 так як перейшов на новішу модель . Завжди була в захисних склах і у захиснобу силіконовому чохлі , не топилась (Використовувалась як влогова камера ) можлива зустріч у Києві (правий берег ) або Олх доставка/наложка Торг !!!", true, 8000m, "Пртдам Gopro 10 black в дуже горошому стані !!!", "028582c83a914a45b330b5234f4131fb" }
                 });
 
             migrationBuilder.InsertData(
@@ -465,6 +508,21 @@ namespace DataAccess.Migrations
                 column: "AdvertId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Orders_AdvertId",
+                table: "Orders",
+                column: "AdvertId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_CityId",
+                table: "Orders",
+                column: "CityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_UserId",
+                table: "Orders",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserFavouriteAdverts_AdvertId",
                 table: "UserFavouriteAdverts",
                 column: "AdvertId");
@@ -495,6 +553,9 @@ namespace DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Images");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "UserFavouriteAdverts");

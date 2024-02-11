@@ -15,6 +15,7 @@ namespace ApplicationCore.DTOs
 		public int CityId { get; set; }
 		public string? Branch { get; set; }
 		[Phone(ErrorMessage ="Телефон введено не вірно")]
+		[Required(ErrorMessage = "Вкажіть будьласка свій телефон")]
 		[Display(Name = "Номер телефону")]
 		public string? Phone { get; set; }
 	}

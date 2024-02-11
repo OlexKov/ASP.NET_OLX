@@ -28,9 +28,6 @@ namespace ApplicationCore.Validators
 			RuleFor(x => x.Branch)
 				.NotEmpty().WithMessage("Введіть адрес відділення")
 				.Length(10, 2000).WithMessage("Адрес відділення має містити від 5 до 100 символів");
-			RuleFor(x => x.Branch)
-				.NotEmpty().WithMessage("Введіть адрес відділення")
-				.Length(10, 2000).WithMessage("Адрес відділення має містити від 5 до 100 символів");
 			RuleFor(x => x.CityId)
 			   .NotEmpty().WithMessage("Miсто не обране");
 			RuleFor(x => x.Postal)
