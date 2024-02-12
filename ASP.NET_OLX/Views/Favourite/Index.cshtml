@@ -14,7 +14,7 @@
                             <div title="<img class='w-100' src='@i.FirstImage'/>" data-bs-toggle="tooltip" data-bs-html="true" style="height:60px;width:80px" class="rounded-1" data-bs-placement="right">
                                 <img style="object-fit:cover" src=@i.FirstImage class="h-100 w-100 p-0 border rounded-1" />
                             </div>
-                            <a asp-action="ShowAdvert" cursor:="pointer" asp-route-id="@i.Id" class="text-muted text-decoration-none">@i.Title</a>  @i.CategoryName
+                            <a asp-action="ShowAdvert" cursor:="pointer" asp-route-id="@i.Id" class="text-muted text-decoration-none">@i.Title</a>
                         </div>
                         <span class="badge bg-primary p-2 rounded-pill">@i.Price гр.</span>
                     </li>

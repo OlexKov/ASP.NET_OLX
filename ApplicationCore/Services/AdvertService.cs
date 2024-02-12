@@ -125,7 +125,7 @@ namespace ApplicationCore.Services
             find = find?.ToLower() ?? string.Empty;
 			var filteredAdverts = adverts.Where(advertFilter(category,state,from,to,find,fcity));
 			var sortedAdverts = (sort == null ? filteredAdverts 
-				                                             : sort == "date"  ? filteredAdverts.OrderBy(x => x.Date) 
+				                                             : sort == "date"  ? filteredAdverts.OrderByDescending(x => x.Date) 
 				                                             : filteredAdverts.OrderBy(x => x.Title));
 			return mapper.Map<AdvertDto[]>(await sortedAdverts.ToArrayAsync());
         }
