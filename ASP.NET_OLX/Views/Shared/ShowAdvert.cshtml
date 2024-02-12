@@ -38,7 +38,7 @@
 		<div class="border rounded-3 p-3">
 			<span class="badge d-inline @(Model.IsNew ? "bg-success" : "bg-secondary")">@(Model.IsNew ? "Нове" : "Вживане")</span>
 			<h5 class="mt-3">Опис</h5>
-			<p class="lh-base">@Model.Description</p>
+			@Html.Raw(@Model.Description)
 			<hr />
 		</div>
 	</div>

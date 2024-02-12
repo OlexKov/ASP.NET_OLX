@@ -107,7 +107,7 @@ namespace ApplicationCore.Services
 
 		public async Task RemoveImage(string url)
 		{
-			var deleteImage = await context.Images.FirstOrDefaultAsync(x => x.Name == url) ?? new();
+			var deleteImage = await context.Images.FirstOrDefaultAsync(x => x.Name == Path.GetFileName(url)) ?? new();
 			context.Images.Remove(deleteImage);
 			await context.SaveChangesAsync();
 			File.Delete(Path.Combine(env.WebRootPath, config["UserImgDir"] ?? string.Empty, Path.GetFileName(url)));

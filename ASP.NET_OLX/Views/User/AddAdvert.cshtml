@@ -31,13 +31,13 @@
 
     <div class="col-md-12">
         <label asp-for=Title  class="fw-bold form-label">Заголовок оголошення</label>
-        <textarea asp-for=Title  class="form-control" rows="2" placeholder="Заголовок оголошення"></textarea>
+        <input asp-for=Title  class="form-control" rows="2" placeholder="Заголовок оголошення"></input>
         <span asp-validation-for=Title class="form-text text-danger"></span>
     </div>
 
     <div class="col-md-12">
         <label asp-for=Description class="fw-bold form-label">Опис товару</label>
-        <textarea asp-for=Description class="form-control" rows="3" placeholder="Опис товару"></textarea>
+        <textarea id="summernote" asp-for=Description class="form-control" rows="3" placeholder="Опис товару"></textarea>
         <span asp-validation-for=Description class="form-text text-danger"></span>
     </div>
     
@@ -86,5 +86,10 @@
     @{
         <script src="~/js/user_add_advert_script.js"></script>
         <partial name="_ValidationScriptsPartial.cshtml"/>
+        <script>
+            $(document).ready(function () {
+                $("#summernote").summernote();
+            });
+        </script>
     }
 }
