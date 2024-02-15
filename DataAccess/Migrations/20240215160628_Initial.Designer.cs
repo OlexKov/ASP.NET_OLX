@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(OlxDBContext))]
-    [Migration("20240211133810_Initial")]
+    [Migration("20240215160628_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -82,7 +82,7 @@ namespace DataAccess.Migrations
                             Id = 1,
                             CategoryId = 1,
                             CityId = 1,
-                            Date = new DateTime(2024, 2, 11, 15, 38, 8, 959, DateTimeKind.Local).AddTicks(9180),
+                            Date = new DateTime(2024, 2, 15, 18, 6, 26, 856, DateTimeKind.Local).AddTicks(770),
                             Description = "Продам телефон Redmi 9A в гарному стані на фото видно що має незначні царини роботі вони не впливають а загалом він як новий .",
                             IsNew = false,
                             Price = 1500m,
@@ -94,7 +94,7 @@ namespace DataAccess.Migrations
                             Id = 2,
                             CategoryId = 2,
                             CityId = 1,
-                            Date = new DateTime(2024, 2, 11, 15, 38, 8, 965, DateTimeKind.Local).AddTicks(6697),
+                            Date = new DateTime(2024, 2, 15, 18, 6, 26, 861, DateTimeKind.Local).AddTicks(8879),
                             Description = "Ніяких mdm блокувань немає. Ноутбук без жодних дефектів і повний комплект(зарядка, коробка, шнур, макулатура і наклейки). Фото коробки і інших дрібниць не кидаю але все маю, нічого не викидав.",
                             IsNew = false,
                             Price = 99900m,
@@ -106,7 +106,7 @@ namespace DataAccess.Migrations
                             Id = 3,
                             CategoryId = 3,
                             CityId = 3,
-                            Date = new DateTime(2024, 2, 11, 15, 38, 8, 965, DateTimeKind.Local).AddTicks(6743),
+                            Date = new DateTime(2024, 2, 15, 18, 6, 26, 861, DateTimeKind.Local).AddTicks(8968),
                             Description = "Смарт тв 32” Samsung UE32T4510AUXUA, Smart TV, WiFi, T2. Телевізор білого кольору, 2021 року виробництва.Телевізор в ідеальному стані та повному комплекті, - пульт, ніжнки. Усе в оригіналі, всі функції перевірені та працюють",
                             IsNew = false,
                             Price = 7900m,
@@ -118,7 +118,7 @@ namespace DataAccess.Migrations
                             Id = 4,
                             CategoryId = 4,
                             CityId = 3,
-                            Date = new DateTime(2024, 2, 11, 15, 38, 8, 965, DateTimeKind.Local).AddTicks(6751),
+                            Date = new DateTime(2024, 2, 15, 18, 6, 26, 861, DateTimeKind.Local).AddTicks(8984),
                             Description = "Продам полностью рабочую в отличном состоянии игровую видеокарту AMD RX 5700XT 8GB GDDR6 ASUS.Температура отличная, без каких либо проблем.Проходит тесты ОССТ/FurMark/3DMark без проблем.Потянет большинство популярных игр на хороших настройках графики!",
                             IsNew = false,
                             Price = 8500m,
@@ -130,7 +130,7 @@ namespace DataAccess.Migrations
                             Id = 5,
                             CategoryId = 5,
                             CityId = 5,
-                            Date = new DateTime(2024, 2, 11, 15, 38, 8, 965, DateTimeKind.Local).AddTicks(6756),
+                            Date = new DateTime(2024, 2, 15, 18, 6, 26, 861, DateTimeKind.Local).AddTicks(8995),
                             Description = "Intel i5 7400, причина продажу апгрейд, комплектаці BOX, любі тести, також можна купити комплектом, дивіться інші мої оголошення)комплектом віддам за 5к",
                             IsNew = false,
                             Price = 1500m,
@@ -142,7 +142,7 @@ namespace DataAccess.Migrations
                             Id = 6,
                             CategoryId = 6,
                             CityId = 5,
-                            Date = new DateTime(2024, 2, 11, 15, 38, 8, 965, DateTimeKind.Local).AddTicks(6761),
+                            Date = new DateTime(2024, 2, 15, 18, 6, 26, 861, DateTimeKind.Local).AddTicks(9005),
                             Description = "Продам оперативну пям'ять SAMSUNG 8 GB. SODIMM. DDR-4. 2400 MHz.Планки по 4GB.Були в роботі 1 рік.",
                             IsNew = false,
                             Price = 1000m,
@@ -154,7 +154,7 @@ namespace DataAccess.Migrations
                             Id = 7,
                             CategoryId = 7,
                             CityId = 7,
-                            Date = new DateTime(2024, 2, 11, 15, 38, 8, 965, DateTimeKind.Local).AddTicks(6766),
+                            Date = new DateTime(2024, 2, 15, 18, 6, 26, 861, DateTimeKind.Local).AddTicks(9014),
                             Description = "Продам тихий игровой компьютер, в хорошем исполнении, с качественных комплектующих, с запасом на апгрейд. Любые проверки и тесты , предпочтительно по месту! Компьютер будет радовать своего нового владельца высокой продуктивностью, и ждет именно вас!",
                             IsNew = false,
                             Price = 14700m,
@@ -166,7 +166,7 @@ namespace DataAccess.Migrations
                             Id = 8,
                             CategoryId = 8,
                             CityId = 7,
-                            Date = new DateTime(2024, 2, 11, 15, 38, 8, 965, DateTimeKind.Local).AddTicks(6770),
+                            Date = new DateTime(2024, 2, 15, 18, 6, 26, 861, DateTimeKind.Local).AddTicks(9024),
                             Description = "Все летает , новые игры без проблем на ультрах! Battlefield 2042, Call of Duty Modern Warfare прошел 3 части!",
                             IsNew = false,
                             Price = 23500m,
@@ -178,7 +178,7 @@ namespace DataAccess.Migrations
                             Id = 9,
                             CategoryId = 9,
                             CityId = 7,
-                            Date = new DateTime(2024, 2, 11, 15, 38, 8, 965, DateTimeKind.Local).AddTicks(6775),
+                            Date = new DateTime(2024, 2, 15, 18, 6, 26, 861, DateTimeKind.Local).AddTicks(9033),
                             Description = "Все летает , новые игры без проблем на ультрах! Battlefield 2042, Call of Duty Modern Warfare прошел 3 части!",
                             IsNew = true,
                             Price = 50m,
@@ -190,7 +190,7 @@ namespace DataAccess.Migrations
                             Id = 10,
                             CategoryId = 10,
                             CityId = 5,
-                            Date = new DateTime(2024, 2, 11, 15, 38, 8, 965, DateTimeKind.Local).AddTicks(6780),
+                            Date = new DateTime(2024, 2, 15, 18, 6, 26, 861, DateTimeKind.Local).AddTicks(9043),
                             Description = "Продаю свою GoPro 10 так як перейшов на новішу модель . Завжди була в захисних склах і у захиснобу силіконовому чохлі , не топилась (Використовувалась як влогова камера ) можлива зустріч у Києві (правий берег ) або Олх доставка/наложка Торг !!!",
                             IsNew = true,
                             Price = 8000m,
@@ -694,15 +694,15 @@ namespace DataAccess.Migrations
                             Id = "f66e492517d7414495e988c4c50fd107",
                             AccessFailedCount = 0,
                             Birthdate = new DateTime(1998, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "e4257b6d-d303-4bdb-b7be-ca4c26523353",
+                            ConcurrencyStamp = "df0d5b22-6ed8-4e1f-9a85-201f30b19832",
                             Email = "Admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Петро",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEP6YTzwcXUsBdMcilSEy+J0GvjaK5nUSGqSMzhbXM2GQgn5NzPkYOTA9Ji5/I+83uw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEN8KmIfS85AfmTMZenpeZANmfWCp5/vM3MiUExv/6YiXTfWVVmvvwMHdnNz6dOSWDQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e0bae27f-63e0-4323-befe-4d0803470841",
+                            SecurityStamp = "24d095d9-f003-47c8-9d63-533008723c49",
                             Surname = "Левак",
                             TwoFactorEnabled = false,
                             UserName = "Admin@gmail.com"
@@ -712,15 +712,15 @@ namespace DataAccess.Migrations
                             Id = "d1901b2435594da2a255db13fc57509b",
                             AccessFailedCount = 0,
                             Birthdate = new DateTime(1988, 10, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "c837164b-309f-4f2c-8597-77d1dfc443ca",
+                            ConcurrencyStamp = "b67b53f2-68fe-49b2-8546-fe21d05cda26",
                             Email = "User1@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Iван",
                             NormalizedUserName = "USER1@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKzl+JowkH+rHD07X0JXpgAuDIbuuShBbRGd0e631jn5YuYV4B5A3/bdS31hkYAdLA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJL+cjfE3KS/coBQd5Gm5lncxWoxY7k8SYQBYFOxIyyWlWrK8VjC2ABMizM2YvtUVQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ee545b8f-5aaf-4602-911b-dc2eaabd15f6",
+                            SecurityStamp = "7f266972-5613-4dc8-bce2-a0b91c8900ad",
                             Surname = "Калита",
                             TwoFactorEnabled = false,
                             UserName = "User1@gmail.com"
@@ -730,15 +730,15 @@ namespace DataAccess.Migrations
                             Id = "c86dc56aedf549f6afe5ceb4d414ebf1",
                             AccessFailedCount = 0,
                             Birthdate = new DateTime(2000, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "1c7beef6-7426-45f6-931b-d0d9644f26f0",
+                            ConcurrencyStamp = "833412c9-a15d-48c1-a118-654bceb84dae",
                             Email = "User2@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Петро",
                             NormalizedUserName = "USER2@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEByNJk2F0zqFULa1oFjs24KTVijwkmKhbuzRLQbBcBTPE5ylI6F8IrSxS0iNhm0ccw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHBvU+3myh5WDadW5yVEGAthFcb7lEJzyvZNRXL3elmT5UKnLGP70pA7gMWGI5nAbw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f940c93c-43d8-42e0-96a5-9d8a1538dce0",
+                            SecurityStamp = "143f0c04-c565-4927-ada3-69084b908ee7",
                             Surname = "Дякуленко",
                             TwoFactorEnabled = false,
                             UserName = "User2@gmail.com"
@@ -748,15 +748,15 @@ namespace DataAccess.Migrations
                             Id = "028582c83a914a45b330b5234f4131fb",
                             AccessFailedCount = 0,
                             Birthdate = new DateTime(1999, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "76190b5f-ee3c-4657-b5dc-a42b21d14b8d",
+                            ConcurrencyStamp = "69229fd9-abee-47d5-85fc-12aebd927dc6",
                             Email = "User3@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Олег",
                             NormalizedUserName = "USER3@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAENvr9S/y7vU1HqAR88hyI58GuYIydpDZKYU/qKZMxNuyLGWuQT2zsizdspTzcFmSZw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBPOwvrNw/RWHe3IqLdE0tVwP9MYsKDWT0kf432HkWYspMwgYqaL15t/4WcFO83Mqw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9fa9c44d-b7e2-40e2-8a9a-6380f2ca8bff",
+                            SecurityStamp = "ab655a35-23f1-4d19-af41-9b0f4fbcdd90",
                             Surname = "Панасенко",
                             TwoFactorEnabled = false,
                             UserName = "User3@gmail.com"
@@ -766,15 +766,15 @@ namespace DataAccess.Migrations
                             Id = "eb05f9548a2c4cf8adcc2be7305fc732",
                             AccessFailedCount = 0,
                             Birthdate = new DateTime(2001, 6, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "26666cd3-c79c-4be1-a7fd-13850fbbf46a",
+                            ConcurrencyStamp = "173cae5a-ce58-4f62-aea5-36dbbe7f638f",
                             Email = "User4@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Тимофій",
                             NormalizedUserName = "USER4@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEO5M+KB0Y5DFMvL+OQNJb6w4OWN4xi9wDlac3rCvqLToPnwZxv1sNyXox0FbXrUtNw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIKa0xHweV4XtB9wr4ObLlZpXPKwgH+huDwpYgQHfAoH7LCL9QcWf/3sAI9k1NHh3Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b301f70f-1b24-44aa-b8d6-338692e6dfe8",
+                            SecurityStamp = "2b4fde1c-2c7b-49f3-9aa7-e4cf9dd53153",
                             Surname = "Гнатенко",
                             TwoFactorEnabled = false,
                             UserName = "User4@gmail.com"
@@ -1024,13 +1024,13 @@ namespace DataAccess.Migrations
                     b.HasOne("DataAccess.Entities.Advert", "Advert")
                         .WithMany("Orders")
                         .HasForeignKey("AdvertId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DataAccess.Entities.City", "City")
                         .WithMany("Orders")
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("DataAccess.Entities.User", "User")

@@ -1,0 +1,246 @@
+﻿@using ApplicationCore.Services.Interfaces
+@using Microsoft.AspNetCore.Routing
+
+@model OrderDto
+@inject IAdvertService advertService
+@inject LinkGenerator linkGenerator
+@inject IHttpContextAccessor contextAccesor;
+@{
+	Layout = "~/Views/Shared/MailLayout.cshtml";
+	var advert = await advertService.GetAdvert(Model.AdvertId);
+	var sities = await advertService.GetAllCities();
+	var link = linkGenerator.GetUriByAction(contextAccesor.HttpContext, "ShowAdvert", "Home", values: new { id = @Model.AdvertId });
+	var image = new Uri($"{contextAccesor.HttpContext.Request.Scheme}://{contextAccesor.HttpContext.Request.Host}{@advert.FirstImage}").AbsoluteUri;
+}
+
+
+<div dir="ltr" class="es-wrapper-color">
+
+	<table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0">
+		<tbody>
+			<tr>
+				<td class="esd-email-paddings" valign="top">
+					<table cellpadding="0" cellspacing="0" class="es-content" align="center">
+						<tbody>
+							<tr>
+								<td class="esd-stripe" align="center">
+									<table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0" cellspacing="0" width="600">
+										<tbody>
+											<tr>
+												<td class="esd-structure es-p15t es-p20r es-p20l" align="left">
+													<table cellpadding="0" cellspacing="0" width="100%">
+														<tbody>
+															<tr>
+																<td width="560" class="esd-container-frame" align="center" valign="top">
+																	<table cellpadding="0" cellspacing="0" width="100%">
+																		<tbody>
+																			<tr>
+																				<td align="center" class="esd-block-image es-p10t es-p10b" style="font-size: 0px;"><a target="_blank"><img src="https://feniwhz.stripocdn.email/content/guids/CABINET_c67048fd0acf81b47e18129166337c05/images/72301618403900832.png" alt style="display: block;" width="100"></a></td>
+																			</tr>
+																			<tr>
+																				<td align="center" class="esd-block-text es-p10b es-m-txt-c">
+																					<h1 style="font-size: 46px; line-height: 100%;"><strong>Дякуємо за покупку!</strong></h1>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<table cellpadding="0" cellspacing="0" class="es-content" align="center">
+						<tbody>
+							<tr>
+								<td class="esd-stripe" align="center">
+									<table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0" cellspacing="10" width="600">
+										<tbody>
+											<tr>
+												<td style="padding:5px; background-color:rgb(243, 243, 243); border:solid; border-width:1px;border-color:lightgray;border-radius:8px;" class="esd-structure es-p10t es-p10b es-p20r es-p20l esdev-adapt-off" align="left">
+													<table width="560" cellpadding="0" cellspacing="0" class="esdev-mso-table">
+														<tbody>
+															<tr>
+																<td class="esdev-mso-td" valign="top">
+																	<table cellpadding="0" cellspacing="0" class="es-left" align="left">
+																		<tbody>
+																			<tr>
+																				<td width="70" class="es-m-p0r esd-container-frame" align="center">
+																					<table cellpadding="0" cellspacing="0" width="100%">
+																						<tbody>
+																							<tr>
+																								<td align="center" class="esd-block-image" style="font-size: 0px;"><img class="adapt-img" src="@image" alt style="display: block;" width="90"></td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+																<td width="20"></td>
+																<td class="esdev-mso-td" valign="top">
+																	<table cellpadding="0" cellspacing="0" class="es-left" align="left">
+																		<tbody>
+																			<tr>
+																				<td width="265" class="esd-container-frame" align="center">
+																					<table cellpadding="0" cellspacing="0" width="100%">
+																						<tbody>
+																							<tr>
+																								<td align="left" class="esd-block-text">
+																									<a href="@link" target="_blank"><strong>@advert.Title</strong></a>
+																								</td>
+																							</tr>
+																							<tr>
+																								<td align="left" class="esd-block-text es-p5t">
+																									<p>
+																										Продавець: @advert.SellerSurname @advert.SellerName
+																										<br>Телефон: @advert.SellerPhone
+																										<br>Email: @advert.SellerEmail
+																									</p>
+																								</td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+																<td width="20"></td>
+																<td width="20"></td>
+																<td class="esdev-mso-td" valign="top">
+																	<table cellpadding="0" cellspacing="0" class="es-right" align="right">
+																		<tbody>
+																			<tr>
+																				<td width="85" align="left" class="esd-container-frame">
+																					<table cellpadding="0" cellspacing="0" width="100%">
+																						<tbody>
+																							<tr>
+																								<td align="right" class="esd-block-text">
+																									<p>@advert.Price грн.</p>
+																								</td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+											<tr>
+												<td style="padding:5px; background-color:rgb(243, 243, 243); border:solid; border-width:1px;border-color:lightgray;border-radius:8px;" class="esd-structure es-p20t es-p10b es-p20r es-p20l" align="left">
+													<table cellpadding="0" cellspacing="0" class="es-left" align="left">
+														<tbody>
+															<tr>
+																<td width="280" class="es-m-p0r esd-container-frame es-m-p20b" align="center">
+																	<table cellpadding="0" cellspacing="0" width="100%">
+																		<tbody>
+																			<tr>
+																				<td align="left" class="esd-block-text">
+																					<p>Продавець: <strong>@advert.SellerSurname @advert.SellerName</strong></p>
+																					<p>Email: <strong>@advert.SellerEmail</strong></p>
+																					<p>Телефон: <strong>@advert.SellerPhone</strong></p>
+																					<p>Номер замовлення:&nbsp;<strong>#@Model.Id</strong></p>
+																					<p>Дата замовлення:&nbsp;<strong>@Model.OrderDate.ToShortDateString()</strong></p>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+													<table cellpadding="0" cellspacing="0" class="es-right" align="right">
+														<tbody>
+															<tr>
+																<td width="280" class="es-m-p0r esd-container-frame" align="center">
+																	<table cellpadding="0" cellspacing="0" width="100%">
+																		<tbody>
+																			<tr>
+																				<td align="left" class="esd-block-text es-m-txt-l">
+																					<p>Доставка: <strong>@Model.Postal</strong></p>
+																					<p>Відділення: <strong>@Model.Branch</strong></p>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<table cellpadding="0" cellspacing="0" class="es-footer" align="center">
+						<tbody>
+							<tr>
+								<td class="esd-stripe esd-synchronizable-module" align="center">
+									<table class="es-footer-body" align="center" cellpadding="0" cellspacing="0" width="640" style="background-color: transparent;">
+										<tbody>
+											<tr>
+												<td class="esd-structure es-p20t es-p20b es-p20r es-p20l" align="left">
+													<table cellpadding="0" cellspacing="0" width="100%">
+														<tbody>
+															<tr>
+																<td width="600" class="esd-container-frame" align="left">
+																	<table cellpadding="0" cellspacing="0" width="100%">
+																		<tbody>
+																			<tr>
+																				<td align="center" class="esd-block-social es-p15t es-p15b" style="font-size:0">
+																					<table cellpadding="0" cellspacing="0" class="es-table-not-adapt es-social">
+																						<tbody>
+																							<tr>
+																								<td align="center" valign="top" class="es-p40r"><a target="_blank" href><img title="Facebook" src="https://feniwhz.stripocdn.email/content/assets/img/social-icons/logo-black/facebook-logo-black.png" alt="Fb" width="32"></a></td>
+																								<td align="center" valign="top" class="es-p40r"><a target="_blank" href><img title="Twitter" src="https://feniwhz.stripocdn.email/content/assets/img/social-icons/logo-black/twitter-logo-black.png" alt="Tw" width="32"></a></td>
+																								<td align="center" valign="top" class="es-p40r"><a target="_blank" href><img title="Instagram" src="https://feniwhz.stripocdn.email/content/assets/img/social-icons/logo-black/instagram-logo-black.png" alt="Inst" width="32"></a></td>
+																								<td align="center" valign="top"><a target="_blank" href><img title="Youtube" src="https://feniwhz.stripocdn.email/content/assets/img/social-icons/logo-black/youtube-logo-black.png" alt="Yt" width="32"></a></td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td align="center" class="esd-block-text es-p35b">
+																					<p>Style Casual&nbsp;© 2021 Style Casual, Inc. All Rights Reserved.</p>
+																				</td>
+																			</tr>
+																    	</tbody>
+																	</table>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+     		</tr>
+		</tbody>
+	</table>
+</div>
+
+
+
+

@@ -1,27 +1,28 @@
 ﻿using ApplicationCore.DTOs;
 using ApplicationCore.Services.Interfaces;
-using AutoMapper;
 using DataAccess.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using NETCore.MailKit.Core;
 
 namespace ASP.NET_OLX.Controllers
 {
-	[Authorize(Roles = "User")]
+    [Authorize(Roles = "User")]
 	public class OrderController : Controller
 	{
-		private readonly IOrderService orderService;
+        
+        private readonly IOrderService orderService;
 		private readonly UserManager<User> userManager;
 		private readonly IAdvertService advertService;
 
 		private async Task setViewBag() => ViewBag.Cities = new SelectList(await advertService.GetAllCities(), nameof(City.Id), nameof(City.Name));
 
-		public OrderController(IOrderService orderService, UserManager<User> userManager,IAdvertService advertService)
+		public OrderController( IOrderService orderService, UserManager<User> userManager,IAdvertService advertService)
 		{
-			this.orderService = orderService;
+            
+            this.orderService = orderService;
 			this.userManager = userManager;
 			this.advertService = advertService;
 		}
@@ -33,7 +34,7 @@ namespace ASP.NET_OLX.Controllers
 			await setViewBag();
 			var orderDto = new OrderDto() 
 			{
-				UserId = (await userManager.GetUserAsync(User)).Id, 
+				UserId = (await userManager.GetUserAsync(User))?.Id!, 
 				AdvertId = id,
 				OrderDate = DateTime.Now 
 			};
@@ -57,7 +58,8 @@ namespace ASP.NET_OLX.Controllers
 			}
 
 			await orderService.CreateOrder(orderDto);
-			return RedirectToAction("Index"); ;
+			
+			return RedirectToAction("Index"); 
 		}
 	}
 }

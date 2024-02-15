@@ -3,7 +3,8 @@ using ApplicationCore.Models;
 using AutoMapper;
 using DataAccess.Entities;
 using Microsoft.Extensions.Configuration;
-using System.Security.Cryptography.X509Certificates;
+using Image = DataAccess.Entities.Image;
+
 
 namespace ApplicationCore.Mapping
 {

@@ -15,8 +15,11 @@ namespace DataAccess.Entities.Configs
 			builder.HasOne(x => x.Advert)
 				   .WithMany(x => x.Orders)
 				   .HasForeignKey(x => x.AdvertId)
+				   .OnDelete(DeleteBehavior.Cascade);
+			builder.HasOne(x => x.City)
+				   .WithMany(x => x.Orders)
+				   .HasForeignKey(x => x.CityId)
 				   .OnDelete(DeleteBehavior.NoAction);
-			builder.HasOne(x => x.City).WithMany(x => x.Orders).HasForeignKey(x => x.CityId);
 			builder.Property(x=>x.Surname).HasMaxLength(60);
 			builder.Property(x => x.Branch).HasMaxLength(120);
 			builder.Property(x => x.Name).HasMaxLength(60);

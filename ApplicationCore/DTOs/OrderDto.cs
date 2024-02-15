@@ -4,7 +4,8 @@ namespace ApplicationCore.DTOs
 {
 	public class OrderDto
 	{
-		public int AdvertId { get; set; }
+        public int Id { get; set; }
+        public int AdvertId { get; set; }
 		public string UserId { get; set; }
 		public DateTime OrderDate { get; set; }
 

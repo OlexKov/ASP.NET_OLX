@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.Extensions.Configuration;
 using System.Linq.Expressions;
+using Image = DataAccess.Entities.Image;
 
 namespace ApplicationCore.Services
 {

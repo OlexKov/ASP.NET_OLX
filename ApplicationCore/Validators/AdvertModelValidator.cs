@@ -9,7 +9,7 @@ namespace ApplicationCore.Validators
 		{
 			RuleFor(x => x.Description)
 				.NotEmpty().WithMessage("Опис  не може бути пустим")
-				.Length(10, 2000).WithMessage("Опис має містити від 10 до 2000 символів");
+				.Length(10,int.MaxValue).WithMessage("Опис має містити від 10 до 2000 символів");
 			RuleFor(x => x.Price)
 				.NotEmpty().WithMessage("Ціна не може бути пустою")
 				.GreaterThanOrEqualTo(0)

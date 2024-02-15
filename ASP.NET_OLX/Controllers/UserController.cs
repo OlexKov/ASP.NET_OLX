@@ -61,6 +61,7 @@ namespace ASP.NET_OLX.Controllers
         {
             if (!ModelState.IsValid)
             {
+                advertModel.ImagesUrls = (await advertService.GetAdvertImages(advertModel.Id)).Select(x=>x.Name);
                 await setDataToBag();
 				return View("AddAdvert", advertModel);
             }
