@@ -49,7 +49,7 @@
 		<div class="d-flex flex-column gap-4 border rounded-3 p-3 bg-light ">
 			<div class="d-flex justify-content-between">
 				<small class="text-muted">Опубліковано @Model.Date.ToShortDateString() @Model.Date.ToShortTimeString()</small>
-				@if (!User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
+				@if (!User.Identity?.IsAuthenticated ?? false || !User.IsInRole("Admin"))
 				{
 					<div onclick="setFavourite(@Model.Id)" id="@Model.Id" class="cur-pointer  material-icons d-block">@(await favouriteService.IsFavourite(@Model.Id) ? "favorite" : "favorite_border")</div>
 				}
