@@ -1,5 +1,8 @@
 ﻿@using ASP.NET_OLX.Services.Interfaces
+@using DataAccess.Entities
+@using Microsoft.AspNetCore.Identity
 @inject IFavouriteService favouriteService
+@inject UserManager<User> userMAnager
 @model AdvertDto
 
 <a asp-action="Index" class="mb-3 btn btn-info">Повернутися</a>
@@ -57,8 +60,11 @@
 				<span class="align-middle">@Model.Price гр.</span>
 			</div>
 			<div class="d-flex flex-column gap-2">
-				<a class="btn btn-outline-secondary">Написати</a>
-				<a asp-action="Order" asp-controller="Order" asp-route-id="@Model.Id" class="btn btn-outline-secondary">Купити</a>
+				@* <a class="btn btn-outline-secondary">Написати</a> *@
+				@if (!User.IsInRole("Admin") && ((await userMAnager.GetUserAsync(User))?.Id != Model.UserId))
+				{
+					<a asp-action="Order" asp-controller="Order" asp-route-id="@Model.Id" class="btn btn-outline-secondary">Купити</a>
+				}
 			</div>
 		</div>
 		<div class="d-flex gap-3 flex-column border rounded-3 p-3 bg-light ">
